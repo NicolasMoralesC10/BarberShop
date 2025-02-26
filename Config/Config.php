@@ -1,6 +1,6 @@
 <?php
 
-const BASE_URL = "http://localhost/barbershop";
+const BASE_URL = "http://localhost/barber";
 
 date_default_timezone_set('America/Bogota');
 
