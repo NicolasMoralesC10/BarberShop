@@ -15,12 +15,6 @@
                   </div>
               </div>
               <ul class="navbar-nav d-flex align-items-center  justify-content-end">
-                  <li class="nav-item d-flex align-items-center">
-                      <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online Builder</a>
-                  </li>
-                  <li class="mt-1">
-                      <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-                  </li>
                   <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                           <div class="sidenav-toggler-inner">
@@ -30,11 +24,7 @@
                           </div>
                       </a>
                   </li>
-                  <li class="nav-item px-3 d-flex align-items-center">
-                      <a href="javascript:;" class="nav-link text-body p-0">
-                          <i class="material-symbols-rounded fixed-plugin-button-nav">settings</i>
-                      </a>
-                  </li>
+
                   <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="material-symbols-rounded">notifications</i>
@@ -118,3 +108,4 @@
       </div>
   </nav>
   <!-- End Navbar -->
+  <div class="container-fluid py-2">

@@ -1,54 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>error page 404</title>
   <link rel="stylesheet" href="<?= media() ?>/css/error.css">
+  <link rel="icon" type="image/png" href="<?= media() ?>/img/favicon.png">
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<a href="https://codepen.io/uiswarup/pen/qBebRpq" target="_blank">
+
   <header class="top-header">
-</header>
+  </header>
 
-<!--dust particel-->
-<div>
-  <div class="starsec"></div>
-  <div class="starthird"></div>
-  <div class="starfourth"></div>
-  <div class="starfifth"></div>
-</div>
-<!--Dust particle end--->
-
-
-<div class="lamp__wrap">
-  <div class="lamp">
-    <div class="cable"></div>
-    <div class="cover"></div>
-    <div class="in-cover">
-      <div class="bulb"></div>
-    </div>
-    <div class="light"></div>
+  <!--dust particel-->
+  <div>
+    <div class="starsec"></div>
+    <div class="starthird"></div>
+    <div class="starfourth"></div>
+    <div class="starfifth"></div>
   </div>
-</div>
-<!-- END Lamp -->
-<section class="error">
-  <!-- Content -->
-  <div class="error__content">
-    <div class="error__message message">
-      <h1 class="message__title">Page Not Found</h1>
-      <p class="message__text">We're sorry, the page you were looking for isn't found here. The link you followed may either be broken or no longer exists. Please try again, or take a look at our.</p>
-    </div>
-    <div class="error__nav e-nav">
-      <a href="https://codepen.io/uiswarup/pen/qBebRpq" target="_blanck" class="e-nav__link"></a>
+  <!--Dust particle end--->
+
+
+  <div class="lamp__wrap">
+    <div class="lamp">
+      <div class="cable"></div>
+      <div class="cover"></div>
+      <div class="in-cover">
+        <div class="bulb"></div>
+      </div>
+      <div class="light"></div>
     </div>
   </div>
-  <!-- END Content -->
+  <!-- END Lamp -->
+  <section class="error">
+    <!-- Content -->
+    <div class="error__content">
+      <div class="error__message message">
+        <h1 class="message__title">Page Not Found</h1>
+        <p class="message__text">Lo sentimos, la página que buscas no se encuentra aquí. El enlace que seguiste puede estar roto o ya no existe. Vuelve a intentarlo o echa un vistazo a la ruta</p>
+      </div>
+      <div class="error__nav e-nav">
+        <a href="<?= base_url() ?>/login" target="_blanck" class="e-nav__link"></a>
+      </div>
+    </div>
+    <!-- END Content -->
 
-</section>
+  </section>
 
-  </a>
-<!-- partial -->
-  
+  <!-- partial -->
+
 </body>
+
 </html>
