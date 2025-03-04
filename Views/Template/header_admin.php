@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?= media() ?>/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?= media() ?>/img/favicon.png">
   <title>
-    Material Dashboard 3 by Creative Tim
+  Binary Dreamers
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/fonts-family-google.css" />
