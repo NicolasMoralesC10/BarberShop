@@ -105,6 +105,10 @@
 <script src="<?= media() ?>/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="<?= media() ?>/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="<?= media() ?>/js/plugins/chartjs.min.js"></script>
+<script src="<?= media() ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
+<script src="<?= media() ?>/vendor/jquery/jquery-ui.js"></script>
+<script src="<?= media() ?>/vendor/datatables/datatables.min.js"></script>
+
 <script>
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {

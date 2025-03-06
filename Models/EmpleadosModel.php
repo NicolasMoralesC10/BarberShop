@@ -7,9 +7,9 @@ class EmpleadosModel extends mysql
         parent::__construct();
     }
 
-    public function selectInasistencias($idUsuario)
+    public function selectEmpleados()
     {
-        $sql = "";
+        $sql = "SELECT * FROM empleados WHERE status = 1";
         $request = $this->select_all($sql);
         return $request;
     }
