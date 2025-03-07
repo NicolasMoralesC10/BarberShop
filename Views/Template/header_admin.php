@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?= media() ?>/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?= media() ?>/img/favicon.png">
   <title>
-  Binary Dreamers
+    Binary Dreamers
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/fonts-family-google.css" />
@@ -19,7 +19,9 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="<?= media() ?>/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
   <!-- Vendor CSS -->
-  <link href="<?= media() ?>/vendor/datatables.min.css">
+  <link href="<?= media() ?>/vendor/datatables/datatables.min.css">
+  <!-- DataTables Buttons CSS -->
+  <link href="<?= media() ?>/vendor/datatables/buttons.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

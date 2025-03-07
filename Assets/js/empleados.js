@@ -2,11 +2,14 @@ let tbl_empleados = document.querySelector("#tbl_empleados");
 
 function loadTable() {
   tbl_empleados = $("#tbl_empleados").dataTable({
+    responsive: true,
+    lengthChange: false,
+    autoWidth: false,
     language: {
-      url: `http://localhost/barbershop/Assets/vendor/datatables/dataTables_es.json`,
+      url: `${base_url}/Assets/vendor/datatables/dataTables_es.json`,
     },
     ajax: {
-      url: "http://localhost/barbershop/empleados/getEmpleados",
+      url: " " + base_url + "/empleados/getEmpleados",
       dataSrc: "",
     },
     columns: [

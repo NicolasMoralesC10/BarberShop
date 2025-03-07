@@ -9,7 +9,7 @@ class EmpleadosModel extends mysql
 
     public function selectEmpleados()
     {
-        $sql = "SELECT * FROM empleados WHERE status = 1";
+        $sql = "SELECT * FROM empleados WHERE status > 0";
         $request = $this->select_all($sql);
         return $request;
     }
