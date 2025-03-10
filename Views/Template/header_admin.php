@@ -22,6 +22,8 @@
   <link href="<?= media() ?>/vendor/datatables/datatables.min.css">
   <!-- DataTables Buttons CSS -->
   <link href="<?= media() ?>/vendor/datatables/buttons.dataTables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/buttons.bootstrap5.min.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

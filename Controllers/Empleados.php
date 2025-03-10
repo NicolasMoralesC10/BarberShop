@@ -32,12 +32,12 @@ class Empleados extends Controllers
                     <p class="text-xs text-secondary mb-0">Organization</p>';
 
             $arrData[$i]['fecha_contratacionF'] =  '
-                    <span class="text-secondary text-xs font-weight-bold" style="margin-left: 43%;">' . $arrData[$i]['fecha_contratacion'] . '</span>
+                    <span class="text-secondary text-xs font-weight-bold" style="margin-left: 39%;">' . $arrData[$i]['fecha_contratacion'] . '</span>
                   ';
             if ($arrData[$i]['status'] == 1) {
-                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="margin-left: 39%;">Online</span>';
+                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="margin-left: 36%;">Online</span>';
             } else {
-                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="margin-left: 39%;">Offline</span>';
+                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="margin-left: 36%;">Offline</span>';
             }
         }
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);

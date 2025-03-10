@@ -34,9 +34,7 @@
 </main>
 <!-- ======= Footer ======= -->
 <div class="fixed-plugin">
-  <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-    <i class="material-symbols-rounded py-2">settings</i>
-  </a>
+
   <div class="card shadow-lg">
     <div class="card-header pb-0 pt-3">
       <div class="float-start">
@@ -108,17 +106,24 @@
 <script src="<?= media() ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?= media() ?>/vendor/jquery/jquery-ui.js"></script>
 <script src="<?= media() ?>/vendor/datatables/datatables.min.js"></script>
-<!-- JSZip (para botones de exportación) -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.min.js"></script> -->
 
 
-<!-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script> -->
+<!-- jQuery y Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JS y Botones -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+<!-- PDFMake (para exportar PDF) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
 <script>
   let base_url = '<?= BASE_URL ?>'
 </script>
