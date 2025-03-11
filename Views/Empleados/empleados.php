@@ -17,14 +17,15 @@
           <table id="tbl_empleados" class="table align-items-center mb-0">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cargo</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contratacion</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cargo</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Contratacion</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"></th>
               </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-center">
               <!-- Los datos de la tabla van aquí -->
             </tbody>
           </table>

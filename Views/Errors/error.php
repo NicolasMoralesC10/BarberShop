@@ -42,7 +42,7 @@
         <p class="message__text">Lo sentimos, la página que buscas no se encuentra aquí. El enlace que seguiste puede estar roto o ya no existe. Vuelve a intentarlo o echa un vistazo a la ruta</p>
       </div>
       <div class="error__nav e-nav">
-        <a href="<?= base_url() ?>/login" target="_blanck" class="e-nav__link"></a>
+        <a href="<?= base_url() ?>/dashboard" target="_blanck" class="e-nav__link"></a>
       </div>
     </div>
     <!-- END Content -->

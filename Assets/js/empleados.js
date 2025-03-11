@@ -12,7 +12,7 @@ function cargarTabla() {
       { extend: "excel", text: "Excel", className: "bg-gradient-dark shadow-dark" },
       { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
       { extend: "print", text: "Imprimir", className: "bg-gradient-dark shadow-dark" },
-      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" }
+      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" },
     ],
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
@@ -28,24 +28,26 @@ function cargarTabla() {
         first: "Primero",
         last: "Último",
         next: "Siguiente",
-        previous: "Anterior"
-      }
+        previous: "Anterior",
+      },
     },
     ajax: {
       url: " " + base_url + "/empleados/getEmpleados",
-      dataSrc: ""
+      dataSrc: "",
     },
     columns: [
       { data: "nombreF" },
       { data: "cargoF" },
       { data: "status" },
-      { data: "fecha_contratacionF" }
+      { data: "fecha_contratacionF" },
+      { data: "accion" },
     ],
     responsive: "true",
     iDisplayLength: 5,
-    order: [[0, "asc"]]
+    order: [[0, "asc"]],
   });
 
+  //? Funcion para cambiar el input de busqueda de DataTables
   setTimeout(function () {
     let filtro = $("#tbl_empleados_filter");
     let input = filtro.find("input");
@@ -60,7 +62,6 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
- 
     let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables

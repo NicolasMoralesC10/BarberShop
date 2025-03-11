@@ -9,7 +9,7 @@ class Empleados extends Controllers
     public function empleados()
     {
         $data['page_title'] = "Empleados";
-        $data['page_name'] = "empleados";
+        $data['page_name'] = "Empleados";
         $data['script'] = "empleados";
 
 
@@ -25,19 +25,26 @@ class Empleados extends Controllers
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">' . $arrData[$i]['nombre'] . '</h6>
-                        <p class="text-xs text-secondary mb-0">' . $arrData[$i]['telefono'] . '</p>
+                        <p class="text-xs text-secondary mb-0" style="text-align:left"> ' . $arrData[$i]['telefono'] . '</p>
                       </div>
                     </div>';
-            $arrData[$i]['cargoF'] = ' <p class="text-xs font-weight-bold mb-0">' . $arrData[$i]['cargo'] . '</p>
-                    <p class="text-xs text-secondary mb-0">Organization</p>';
+            $arrData[$i]['cargoF'] = ' <p class="text-xs font-weight-bold mb-0"  style="text-align:left">' . $arrData[$i]['cargo'] . '</p>
+                    <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
 
             $arrData[$i]['fecha_contratacionF'] =  '
-                    <span class="text-secondary text-xs font-weight-bold" style="margin-left: 39%;">' . $arrData[$i]['fecha_contratacion'] . '</span>
+                    <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['fecha_contratacion'] . '</span>
                   ';
+            $arrData[$i]['accion']= '<a href="javascript:;" class="text-secondary font-weight-bold text-xs" style="text-align:left" data-toggle="tooltip" data-original-title="Edit user">
+                          Edit
+                        </a>';
+
             if ($arrData[$i]['status'] == 1) {
-                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="margin-left: 36%;">Online</span>';
+                $arrData[$i]['status'] = '
+                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Online</span>
+                      
+               ';
             } else {
-                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="margin-left: 36%;">Offline</span>';
+                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary">Offline</span>';
             }
         }
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
