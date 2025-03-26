@@ -17,13 +17,16 @@
   <!-- Material Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="<?= media() ?>/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <link id="pagestyle" href="<?= media() ?>/css/material-dashboard.css" rel="stylesheet" />
   <!-- Vendor CSS -->
   <link href="<?= media() ?>/vendor/datatables/datatables.min.css">
   <!-- DataTables Buttons CSS -->
   <link href="<?= media() ?>/vendor/datatables/buttons.dataTables.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/buttons.bootstrap5.min.css">
+  <link rel="stylesheet" href="<?= media() ?>/scss/material-dashboard.scss" />
+
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

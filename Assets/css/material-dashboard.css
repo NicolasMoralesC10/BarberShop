@@ -2845,6 +2845,7 @@ progress {
   margin-top: 0.25rem;
   font-size: 0.875em;
   color: #525252;
+  padding: 20px;
 }
 
 .form-control {
@@ -23941,10 +23942,6 @@ label,
   top: 0.6125rem;
   margin-left: 0;
   transition: 0.2s ease all;
-}
-
-.form-control {
-  border: none;
 }
 
 .form-control.is-invalid {
