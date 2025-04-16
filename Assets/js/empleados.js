@@ -1,4 +1,9 @@
 let tbl_empleados = document.querySelector("#tbl_empleados");
+let btnAgregar = document.querySelector("#btnAgregar");
+
+btnAgregar.addEventListener("click", () => {
+  $("#crearEmpleadoModal").modal("show");
+});
 
 function cargarTabla() {
   tbl_empleados = $("#tbl_empleados").dataTable({

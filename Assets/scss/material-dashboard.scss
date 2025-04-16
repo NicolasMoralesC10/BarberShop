@@ -12,19 +12,19 @@
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 // Bootstrap Functions
-@import "material-dashboard/bootstrap/functions";
+@use "material-dashboard/bootstrap/functions";
 
 // Custom Variables
-@import "material-dashboard/custom/variables";
+@use "material-dashboard/custom/variables";
 
 // Theme Variables
-@import "material-dashboard/variables";
+@use "material-dashboard/variables";
 
 // Bootstrap Core
-@import "material-dashboard/bootstrap/bootstrap";
+@use "material-dashboard/bootstrap/bootstrap";
 
 // Theme Core
-@import "material-dashboard/theme";
+@use "material-dashboard/theme";
 
 // Custom Variables
-@import "material-dashboard/custom/styles";
+@use "material-dashboard/custom/styles";

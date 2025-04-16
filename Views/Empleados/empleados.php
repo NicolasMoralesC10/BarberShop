@@ -1,4 +1,5 @@
-<?php header_admin($data); ?>
+<?php header_admin($data);
+getModal('empleadosModal', $data); ?>
 <?php aside_admin($data); ?>
 <?php nav_admin($data); ?>
 <div class="row">
@@ -15,6 +16,7 @@
 
         <div class="table-responsive p-0">
           <table id="tbl_empleados" class="table align-items-center mb-0">
+            <button type="button" class="btn btn-lg bg-gradient-dark shadow-dark " id="btnAgregar" style=" margin-left:93%"><i class="material-symbols-rounded">Person_Add</i></button>
             <thead>
               <tr>
                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
