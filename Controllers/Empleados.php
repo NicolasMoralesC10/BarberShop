@@ -44,7 +44,7 @@ class Empleados extends Controllers
                       
                ';
             } else {
-                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary">Offline</span>';
+                $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary"  style="font-size:0.7rem;">Offline</span>';
             }
         }
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
