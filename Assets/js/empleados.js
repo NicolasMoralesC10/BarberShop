@@ -13,10 +13,10 @@ function cargarTabla() {
     dom: "Bfrtip",
     buttons: [
       { extend: "copy", text: "Copiar", className: "bg-gradient-dark shadow-dark" },
-      { extend: "csv", text: "CSV", className: "bg-gradient-dark shadow-dark" },
+     /*  { extend: "csv", text: "CSV", className: "bg-gradient-dark shadow-dark" }, */
       { extend: "excel", text: "Excel", className: "bg-gradient-dark shadow-dark" },
-      { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
-      { extend: "print", text: "Imprimir", className: "bg-gradient-dark shadow-dark" },
+     /*  { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
+      { extend: "print", text: "Imprimir", className: "bg-gradient-dark shadow-dark" }, */
       { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" },
     ],
     language: {

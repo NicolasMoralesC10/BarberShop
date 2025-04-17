@@ -19,7 +19,7 @@ class Empleados extends Controllers
   {
     $arrData = $this->model->selectEmpleados();
     for ($i = 0; $i < count($arrData); $i++) {
-      $arrData[$i]['nombreF'] = ' <div class="d-flex px-2 py-1">
+      $arrData[$i]['nombreF'] = ' <div class="d-flex">
                       <div>
                         <img src="./Assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                       </div>
@@ -44,11 +44,11 @@ class Empleados extends Controllers
 
       if ($arrData[$i]['status'] == 1) {
         $arrData[$i]['status'] = '
-                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Online</span>
+                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;">Online</span>
                       
                ';
       } else {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary">Offline</span>';
+        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;">Offline</span>';
       }
     }
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
