@@ -119,6 +119,8 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <!-- PDFMake (para exportar PDF) -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
@@ -142,7 +144,7 @@
 <script src="<?= media() ?>/js/material-dashboard.min.js?v=3.2.0"></script>
 
 <?php if (isset($data['script'])): ?>
-  <script src="<?= media() ?>/js/<?= $data['script'] ?>.js"></script>
+  <script src="<?= media() ?>/js/modules/<?= $data['script'] ?>.js"></script>
 <?php endif; ?>
 </body>
 

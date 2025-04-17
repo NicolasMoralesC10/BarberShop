@@ -106,7 +106,7 @@ CREATE TABLE `usuarios` (
   `password` varchar(60) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `cargo` varchar(50) NOT NULL,
-  `fecha_contratacion` date NOT NULL,
+  `fechaContratacion` date NOT NULL,
   `salario` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -115,7 +115,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `password`, `telefono`, `cargo`, `fecha_contratacion`, `salario`, `status`) VALUES
+INSERT INTO `usuarios` (`id`, `nombre`, `password`, `telefono`, `cargo`, `fechaContratacion`, `salario`, `status`) VALUES
 (1, 'Juan Pérez', 'pass123', '3204567890', 'Barbero', '2023-05-10', 1800000, 1),
 (2, 'Carlos Rodríguez', 'clave456', '3112345678', 'Barbero', '2022-08-15', 1850000, 2),
 (3, 'Andrés Gómez', 'secreto789', '3156789012', 'Recepcionista', '2021-11-20', 1600000, 1),
