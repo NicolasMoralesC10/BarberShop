@@ -15,9 +15,9 @@ class Empleados extends Controllers
 
     $this->views->getView($this, "empleados", $data);
   }
-  public function getUsuarios()
+  public function getEmpleados()
   {
-    $arrData = $this->model->selectUsuarios();
+    $arrData = $this->model->selectEmpleados();
     for ($i = 0; $i < count($arrData); $i++) {
       $arrData[$i]['nombreF'] = ' <div class="d-flex">
                       <div>
@@ -32,7 +32,7 @@ class Empleados extends Controllers
                     <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
 
       $arrData[$i]['fecha_contratacionF'] =  '
-                    <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['fechaContratacion'] . '</span>
+                    <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['fecha_contratacion'] . '</span>
                   ';
       $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
                           <i class="material-symbols-rounded">Person_Edit</i>
@@ -53,7 +53,7 @@ class Empleados extends Controllers
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
   }
 
-  public function setUsuario()
+  public function setEmpleado()
   {
     $arrPosts = [
       'txtNombre',
@@ -74,12 +74,12 @@ class Empleados extends Controllers
       $strCargo = strClean($_POST['txtCargo']);
       $strFechaContratacion = strClean($_POST['txtFechaContratacion']);
       $intStatus = intval(strClean($_POST['txtEstado']));
-      $intIdUsuario = intval(strClean($_POST['txtIdUsuario']));
+      $intIdEmpleado = intval(strClean($_POST['txtIdEmpleado']));
 
 
       try {
-        if ($intIdUsuario == 0 || $intIdUsuario == "" || $intIdUsuario == "0") {
-          $insert = $this->model->insertUsuario(
+        if ($intIdEmpleado == 0 || $intIdEmpleado == "" || $intIdEmpleado == "0") {
+          $insert = $this->model->insertEmpleado(
             $strNombre,
             $strPassword,
             $strTelefono,
@@ -92,8 +92,8 @@ class Empleados extends Controllers
           if ($intStatus == 0) {
             $intStatus = 1;
           }
-          $insert = $this->model->updateUsuario(
-            $intIdUsuario,
+          $insert = $this->model->updateEmpleado(
+            $intIdEmpleado,
             $strNombre,
             $strPassword,
             $strTelefono,
@@ -152,8 +152,8 @@ class Empleados extends Controllers
   function deleteUsuario()
   {
     if ($_POST) {
-      $intIdUsuario = intval($_POST['txtIdUsuario']);
-      $requestDelete = $this->model->deleteUsuario($intIdUsuario);
+      $intIdEmpleado = intval($_POST['txtIdUsuario']);
+      $requestDelete = $this->model->deleteUsuario($intIdEmpleado);
 
       if ($requestDelete) {
         $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');

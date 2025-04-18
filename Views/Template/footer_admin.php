@@ -106,6 +106,7 @@
 <script src="<?= media() ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?= media() ?>/vendor/jquery/jquery-ui.js"></script>
 <script src="<?= media() ?>/vendor/datatables/datatables.min.js"></script>
+<script src="<?= media() ?>/vendor/fullcalendar/dist/index.global.min.js"></script>
 
 
 <!-- jQuery y Bootstrap Bundle -->
@@ -120,6 +121,7 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 <!-- PDFMake (para exportar PDF) -->

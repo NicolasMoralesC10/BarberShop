@@ -2,7 +2,7 @@ let tbl_empleados = document.querySelector("#tbl_empleados");
 let btnAgregar = document.querySelector("#btnAgregar");
 let frmCrearEmpleado = document.querySelector("#frmCrearEmpleado")
 
-let txtIdUsuario = document.querySelector("#txtIdUsuario");
+let txtIdEmpleado = document.querySelector("#txtIdEmpleado");
 let txtNombre = document.querySelector("#txtNombre");
 let txtPassword = document.querySelector("#txtPassword");
 let txtTelefono = document.querySelector("#txtTelefono");
@@ -20,7 +20,7 @@ btnAgregar.addEventListener("click", () => {
 frmCrearEmpleado.addEventListener('submit', (e)=>{
   e.preventDefault()
   let frmEmpleado = new FormData(frmCrearEmpleado)
-  fetch(base_url + '/empleados/setUsuario', {
+  fetch(base_url + '/empleados/setEmpleado', {
       method:'POST',
       body:frmEmpleado
   })
@@ -61,8 +61,8 @@ document.addEventListener('click', (e)=>{
           }).then((result)=>{
                if (result.isConfirmed) {
                   let frmData = new FormData()
-                  frmData.append('txtIdUsuario', id)
-                  fetch(base_url + '/empleado/deleteUsuario',{
+                  frmData.append('txtIdEmpleado', id)
+                  fetch(base_url + '/empleado/deleteEmpleado',{
                       method: "POST",
                       body: frmData,
                   })
@@ -80,7 +80,7 @@ document.addEventListener('click', (e)=>{
       }
 
       if (action == 'edit') {
-          fetch(base_url + '/empleado/getUsuariosById/'+id)
+          fetch(base_url + '/empleado/getEmpleadoById/'+id)
           .then((res) => res.json())
           .then((data) => {
               if (data.status) {
@@ -90,9 +90,9 @@ document.addEventListener('click', (e)=>{
                   txtPassword.value = data.password
                   txtTelefono.value = data.telefono
                   txtCargo.value = data.cargo
-                  txtFechaContratacion.value = data.fechaContratacion
+                  txtFechaContratacion.value = data.fecha_contratacion
                   txtSalario.value = data.salario
-                  txtIdUsuario.value = data.id
+                  txtIdEmpleado.value = data.id
                   txtEstado.value = data.status
                   $('#crearEmpleadoModal').modal('show')
                   opcionEstado(true)
@@ -153,7 +153,7 @@ function cargarTabla() {
       },
     },
     ajax: {
-      url: " " + base_url + "/empleados/getUsuarios",
+      url: " " + base_url + "/empleados/getEmpleados",
       dataSrc: "",
     },
     columns: [

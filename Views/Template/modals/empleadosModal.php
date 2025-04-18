@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <form id="frmCrearEmpleado" method="POST">
-                    <input type="hidden" name="txtIdUsuario" id="txtIdUsuario" value="0">
+                    <input type="hidden" name="txtIdEmpleado" id="txtIdEmpleado" value="0">
                     <div class="row">
                         <div class="mb-3 col-4">
                             <label for="txtNombre" class="form-label">Nombre(s)</label>

@@ -7,22 +7,22 @@ class EmpleadosModel extends mysql
         parent::__construct();
     }
 
-    public function selectUsuarios()
+    public function selectEmpleados()
     {
-        $sql = "SELECT * FROM usuarios WHERE status >= 1 and status <= 2";
+        $sql = "SELECT * FROM empleados WHERE status >= 1 and status <= 2";
         $request = $this->select_all($sql);
         return $request;
     }
 
-    public function selectUsuariosById(int $idUsuario)
+    public function selectEmpleadoById(int $idEmpleado)
     {
-        $this->idUsuario = $idUsuario;
-        $sql = "SELECT * FROM usuarios WHERE status >= 1 and status <= 2 AND id = {$this->idUsuario}";
+        $this->idEmpleado = $idEmpleado;
+        $sql = "SELECT * FROM empleados WHERE status >= 1 and status <= 2 AND id = {$this->idEmpleado}";
         $request = $this->select($sql);
         return $request;
     }
 
-    public function insertUsuario(string $strNombre, string $strPassword, string $intTelefono, string $strCargo, string $strFechaContratacion, int $intSalario)
+    public function insertEmpleado(string $strNombre, string $strPassword, string $intTelefono, string $strCargo, string $strFechaContratacion, int $intSalario)
     {
         $this->strNombre = $strNombre;
         $this->strPassword = $strPassword;
@@ -33,14 +33,14 @@ class EmpleadosModel extends mysql
 
 
 
-        $query_usuarios = "SELECT * FROM usuarios WHERE telefono = {$this->intTelefono} AND status = 1";
+        $query_empleados = "SELECT * FROM empleados WHERE telefono = {$this->intTelefono} AND status = 1";
 
-        $request = $this->select_all($query_usuarios);
+        $request = $this->select_all($query_empleados);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "INSERT INTO usuarios(nombre, password, telefono, cargo, fechaContratacion, salario, status) VALUES(?,?,?,?,?,?,?)";
+            $query_insert = "INSERT INTO empleados(nombre, password, telefono, cargo, fecha_contratacion, salario, status) VALUES(?,?,?,?,?,?,?)";
             $arrData = array($this->strNombre, $this->strPassword, $this->intTelefono, $this->strCargo, $this->strFechaContratacion, $this->intSalario, 1);
             $reques_insert = $this->insert($query_insert, $arrData);
             $respuesta = $reques_insert;
@@ -49,7 +49,7 @@ class EmpleadosModel extends mysql
         return $respuesta;
     }
 
-    public function updateUsuario(int $idUsuario, string $strNombre, string $strPassword, string $intTelefono, string $strCargo, string $strFechaContratacion, int $intSalario, int $status)
+    public function updateEmpleado(int $idEmpleado, string $strNombre, string $strPassword, string $intTelefono, string $strCargo, string $strFechaContratacion, int $intSalario, int $status)
     {
         $this->strNombre = $strNombre;
         $this->strPassword = $strPassword;
@@ -57,17 +57,17 @@ class EmpleadosModel extends mysql
         $this->strCargo = $strCargo;
         $this->strFechaContratacion = $strFechaContratacion;
         $this->intSalario = $intSalario;
-        $this->idUsuario = $idUsuario;
+        $this->idEmpleado = $idEmpleado;
         $this->intStatus = $status;
 
-        $sql = "SELECT * FROM usuarios WHERE (telefono = {$this->intTelefono} AND status = 1) AND id != {$this->idUsuario}";
+        $sql = "SELECT * FROM empleados WHERE (telefono = {$this->intTelefono} AND status = 1) AND id != {$this->idEmpleado}";
 
         $request = $this->select_all($sql);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "UPDATE usuarios SET nombre = ?, password = ?, telefono = ?, cargo = ?, fechaContratacion = ?, salario = ?, status = ? WHERE status > 0 AND id = {$this->idUsuario}";
+            $query_insert = "UPDATE empleados SET nombre = ?, password = ?, telefono = ?, cargo = ?, fecha_contratacion = ?, salario = ?, status = ? WHERE status > 0 AND id = {$this->idEmpleado}";
             $arrData = array(
                 $this->strNombre,
                 $this->strPassword,
@@ -85,12 +85,12 @@ class EmpleadosModel extends mysql
         return $respuesta;
     }
 
-    public function deleteUsuario(int $idUsuario)
+    public function deleteEmpleado(int $idEmpleado)
     {
-        $this->idUsuario = $idUsuario;
+        $this->idEmpleado = $idEmpleado;
 
-        $sql = "UPDATE usuarios SET status = ? WHERE id = ?";
-        $arrData = array(2, $this->idUsuario);
+        $sql = "UPDATE empleados SET status = ? WHERE id = ?";
+        $arrData = array(2, $this->idEmpleado);
         $request = $this->update($sql, $arrData);
         return $request;
     }
