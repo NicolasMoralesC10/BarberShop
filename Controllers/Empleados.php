@@ -1,19 +1,19 @@
 <?php
 
-class Usuarios extends Controllers
+class Empleados extends Controllers
 {
   public function __construct()
   {
     parent::__construct();
   }
-  public function Usuarios()
+  public function Empleados()
   {
     $data['page_title'] = "Empleados";
     $data['page_name'] = "Empleados";
     $data['script'] = "empleados";
 
 
-    $this->views->getView($this, "usuarios", $data);
+    $this->views->getView($this, "empleados", $data);
   }
   public function getUsuarios()
   {
@@ -62,7 +62,7 @@ class Usuarios extends Controllers
       'txtSalario',
       'txtCargo',
       'txtFechaContratacion',
-      'userStatus'
+      'txtEstado'
     ];
 
     if (check_post($arrPosts)) {
@@ -73,7 +73,7 @@ class Usuarios extends Controllers
       $intSalario = intval(strClean($_POST['txtSalario']));
       $strCargo = strClean($_POST['txtCargo']);
       $strFechaContratacion = strClean($_POST['txtFechaContratacion']);
-      $intStatus = intval(strClean($_POST['userStatus']));
+      $intStatus = intval(strClean($_POST['txtEstado']));
       $intIdUsuario = intval(strClean($_POST['txtIdUsuario']));
 
 
@@ -89,7 +89,7 @@ class Usuarios extends Controllers
           );
           $option = 1;
         } else {
-          /* if ($intStatus == 0) {
+          if ($intStatus == 0) {
             $intStatus = 1;
           }
           $insert = $this->model->updateUsuario(
@@ -97,11 +97,11 @@ class Usuarios extends Controllers
             $strNombre,
             $strPassword,
             $strTelefono,
-            $intSalario,
             $strCargo,
             $strFechaContratacion,
+            $intSalario,
             $intStatus
-          ); */
+          );
           $option = 2;
         }
 
@@ -129,6 +129,26 @@ class Usuarios extends Controllers
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
   }
 
+  public function getUsuariosById($id)
+  {
+
+    $intId = intval(strClean($id));
+
+    if ($intId > 0) {
+      $arrData = $this->model->selectUsuariosById($id);
+    } else {
+      $arrResponse = array('status' => false, 'msg' => 'tipo de dato no permitido');
+    }
+
+    if (!empty($arrData)) {
+      $arrResponse = array('status' => true, 'data' => $arrData);
+    } else {
+      $arrResponse = array('status' => false, 'msg' => 'No se encontraron datos con este id');
+    }
+
+    echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+  }
+
   function deleteUsuario()
   {
     if ($_POST) {
@@ -143,6 +163,5 @@ class Usuarios extends Controllers
 
       echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
     }
-    die();
   }
 }

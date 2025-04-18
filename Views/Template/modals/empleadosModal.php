@@ -16,7 +16,7 @@
                         </div>
                         <div class="mb-3 col-4">
                             <label for="password" class="form-label">Contraseña</label>
-                            <input type="text" class="form-control" id="password" name="txtPassword">
+                            <input type="text" class="form-control" id="txtPassword" name="txtPassword">
                         </div>
 
                         <div class="mb-3 col-4">
@@ -48,7 +48,7 @@
                         <div class="col-6">
                             <div id="userStatusZone" class="mb-3">
                                 <label for="genero" class="form-label">Estado</label>
-                                <select class="form-control" name="userStatus" id="userStatus">
+                                <select class="form-control" name="txtEstado" id="txtEstado">
                                     <option value="1">Activo</option>
                                     <option value="2">Inactivo</option>
                                 </select>

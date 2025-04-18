@@ -9,6 +9,7 @@ let txtTelefono = document.querySelector("#txtTelefono");
 let txtSalario = document.querySelector("#txtSalario");
 let txtCargo = document.querySelector("#txtCargo");
 let txtFechaContratacion = document.querySelector("#txtFechaContratacion");
+let txtEstado = document.querySelector("#txtEstado");
 
 cargarTabla();
 
@@ -19,7 +20,7 @@ btnAgregar.addEventListener("click", () => {
 frmCrearEmpleado.addEventListener('submit', (e)=>{
   e.preventDefault()
   let frmEmpleado = new FormData(frmCrearEmpleado)
-  fetch(base_url + '/usuarios/setUsuario', {
+  fetch(base_url + '/empleados/setUsuario', {
       method:'POST',
       body:frmEmpleado
   })
@@ -27,7 +28,7 @@ frmCrearEmpleado.addEventListener('submit', (e)=>{
   .then((data) =>{
       if (data.status) {
           Swal.fire({
-              title: "Registro Usuarios",
+              title: "Registro Empleado",
               text: data.msg,
               icon: "success"
             });
@@ -51,8 +52,8 @@ document.addEventListener('click', (e)=>{
 
       if (action == 'delete') {
           Swal.fire({
-              title:"Eliminar usuario",
-              text:"¿Está seguro de eliminar el usuario?",
+              title:"Eliminar empleado",
+              text:"¿Está seguro de eliminar el empleado?",
               icon: "warning",
               showDenyButton: true,
               confirmButtonText: "Sí",
@@ -61,7 +62,7 @@ document.addEventListener('click', (e)=>{
                if (result.isConfirmed) {
                   let frmData = new FormData()
                   frmData.append('txtIdUsuario', id)
-                  fetch(base_url + '/usuarios/deleteUsuario',{
+                  fetch(base_url + '/empleado/deleteUsuario',{
                       method: "POST",
                       body: frmData,
                   })
@@ -79,25 +80,22 @@ document.addEventListener('click', (e)=>{
       }
 
       if (action == 'edit') {
-          fetch(base_url + '/usuarios/getUsariosById/'+id)
+          fetch(base_url + '/empleado/getUsuariosById/'+id)
           .then((res) => res.json())
           .then((data) => {
               if (data.status) {
                   data = data.data
-                  //console.log(data)
-                  frmNombre.value = data.nombre
-                  frmApellido.value = data.apellido
-                  frmDocumento.value = data.documento
-                  frmTelefono.value = data.telefono
-                  frmGenero.value = data.genero
-                  frmEmail.value = data.correo
-                  frmCodigo.value = data.codigo
-                  frmIdUsuario.value = data.id
-                  frmUserStatus.value = data.status
-
-                  frmDocumento.setAttribute('readonly','')
-                  $('#crearUsuarioModal').modal('show')
-                  optionStatus(true)
+                  console.log(data)
+                  txtNombre.value = data.nombre
+                  txtPassword.value = data.password
+                  txtTelefono.value = data.telefono
+                  txtCargo.value = data.cargo
+                  txtFechaContratacion.value = data.fechaContratacion
+                  txtSalario.value = data.salario
+                  txtIdUsuario.value = data.id
+                  txtEstado.value = data.status
+                  $('#crearEmpleadoModal').modal('show')
+                  opcionEstado(true)
               }else{
                   Swal.fire({
                       title: "Error",
@@ -112,6 +110,15 @@ document.addEventListener('click', (e)=>{
   
 })
 
+function opcionEstado(mode){
+  let userStatus = document.getElementById('userStatusZone')
+
+  if(mode) {
+      userStatus.style.display = 'block'
+  }else{
+      userStatus.style.display = 'none'
+  }
+}
 
 
 function cargarTabla() {
@@ -146,7 +153,7 @@ function cargarTabla() {
       },
     },
     ajax: {
-      url: " " + base_url + "/usuarios/getUsuarios",
+      url: " " + base_url + "/empleados/getUsuarios",
       dataSrc: "",
     },
     columns: [

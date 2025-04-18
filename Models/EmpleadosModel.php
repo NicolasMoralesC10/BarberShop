@@ -1,6 +1,6 @@
 <?php
 
-class UsuariosModel extends mysql
+class EmpleadosModel extends mysql
 {
     public function __construct()
     {
@@ -9,8 +9,16 @@ class UsuariosModel extends mysql
 
     public function selectUsuarios()
     {
-        $sql = "SELECT * FROM usuarios WHERE status >= 0 and status <= 1";
+        $sql = "SELECT * FROM usuarios WHERE status >= 1 and status <= 2";
         $request = $this->select_all($sql);
+        return $request;
+    }
+
+    public function selectUsuariosById(int $idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+        $sql = "SELECT * FROM usuarios WHERE status >= 1 and status <= 2 AND id = {$this->idUsuario}";
+        $request = $this->select($sql);
         return $request;
     }
 
@@ -41,38 +49,34 @@ class UsuariosModel extends mysql
         return $respuesta;
     }
 
-    public function updateUsuario(int $idUsuario, string $strNombre, string $strApellido, int $intDocumento, int $intTelefono, int $intGenero, string $strEmail, string $strCodigo, string $strRol, string $strFirma, int $status)
+    public function updateUsuario(int $idUsuario, string $strNombre, string $strPassword, string $intTelefono, string $strCargo, string $strFechaContratacion, int $intSalario, int $status)
     {
         $this->strNombre = $strNombre;
-        $this->strApellido = $strApellido;
-        $this->intDocumento = $intDocumento;
+        $this->strPassword = $strPassword;
         $this->intTelefono = $intTelefono;
-        $this->intGenero = $intGenero;
-        $this->strEmail = $strEmail;
-        $this->strCodigo = $strCodigo;
-        $this->strFirma = $strFirma;
-        $this->strRol = $strRol;
-        $this->idUduario = $idUsuario;
+        $this->strCargo = $strCargo;
+        $this->strFechaContratacion = $strFechaContratacion;
+        $this->intSalario = $intSalario;
+        $this->idUsuario = $idUsuario;
         $this->intStatus = $status;
 
-        $sql = "SELECT * FROM usuario WHERE (documento = '{$this->intDocumento}' AND codigo = '{$this->strCodigo}' AND idUsuarios != {$this->idUduario})";
+        $sql = "SELECT * FROM usuarios WHERE (telefono = {$this->intTelefono} AND status = 1) AND id != {$this->idUsuario}";
 
         $request = $this->select_all($sql);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "UPDATE usuario SET nombre = ?, apellido = ?, telefono = ?, genero = ?, correo = ?, codigo = ?, firma = ?, rol = ?, status = ? WHERE status > 0 AND idUsuarios = {$this->idUduario}";
+            $query_insert = "UPDATE usuarios SET nombre = ?, password = ?, telefono = ?, cargo = ?, fechaContratacion = ?, salario = ?, status = ? WHERE status > 0 AND id = {$this->idUsuario}";
             $arrData = array(
                 $this->strNombre,
-                $this->strApellido,
+                $this->strPassword,
                 $this->intTelefono,
-                $this->intGenero,
-                $this->strEmail,
-                $this->strCodigo,
-                $this->strFirma,
-                $this->strRol,
-                $this->intStatus
+                $this->strCargo,
+                $this->strFechaContratacion,
+                $this->intSalario,
+                $this->intStatus,
+                
             );
             $reques_insert = $this->update($query_insert, $arrData);
             $respuesta = $reques_insert;
