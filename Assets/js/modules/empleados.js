@@ -1,6 +1,6 @@
 let tbl_empleados = document.querySelector("#tbl_empleados");
 let btnAgregar = document.querySelector("#btnAgregar");
-let frmCrearEmpleado = document.querySelector("#frmCrearEmpleado")
+let frmCrearEmpleado = document.querySelector("#frmCrearEmpleado");
 
 let txtIdEmpleado = document.querySelector("#txtIdEmpleado");
 let txtNombre = document.querySelector("#txtNombre");
@@ -17,109 +17,107 @@ btnAgregar.addEventListener("click", () => {
   $("#crearEmpleadoModal").modal("show");
 });
 
-frmCrearEmpleado.addEventListener('submit', (e)=>{
-  e.preventDefault()
-  let frmEmpleado = new FormData(frmCrearEmpleado)
-  fetch(base_url + '/empleados/setEmpleado', {
-      method:'POST',
-      body:frmEmpleado
+frmCrearEmpleado.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let frmEmpleado = new FormData(frmCrearEmpleado);
+  fetch(base_url + "/empleados/setEmpleado", {
+    method: "POST",
+    body: frmEmpleado
   })
-  .then((res) => res.json())
-  .then((data) =>{
+    .then((res) => res.json())
+    .then((data) => {
       if (data.status) {
-          Swal.fire({
-              title: "Registro Empleado",
-              text: data.msg,
-              icon: "success"
+        Swal.fire({
+          title: "Registro Empleado",
+          text: data.msg,
+          icon: "success"
+        });
+        tbl_empleados.api().ajax.reload(function () {});
+        $("#crearEmpleadoModal").modal("hide");
+        /*  clearForm() */
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: data.msg,
+          icon: "error"
+        });
+      }
+    });
+});
+
+document.addEventListener("click", (e) => {
+  try {
+    let action = e.target.closest("button").getAttribute("data-action");
+    let id = e.target.closest("button").getAttribute("data-id");
+
+    if (action == "delete") {
+      Swal.fire({
+        title: "Eliminar empleado",
+        text: "¿Está seguro de eliminar el empleado?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: "Sí",
+        denyButtonText: `Cancelar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let frmData = new FormData();
+          frmData.append("txtIdEmpleado", id);
+          fetch(base_url + "/empleado/deleteEmpleado", {
+            method: "POST",
+            body: frmData
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              Swal.fire({
+                title: data.status ? "Correcto" : "Error",
+                text: data.msg,
+                icon: data.status ? "success" : "error"
+              });
+              tbl_empleados.api().ajax.reload(function () {});
             });
-            tbl_empleados.api().ajax.reload(function(){})
-            $('#crearEmpleadoModal').modal('hide')
-           /*  clearForm() */
-      }else{
-          Swal.fire({
+        }
+      });
+    }
+
+    if (action == "edit") {
+      fetch(base_url + "/empleado/getEmpleadoById/" + id)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status) {
+            data = data.data;
+            console.log(data);
+            txtNombre.value = data.nombre;
+            txtPassword.value = data.password;
+            txtTelefono.value = data.telefono;
+            txtCargo.value = data.cargo;
+            txtFechaContratacion.value = data.fecha_contratacion;
+            txtSalario.value = data.salario;
+            txtIdEmpleado.value = data.id;
+            txtEstado.value = data.status;
+            $("#crearEmpleadoModal").modal("show");
+            opcionEstado(true);
+          } else {
+            Swal.fire({
               title: "Error",
               text: data.msg,
               icon: "error"
             });
-      }
-  })
-})
+            tbl_empleados.api().ajax.reload(function () {});
+          }
+        });
+    }
+  } catch {}
+});
 
-document.addEventListener('click', (e)=>{
-  try{
-      let action = e.target.closest('button').getAttribute('data-action')
-      let id = e.target.closest('button').getAttribute('data-id')
+function opcionEstado(mode) {
+  let userStatus = document.getElementById("userStatusZone");
 
-      if (action == 'delete') {
-          Swal.fire({
-              title:"Eliminar empleado",
-              text:"¿Está seguro de eliminar el empleado?",
-              icon: "warning",
-              showDenyButton: true,
-              confirmButtonText: "Sí",
-              denyButtonText: `Cancelar`
-          }).then((result)=>{
-               if (result.isConfirmed) {
-                  let frmData = new FormData()
-                  frmData.append('txtIdEmpleado', id)
-                  fetch(base_url + '/empleado/deleteEmpleado',{
-                      method: "POST",
-                      body: frmData,
-                  })
-                  .then((res)=>res.json())
-                  .then((data)=>{
-                      Swal.fire({
-                          title: data.status ? 'Correcto' : 'Error',
-                          text: data.msg,
-                          icon: data.status ? "success" : 'error'
-                      })
-                      tbl_empleados.api().ajax.reload(function(){})
-                  })
-              } 
-          })
-      }
-
-      if (action == 'edit') {
-          fetch(base_url + '/empleado/getEmpleadoById/'+id)
-          .then((res) => res.json())
-          .then((data) => {
-              if (data.status) {
-                  data = data.data
-                  console.log(data)
-                  txtNombre.value = data.nombre
-                  txtPassword.value = data.password
-                  txtTelefono.value = data.telefono
-                  txtCargo.value = data.cargo
-                  txtFechaContratacion.value = data.fecha_contratacion
-                  txtSalario.value = data.salario
-                  txtIdEmpleado.value = data.id
-                  txtEstado.value = data.status
-                  $('#crearEmpleadoModal').modal('show')
-                  opcionEstado(true)
-              }else{
-                  Swal.fire({
-                      title: "Error",
-                      text: data.msg,
-                      icon: "error"
-                  });
-                  tbl_empleados.api().ajax.reload(function(){})
-              }
-          })
-      }
-  }catch{}
-  
-})
-
-function opcionEstado(mode){
-  let userStatus = document.getElementById('userStatusZone')
-
-  if(mode) {
-      userStatus.style.display = 'block'
-  }else{
-      userStatus.style.display = 'none'
+  if (mode) {
+    userStatus.style.display = "block";
+  } else {
+    userStatus.style.display = "none";
   }
 }
-
 
 function cargarTabla() {
   tbl_empleados = $("#tbl_empleados").dataTable({
@@ -129,11 +127,11 @@ function cargarTabla() {
     dom: "Bfrtip",
     buttons: [
       { extend: "copy", text: "Copiar", className: "bg-gradient-dark shadow-dark" },
-     /*  { extend: "csv", text: "CSV", className: "bg-gradient-dark shadow-dark" }, */
+      /*  { extend: "csv", text: "CSV", className: "bg-gradient-dark shadow-dark" }, */
       { extend: "excel", text: "Excel", className: "bg-gradient-dark shadow-dark" },
-     /*  { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
+      /*  { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
       { extend: "print", text: "Imprimir", className: "bg-gradient-dark shadow-dark" }, */
-      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" },
+      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" }
     ],
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
@@ -149,27 +147,27 @@ function cargarTabla() {
         first: "Primero",
         last: "Último",
         next: "Siguiente",
-        previous: "Anterior",
-      },
+        previous: "Anterior"
+      }
     },
     ajax: {
       url: " " + base_url + "/empleados/getEmpleados",
-      dataSrc: "",
+      dataSrc: ""
     },
     columns: [
       { data: "nombreF" },
       { data: "cargoF" },
       { data: "status" },
       { data: "fecha_contratacionF" },
-      { data: "accion" },
+      { data: "accion" }
     ],
     responsive: "true",
     iDisplayLength: 5,
     order: [
       [2, "asc"],
-       [3, "asc"]
-      ],
-     /*  columnDefs: [
+      [3, "asc"]
+    ]
+    /*  columnDefs: [
         {
             targets: 2, // columna Estado
             render: function (data, type, row) {
@@ -185,7 +183,6 @@ function cargarTabla() {
         }
     ] */
   });
-
 
   //? Funcion para cambiar el input de busqueda de DataTables
   setTimeout(function () {

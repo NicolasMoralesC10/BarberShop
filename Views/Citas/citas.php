@@ -1,5 +1,5 @@
 <?php header_admin($data);
-getModal('empleadosModal', $data); ?>
+getModal('citasModal', $data); ?>
 <?php aside_admin($data); ?>
 <?php nav_admin($data); ?>
 <div class="row">
