@@ -10,6 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
       center: "title",
       right: "dayGridMonth,timeGridWeek,timeGridDay"
     },
+    buttonText: {
+      today: "Hoy",
+      month: "Mes",
+      week: "Semana",
+      day: "Día"
+    },
+    slotLabelFormat: {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    },
+    allDayText: "Todo el día",
     height: "auto",
     nowIndicator: true,
 
@@ -30,21 +42,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // parseamos total a number
             const total = Number(item.total);
 
-            // mapeo de colores según status (ajusta valores según tu paleta)
-            const colorMap = {
+            /*    // mapeo de colores según status (ajusta valores según tu paleta)
+            const classMap = {
               1: { bg: "#FFEB3B", border: "#FBC02D" }, // pendiente
               2: { bg: "#4CAF50", border: "#388E3C" }, // confirmada
               3: { bg: "#F44336", border: "#D32F2F" } // cancelada
-            };
-            const colors = colorMap[item.status] || { bg: "#9E9E9E", border: "#616161" };
+            }; */
+            /* const colors = colorMap[item.status] || { bg: "#9E9E9E", border: "#616161" }; */
 
             return {
               id: item.id,
               title: item.cliente,
               start: item.start,
               end: item.end,
-              backgroundColor: colors.bg,
-              borderColor: colors.border,
+              classNames: ["bg-gradient-dark text-light"],
+              /* backgroundColor: colors.bg, */
+              /*  borderColor: colors.border, */
               extendedProps: {
                 servicios,
                 empleados,
@@ -72,16 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }).format(arg.event.extendedProps.total);
       return {
         html: `
-          <div class="fc-event-title fc-font-weight-bold">
+          <div class="fc-event-title fc-font-weight-bold" style="display: flex; justify-content: space-between;">
             ${arg.event.title}
+            <div class="fc-event-time">${arg.timeText}</div>
           </div>
-          <div class="fc-event-time">${arg.timeText}</div>
-          <div class="fc-event-services small text-truncate">
-            ${serv}
-          </div>
-          <div class="fc-event-total small text-end">
-            ${total}
-          </div>
+          
         `
       };
     },
@@ -98,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <strong>Servicios:</strong> ${servicios}<br/>
         <strong>Empleados:</strong> ${empleados}<br/>
         <strong>Total:</strong> ${total}<br/>
-        <strong>Estado:</strong> ${e.status}
+        
       `;
       new bootstrap.Tooltip(info.el, {
         title: tpl,
