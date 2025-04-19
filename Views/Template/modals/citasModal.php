@@ -2,8 +2,8 @@
 <div class="modal fade" id="modalCita" tabindex="-1" aria-labelledby="modalCitaLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalCitaLabel">Detalles de la Cita</h5>
+      <div class="modal-header bg-gradient-dark">
+        <h5 class="modal-title text-light" id="modalCitaLabel">Detalles de la Cita</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -11,7 +11,8 @@
         <div class="d-flex justify-content-between mb-3">
           <div>
             <strong>Cliente:</strong> <span id="mc-cliente"></span><br>
-            <strong>Fecha / Hora:</strong> <span id="mc-fecha"></span>
+            <strong>Fecha:</strong> <span class="me-4" id="mc-fecha"></span>
+            <strong>Hora:</strong> <span id="mc-hora"></span>
           </div>
           <div>
             <span class="badge" id="mc-status"></span>
@@ -44,9 +45,9 @@
       <div class="modal-footer">
         <!-- Acciones -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-warning" id="btn-reprogramar">Reprogramar</button>
-        <button type="button" class="btn btn-danger" id="btn-cancelar">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="btn-guardar">Guardar cambios</button>
+        <button type="button" class="btn btn-info" id="btn-reprogramar">Reprogramar</button>
+        <button type="button" class="btn btn-primary" id="btn-cancelar">Cancelar</button>
+        <button type="button" class="btn bg-gradient-dark" id="btn-guardar">Guardar cambios</button>
       </div>
     </div>
   </div>

@@ -2852,7 +2852,7 @@ progress {
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
 }
-
+ 
 .fc-event:hover {
   transform: scale(1.30);
   background-color: #343a40 !important; /* cambia esto al color que quieras */

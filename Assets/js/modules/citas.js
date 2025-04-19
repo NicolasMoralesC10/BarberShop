@@ -142,15 +142,17 @@ document.addEventListener("DOMContentLoaded", function () {
 function abrirModalEditar(data) {
   // data: { id, cliente, start, end, servicios:[], empleados:[], total, status, notas }
   document.getElementById("mc-cliente").textContent = data.cliente;
-  document.getElementById("mc-fecha").textContent =
-    new Date(data.start).toLocaleString("es-CO", { dateStyle: "medium", timeStyle: "short" }) +
+  document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString("es-CO", {
+    dateStyle: "medium"
+  });
+  document.getElementById("mc-hora").textContent =
+    new Date(data.start).toLocaleTimeString("es-CO", { timeStyle: "short" }) +
     " – " +
     new Date(data.end).toLocaleTimeString("es-CO", { timeStyle: "short" });
-
   // badge de estado
   const statusBadge = document.getElementById("mc-status");
   const statusMap = {
-    1: ["Pendiente", "bg-warning text-dark"],
+    1: ["Pendiente", "bg-gradient-dark text-light"],
     2: ["Confirmada", "bg-success"],
     3: ["Cancelada", "bg-danger"]
   };
