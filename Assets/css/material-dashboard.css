@@ -2847,20 +2847,38 @@ progress {
   color: #525252;
   padding: 20px;
 }
-
+/* calendario */
 .fc-event {
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+  border: none;
+}
+
+.fc-dayGridMonth-view .fc-event {
+  font-size: 0.85rem;
+  padding: 0.2rem 0.2rem;
+  margin-bottom: 0.1rem;
+}
+
+/* Estilo para eventos en vista SEMANA */
+.fc-timeGridWeek-view .fc-event {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.2rem;
+}
+
+.fc-timeGridDay-view .fc-event {
+  font-size: 1rem;
+  padding: 0.1rem 0.1rem;
 }
  
 .fc-event:hover {
-  transform: scale(1.30);
-  background-color: #343a40 !important; /* cambia esto al color que quieras */
+  transform: scale(1.05);
+  background-color: #343a40 !important; 
   color: #fff !important;
-  font-size: 0.7rem;
   box-shadow: 0 4px 13px rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
+/* fin Calendario */
 
 .form-control {
   display: block;

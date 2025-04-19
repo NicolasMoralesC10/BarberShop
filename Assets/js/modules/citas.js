@@ -147,7 +147,7 @@ function abrirModalEditar(data) {
   });
   document.getElementById("mc-hora").textContent =
     new Date(data.start).toLocaleTimeString("es-CO", { timeStyle: "short" }) +
-    " – " +
+    " A " +
     new Date(data.end).toLocaleTimeString("es-CO", { timeStyle: "short" });
   // badge de estado
   const statusBadge = document.getElementById("mc-status");
