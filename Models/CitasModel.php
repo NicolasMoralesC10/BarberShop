@@ -8,6 +8,38 @@ class CitasModel extends mysql
         parent::__construct();
     }
 
+    // Inserta la cita y devuelve el ID generado
+    public function insertCita(int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total)
+    {
+        // No verificamos duplicados en este caso
+        $query = "INSERT INTO citas
+            (cliente_id, fechaInicio, fechaFin, notas, total, status)
+            VALUES (?, ?, ?, ?, ?, 1)";
+        $arrData = [
+            $clienteId,
+            $fechaInicio,
+            $fechaFin,
+            $notas,
+            $total
+        ];
+        return $this->insert($query, $arrData);
+    }
+
+    // Inserta un servicio asociado a la cita
+    public function insertCitaServicio(int $citaId, int $servicioId, int $empleadoId, int $duracionM, int $precio) { 
+        $query = "INSERT INTO citas_servicios
+            (cita_id, servicio_id, empleado_id, duracionM, precio)
+            VALUES (?, ?, ?, ?, ?)";
+        $arrData = [
+            $citaId,
+            $servicioId,
+            $empleadoId,
+            $duracionM,
+            $precio
+        ];
+        return $this->insert($query, $arrData);
+    }
+
     public function selectCitas()
     {
         $sql = "SELECT c.id, cl.nombre AS cliente,
@@ -35,9 +67,22 @@ class CitasModel extends mysql
 
     public function selectClientes()
     {
-        $sql = "";
+        $sql = "SELECT id, nombre, telefono FROM clientes WHERE status = 1";
         $request = $this->select_all($sql);
         return $request;
     }
 
+    public function selectServicios()
+    {
+        $sql = "SELECT * FROM servicios WHERE status = 1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
+    public function selectEmpleados()
+    {
+        $sql = "SELECT id, nombre, cargo FROM empleados WHERE status = 1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
