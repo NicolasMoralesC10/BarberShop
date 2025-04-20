@@ -1,3 +1,8 @@
+let btnAgregar = document.querySelector("#btnAgregarCita");
+
+btnAgregar.addEventListener("click", () => {
+  $("#modalCrearCita").modal("show");
+});
 document.addEventListener("DOMContentLoaded", function () {
   var calendarEl = document.getElementById("calendarioCitas");
 
@@ -137,6 +142,172 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   calendar.render();
+
+  // Inicializar Flatpickr
+  flatpickr("#inputFechaHora", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
+
+  // Datos iniciales
+  let serviciosList = [];
+  let empleadosList = [];
+  let totalGlobal = 0;
+
+  // Fetch datos de clientes, servicios y empleados
+  fetch(base_url + "/citas/getClientes")
+    .then((r) => r.json())
+    .then((data) => {
+      new TomSelect("#selectCliente", {
+        options: data.map((c) => ({ value: c.id, text: c.nombre })),
+        create: false,
+        sortField: { field: "text", direction: "asc" }
+      });
+    });
+
+  fetch(base_url + "/citas/getServicios")
+    .then((r) => r.json())
+    .then((data) => (serviciosList = data));
+  fetch(base_url + "/citas/getEmpleados")
+    .then((r) => r.json())
+    .then((data) => (empleadosList = data));
+
+  const contenedor = document.getElementById("serviciosContainer");
+  const spanTotal = document.getElementById("spanTotal");
+
+  // FUNCION recalcularTotal (modificado para usar dataset.raw)
+  function recalcularTotal() {
+    totalGlobal = Array.from(contenedor.children).reduce((sum, row) => {
+      // CAMBIO: usar dataset.raw en lugar de input.value
+      const precio = Number(row.querySelector(".inputPrecio").dataset.raw) || 0;
+      return sum + precio;
+    }, 0);
+    spanTotal.textContent = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(
+      totalGlobal
+    );
+  }
+
+  // TomSelect para servicio
+  function crearTomSelectServicio(row) {
+    return new TomSelect(row.querySelector(".select-servicio"), {
+      options: serviciosList.map((s) => ({
+        value: s.id,
+        text: s.nombre,
+        precio: s.precio,
+        duracionMinutos: s.duracionMinutos
+      })),
+      labelField: "text",
+      valueField: "value",
+      maxItems: 1, // solo un servicio
+      create: false, // no permitir crear nuevos
+      onChange: function (v) {
+        const data = this.options[v];
+        if (!data) return;
+        row.querySelector(".inputDuracion").value = data.duracionMinutos;
+        const ip = row.querySelector(".inputPrecio");
+        ip.value = new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: "COP"
+        }).format(data.precio);
+        ip.dataset.raw = data.precio;
+        recalcularTotal();
+      },
+      onItemAdd: function (value, item) {
+        // Una vez seleccione, bloqueo la entrada
+        this.control_input.setAttribute("readonly", "readonly");
+      },
+      onItemRemove: function (value) {
+        // Si remueve la selección, la vuelvo editable
+        this.control_input.removeAttribute("readonly");
+      }
+    });
+  }
+
+  // TomSelect para empleado
+  function crearTomSelectEmpleado(row) {
+    return new TomSelect(row.querySelector(".select-empleado"), {
+      options: empleadosList.map((e) => ({ value: e.id, text: e.nombre })),
+      labelField: "text",
+      valueField: "value",
+      maxItems: 1,
+      create: false,
+      onItemAdd: function () {
+        this.control_input.setAttribute("readonly", "readonly");
+      },
+      onItemRemove: function () {
+        this.control_input.removeAttribute("readonly");
+      }
+    });
+  }
+
+  // Crear fila de servicio
+  function nuevaFilaServicio() {
+    const row = document.createElement("div");
+    row.className = "row g-2 align-items-end mb-2";
+    row.innerHTML = `
+    <div class="col-md-4">
+      <label class="form-label">Servicio</label>
+      <select class="form-select select-servicio" required></select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Empleado</label>
+      <select class="form-select select-empleado" required></select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Duración (min)</label>
+      <input type="number" class="form-control inputDuracion" readonly>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Precio</label>
+      <input type="text" class="form-control inputPrecio" readonly>
+    </div>
+    <div class="col-md-1 text-end">
+      <button type="button" class="btn btn-danger btn-sm btn-eliminar">×</button>
+    </div>
+  `;
+    contenedor.appendChild(row);
+
+    // 2. Inicializar TomSelect para servicio y empleado
+    const tsServicio = crearTomSelectServicio(row);
+    const tsEmpleado = crearTomSelectEmpleado(row);
+
+    // 3. Botón eliminar: destruye instancias y fila
+    row.querySelector(".btn-eliminar").addEventListener("click", () => {
+      // destruye los TomSelect para evitar memory leaks
+      tsServicio.destroy();
+      tsEmpleado.destroy();
+      // remueve la fila
+      row.remove();
+      // recalcula total
+      recalcularTotal();
+    });
+  }
+
+  document.getElementById("btnAgregarServicio").addEventListener("click", nuevaFilaServicio);
+
+  // Manejo de submit
+  document.getElementById("formCrearCita").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const payload = {
+      cliente_id: form.selectCliente.value,
+      fechaInicio: form.inputFechaHora.value,
+      servicios: Array.from(contenedor.children).map((row) => ({
+        servicio_id: row.querySelector(".select-servicio").value,
+        empleado_id: row.querySelector(".select-empleado").value,
+        duracionM: Number(row.querySelector(".inputDuracion").value),
+        precio: Number(row.querySelector(".inputPrecio").dataset.raw)
+      }))
+    };
+    fetch(base_url + "/citas/setCitas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        // refresca calendario, cierra modal, notifica
+        calendar.refetchEvents();
+        bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
+      });
+  });
 });
 
 function abrirModalEditar(data) {
