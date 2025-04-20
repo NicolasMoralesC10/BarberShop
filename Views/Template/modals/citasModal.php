@@ -52,3 +52,61 @@
     </div>
   </div>
 </div>
+
+ <!-- Modal Crear Cita -->
+ <div
+      class="modal fade"
+      id="modalCrearCita"
+      tabindex="-1"
+      aria-labelledby="modalCrearCitaLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <form id="formCrearCita">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalCrearCitaLabel">Agendar Nueva Cita</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Cliente -->
+              <div class="mb-3">
+                <label for="selectCliente" class="form-label">Cliente</label>
+                <select id="selectCliente" placeholder="Buscar cliente..." required></select>
+              </div>
+
+              <!-- Fecha y Hora de Inicio -->
+              <div class="mb-3">
+                <label for="inputFechaHora" class="form-label">Fecha y Hora</label>
+                <input
+                  type="text"
+                  id="inputFechaHora"
+                  class="form-control"
+                  placeholder="Selecciona fecha y hora"
+                  required
+                />
+              </div>
+
+              <!-- Servicios Dinámicos -->
+              <div class="mb-3">
+                <label class="form-label">Servicios</label>
+                <div id="serviciosContainer"></div>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="btnAgregarServicio">
+                  + Agregar Servicio
+                </button>
+              </div>
+
+              <!-- Total -->
+              <div class="d-flex justify-content-end align-items-center">
+                <strong class="me-2">Total:</strong>
+                <span id="spanTotal" class="fs-5 text-success">$0</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar Cita</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>

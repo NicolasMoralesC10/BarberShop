@@ -21,7 +21,7 @@
 
                         <div class="mb-3 col-4">
                             <label for="txtTelefono" class="form-label">Telefono</label>
-                            <input type="number" class="form-control border-radius-xs" id="txtTelefono" name="txtTelefono">
+                            <input type="number" class="form-control" id="txtTelefono" name="txtTelefono">
                         </div>
                     </div>
 
