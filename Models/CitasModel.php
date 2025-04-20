@@ -32,4 +32,12 @@ class CitasModel extends mysql
         $request = $this->select_all($sql);
         return $request;
     }
+
+    public function selectClientes()
+    {
+        $sql = "";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
 }

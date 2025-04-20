@@ -1,0 +1,210 @@
+<!-- Formulario profesional para agendar citas en Barbería -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendar Cita - Barbería</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Flatpickr CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+    <!-- Tom Select CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Modal Crear Cita -->
+    <div
+      class="modal fade"
+      id="modalCrearCita"
+      tabindex="-1"
+      aria-labelledby="modalCrearCitaLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <form id="formCrearCita">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalCrearCitaLabel">Agendar Nueva Cita</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Cliente -->
+              <div class="mb-3">
+                <label for="selectCliente" class="form-label">Cliente</label>
+                <select id="selectCliente" placeholder="Buscar cliente..." required></select>
+              </div>
+
+              <!-- Fecha y Hora de Inicio -->
+              <div class="mb-3">
+                <label for="inputFechaHora" class="form-label">Fecha y Hora</label>
+                <input
+                  type="text"
+                  id="inputFechaHora"
+                  class="form-control"
+                  placeholder="Selecciona fecha y hora"
+                  required
+                />
+              </div>
+
+              <!-- Servicios Dinámicos -->
+              <div class="mb-3">
+                <label class="form-label">Servicios</label>
+                <div id="serviciosContainer"></div>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="btnAgregarServicio">
+                  + Agregar Servicio
+                </button>
+              </div>
+
+              <!-- Total -->
+              <div class="d-flex justify-content-end align-items-center">
+                <strong class="me-2">Total:</strong>
+                <span id="spanTotal" class="fs-5 text-success">$0</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar Cita</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Inicializar Flatpickr
+        flatpickr("#inputFechaHora", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
+
+        // Datos iniciales
+        let serviciosList = [];
+        let empleadosList = [];
+        let totalGlobal = 0;
+
+        // Fetch datos de clientes, servicios y empleados
+        fetch(base_url + "/citas/clients")
+          .then((r) => r.json())
+          .then((data) => {
+            new TomSelect("#selectCliente", {
+              options: data.map((c) => ({ value: c.id, text: c.nombre })),
+              create: false,
+              sortField: { field: "text", direction: "asc" }
+            });
+          });
+
+        fetch(base_url + "/citas/services")
+          .then((r) => r.json())
+          .then((data) => (serviciosList = data));
+        fetch(base_url + "/citas/employees")
+          .then((r) => r.json())
+          .then((data) => (empleadosList = data));
+
+        const contenedor = document.getElementById("serviciosContainer");
+        const spanTotal = document.getElementById("spanTotal");
+
+        // Función para recalcular total
+        function recalcularTotal() {
+          totalGlobal = Array.from(contenedor.children).reduce((sum, row) => {
+            const precio = Number(row.querySelector(".inputPrecio").value) || 0;
+            return sum + precio;
+          }, 0);
+          spanTotal.textContent = new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP"
+          }).format(totalGlobal);
+        }
+
+        // Crear fila de servicio
+        function nuevaFilaServicio() {
+          const row = document.createElement("div");
+          row.className = "row g-2 align-items-end mb-2";
+          row.innerHTML = `
+      <div class="col-md-4">
+        <label class="form-label">Servicio</label>
+        <select class="form-select select-servicio" required></select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Empleado</label>
+        <select class="form-select select-empleado" required></select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Duración (min)</label>
+        <input type="number" class="form-control inputDuracion" readonly>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Precio</label>
+        <input type="text" class="form-control inputPrecio" readonly>
+      </div>
+      <div class="col-md-1 text-end">
+        <button type="button" class="btn btn-danger btn-sm btn-eliminar">×</button>
+      </div>
+    `;
+          contenedor.appendChild(row);
+
+          // TomSelect para servicio
+          new TomSelect(row.querySelector(".select-servicio"), {
+            options: serviciosList.map((s) => ({ value: s.id, text: s.nombre, data: s })),
+            onChange: (v) => {
+              const sel = row.querySelector(".select-servicio").tomselect.getOption(v);
+              const data = sel.__data.data; // objeto servicio
+              row.querySelector(".inputDuracion").value = data.duracionMinutos;
+              row.querySelector(".inputPrecio").value = new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP"
+              }).format(data.precio);
+              recalcularTotal();
+            }
+          });
+
+          // TomSelect para empleado
+          new TomSelect(row.querySelector(".select-empleado"), {
+            options: empleadosList.map((e) => ({ value: e.id, text: e.nombre })),
+            create: false
+          });
+
+          // Botón eliminar
+          row.querySelector(".btn-eliminar").addEventListener("click", () => {
+            row.remove();
+            recalcularTotal();
+          });
+        }
+
+        document.getElementById("btnAgregarServicio").addEventListener("click", nuevaFilaServicio);
+
+        // Manejo de submit
+        document.getElementById("formCrearCita").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const payload = {
+            cliente_id: form.selectCliente.value,
+            fechaInicio: form.inputFechaHora.value,
+            servicios: Array.from(contenedor.children).map((row) => ({
+              servicio_id: row.querySelector(".select-servicio").value,
+              empleado_id: row.querySelector(".select-empleado").value,
+              duracionM: Number(row.querySelector(".inputDuracion").value),
+              precio: Number(row.querySelector(".inputPrecio").value.replace(/[^0-9]/g, ""))
+            }))
+          };
+          fetch(base_url + "/citas/citas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then((r) => r.json())
+            .then((res) => {
+              // refresca calendario, cierra modal, notifica
+              calendar.refetchEvents();
+              bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
