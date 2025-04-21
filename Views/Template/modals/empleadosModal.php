@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-gradient-dark">
-                <h1 class="modal-title text-light fs-5" id="exampleModalLabel">Crear usuario</h1>
+                <h1 class="modal-title text-light fs-5" id="exampleModalLabel">Crear Empleado</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -11,7 +11,7 @@
                     <input type="hidden" name="txtIdEmpleado" id="txtIdEmpleado" value="0">
                     <div class="row">
                         <div class="mb-3 col-4">
-                            <label for="txtNombre" class="form-label">Nombre(s)</label>
+                            <label for="txtNombre" class="form-label">Nombre Completo</label>
                             <input type="text" class="form-control" id="txtNombre" name="txtNombre">
                         </div>
                         <div class="mb-3 col-4">
