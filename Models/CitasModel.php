@@ -26,41 +26,77 @@ class CitasModel extends mysql
     }
 
     // Inserta un servicio asociado a la cita
-    public function insertCitaServicio(int $citaId, int $servicioId, int $empleadoId, int $duracionM, int $precio) { 
+    public function insertCitaServicio(int $citaId, int $servicioId, int $empleadoId, int $duracionM, string $fechaInicio, string $fechaFin, int $precio)
+    {
         $query = "INSERT INTO citas_servicios
-            (cita_id, servicio_id, empleado_id, duracionM, precio)
-            VALUES (?, ?, ?, ?, ?)";
+            (cita_id, servicio_id, empleado_id, duracionM,fechaInicio, fechaFin, precio)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
         $arrData = [
             $citaId,
             $servicioId,
             $empleadoId,
             $duracionM,
+            $fechaInicio,
+            $fechaFin,
             $precio
         ];
         return $this->insert($query, $arrData);
     }
 
+
+    public function getCitasDisEmpleado(int $empleadoId, string $fechaInicio, string $fechaFin)
+    {
+        // Sanitizar valores para incluir directamente en la cadena SQL
+        $this->empleadoId = $empleadoId;
+        $this->fechaInicio = $fechaInicio;
+        $this->fechaFin = $fechaFin;
+
+
+        // Consulta similar a tu ejemplo de excepciones, adaptada a citas y empleados
+        $query = "
+          SELECT c.id, c.fechaInicio, c.fechaFin, e.nombre AS empleadoNombre
+            FROM citas c
+            JOIN citas_servicios cs ON cs.cita_id = c.id
+            JOIN empleados e ON e.id = cs.empleado_id
+           WHERE cs.empleado_id = {$this->empleadoId}
+             AND c.status = 1  -- solo citas activas (1 = pendiente/confirmada)
+             AND (
+                  (c.fechaInicio <= '{$this->fechaInicio}' AND c.fechaFin   >= '{$this->fechaInicio}')
+               OR (c.fechaInicio <= '{$this->fechaFin}' AND c.fechaFin   >= '{$this->fechaFin}')
+               OR (c.fechaInicio >= '{$this->fechaInicio}' AND c.fechaFin   <= '{$this->fechaFin}')
+             )
+        ";
+
+        // select_all devuelve un array de filas encontradas
+        return $this->select_all($query);
+    }
+
+    public function EmpleadoDisponible(int $empleadoId, string $fechaInicio, string $fechaFin): bool
+    {
+        $conflictos = $this->getCitasDisEmpleado($empleadoId, $fechaInicio, $fechaFin);
+        return empty($conflictos);
+    }
+
+
     public function selectCitas()
     {
-        $sql = "SELECT c.id, cl.nombre AS cliente,
-            DATE_FORMAT(c.fechaInicio, '%Y-%m-%dT%H:%i:%s') AS start,
-            DATE_FORMAT(
-                DATE_ADD(c.fechaInicio, INTERVAL SUM(cs.duracionM) MINUTE),
-                '%Y-%m-%dT%H:%i:%s'
-            ) AS end,
+        $sql = "SELECT 
+            c.id,
+            cl.nombre AS cliente,
+            c.fechaInicio AS start,
+            c.fechaFin AS end,
+            c.total,
             c.status,
-            SUM(cs.precio) AS total,
-            GROUP_CONCAT(DISTINCT s.nombre)   AS servicios,
-            GROUP_CONCAT(DISTINCT e.nombre)   AS empleados,
-            GROUP_CONCAT(DISTINCT cs.duracionM ORDER BY cs.servicio_id) AS duraciones
-            FROM citas c
-            JOIN clientes cl   ON cl.id = c.cliente_id
-            JOIN citas_servicios cs ON cs.cita_id    = c.id
-            JOIN servicios s   ON s.id   = cs.servicio_id
-            JOIN empleados e   ON e.id   = cs.empleado_id 
-            WHERE c.status = 1
-            GROUP BY c.id, cl.nombre, c.fechaInicio, c.status ;
-            ";
+            c.notas,
+            s.nombre AS servicio,
+            e.nombre AS empleado,
+            cs.duracionM
+          FROM citas c
+          INNER JOIN clientes cl ON c.cliente_id = cl.id
+          INNER JOIN citas_servicios cs ON c.id = cs.cita_id
+          INNER JOIN servicios s ON cs.servicio_id = s.id
+          INNER JOIN empleados e ON cs.empleado_id = e.id
+          ORDER BY c.id, cs.id";
         $request = $this->select_all($sql);
         return $request;
     }

@@ -38,43 +38,43 @@ document.addEventListener("DOMContentLoaded", function () {
           return res.json();
         })
         .then((data) => {
-          // data es tu array de objetos con servicios y empleados como strings
           const events = data.map((item) => {
-            // convertimos strings a arrays
-            const servicios = item.servicios ? item.servicios.split(",").map((s) => s.trim()) : [];
-            const empleados = item.empleados ? item.empleados.split(",").map((e) => e.trim()) : [];
-            const duraciones = item.duraciones ? item.duraciones.split(",").map((d) => Number(d)) : [];
-            // parseamos total a number
-            const total = Number(item.total);
-
-            /*    // mapeo de colores según status (ajusta valores según tu paleta)
-            const classMap = {
-              1: { bg: "#FFEB3B", border: "#FBC02D" }, // pendiente
-              2: { bg: "#4CAF50", border: "#388E3C" }, // confirmada
-              3: { bg: "#F44336", border: "#D32F2F" } // cancelada
-            }; */
-            /* const colors = colorMap[item.status] || { bg: "#9E9E9E", border: "#616161" }; */
+            let cur = new Date(item.start);
+            const items = item.servicios.map((svc, i) => {
+              const dur = item.duraciones[i];
+              const end = new Date(cur.getTime() + dur * 60000);
+              const obj = {
+                servicio: svc,
+                empleado: item.empleados[i],
+                duracion: dur,
+                start: cur.toISOString(),
+                end: end.toISOString()
+              };
+              cur = end;
+              return obj;
+            });
 
             return {
               id: item.id,
               title: item.cliente,
               start: item.start,
               end: item.end,
-              classNames: ["bg-gradient-dark text-light"],
-              /* backgroundColor: colors.bg, */
-              /*  borderColor: colors.border, */
+              classNames: ["bg-gradient-dark", "text-light"],
               extendedProps: {
-                servicios,
-                empleados,
-                duraciones,
-                total,
-                status: item.status
+                items,
+                servicios: item.servicios,
+                empleados: item.empleados,
+                duraciones: item.duraciones,
+                total: item.total,
+                status: item.status,
+                notas: item.notas
               }
             };
           });
 
           successCallback(events);
         })
+
         .catch((err) => {
           console.error(err);
           failureCallback(err);
@@ -83,36 +83,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // eventContent y eventDidMount asumiendo ya servicios/empleados como arrays
     eventContent: function (arg) {
-      let serv = arg.event.extendedProps.servicios.join(", ");
+      /*     let serv = arg.event.extendedProps.servicios.join(", ");
       let total = new Intl.NumberFormat("es-CO", {
         style: "currency",
         currency: "COP"
-      }).format(arg.event.extendedProps.total);
+      }).format(arg.event.extendedProps.total); */
+      //  Formato 12 horas
+      const startTime12 = arg.event.start.toLocaleTimeString("es-CO", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      });
+
       return {
         html: `
           <div class="fc-event-title fc-font-weight-bold" style="display: flex; justify-content: space-between;">
             ${arg.event.title}
-            <div class="fc-event-time">${arg.timeText}</div>
+            <div class="fc-event-time">${startTime12}</div>
           </div>
-          
         `
       };
     },
     eventDidMount: function (info) {
       let e = info.event.extendedProps;
-      let servicios = e.servicios.join(", ");
-      let empleados = e.empleados.join(", ");
+
+      // Validaciones para evitar errores si servicios o empleados son undefined
+      let servicios = Array.isArray(e.servicios) ? e.servicios.join(", ") : "No definido";
+      let empleados = Array.isArray(e.empleados) ? e.empleados.join(", ") : "No definido";
+
       let total = new Intl.NumberFormat("es-CO", {
         style: "currency",
         currency: "COP"
-      }).format(e.total);
+      }).format(e.total || 0);
+
       let tpl = `
         <strong>Cliente:</strong> ${info.event.title}<br/>
         <strong>Servicios:</strong> ${servicios}<br/>
         <strong>Empleados:</strong> ${empleados}<br/>
         <strong>Total:</strong> ${total}<br/>
-        
       `;
+
       new bootstrap.Tooltip(info.el, {
         title: tpl,
         html: true,
@@ -122,21 +132,17 @@ document.addEventListener("DOMContentLoaded", function () {
     },
 
     eventClick: function (info) {
-      // 1) Prepara los datos que necesitas en la modal
       const data = {
         id: info.event.id,
         cliente: info.event.title,
         start: info.event.startStr,
         end: info.event.endStr,
-        servicios: info.event.extendedProps.servicios,
-        empleados: info.event.extendedProps.empleados,
-        duracionPorServicio: info.event.extendedProps.duraciones,
+        items: info.event.extendedProps.items, // ✅ este es el array correcto
         total: info.event.extendedProps.total,
         status: info.event.extendedProps.status,
         notas: info.event.extendedProps.notas || ""
       };
 
-      // 2) Abre la modal pasando esos datos
       abrirModalEditar(data);
     }
   });
@@ -237,31 +243,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Crear fila de servicio
   function nuevaFilaServicio() {
+    // 1. Crear contenedor de fila
     const row = document.createElement("div");
-    row.className = "row g-2 align-items-end mb-2";
+    row.className = "row g-2 mb-2";
     row.innerHTML = `
-    <div class="col-md-4">
-      <label class="form-label">Servicio</label>
-      <select class="form-select select-servicio" required></select>
-    </div>
-    <div class="col-md-3">
-      <label class="form-label">Empleado</label>
-      <select class="form-select select-empleado" required></select>
-    </div>
-    <div class="col-md-2">
-      <label class="form-label">Duración (min)</label>
-      <input type="number" class="form-control inputDuracion" readonly>
-    </div>
-    <div class="col-md-2">
-      <label class="form-label">Precio</label>
-      <input type="text" class="form-control inputPrecio" readonly>
-    </div>
-    <div class="col-md-1 text-end">
-      <button type="button" class="btn btn-danger btn-sm btn-eliminar">×</button>
-    </div>
-  `;
+      <div class="col-md-4">
+        <label class="form-label">Servicio</label>
+        <select class="form-select select-servicio" required></select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Empleado</label>
+        <select class="form-select select-empleado" required></select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Duración (min)</label>
+        <input type="number" class="form-control inputDuracion" readonly>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Precio</label>
+        <input type="text" class="form-control inputPrecio" readonly data-raw="0">
+      </div>
+      <div class="col-md-1 text-end">
+        <button type="button" class="btn btn-danger btn-sm btn-eliminar" style="margin-top:32px">×</button>
+      </div>
+    `;
     contenedor.appendChild(row);
 
     // 2. Inicializar TomSelect para servicio y empleado
@@ -303,54 +309,112 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((r) => r.json())
       .then((res) => {
-        // refresca calendario, cierra modal, notifica
-        calendar.refetchEvents();
-        bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
+        if (res.status) {
+          Swal.fire({
+            icon: "success",
+            title: "Cita agendada",
+            text: res.msg || "La cita fue registrada correctamente",
+            timer: 1500,
+            showConfirmButton: false
+          });
+          limpiarFormularioCita();
+          // Opcional: cerrar modal y refrescar calendario si todo salió bien
+          bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
+          calendar?.refetchEvents?.();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error al agendar",
+            text: res.msg || "Ocurrió un error inesperado"
+          });
+        }
+      })
+      .catch((err) => {
+        // Error de red o de JS
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Error de conexión",
+          text: "No se pudo conectar con el servidor. Intenta más tarde."
+        });
       });
   });
 });
 
 function abrirModalEditar(data) {
-  // data: { id, cliente, start, end, servicios:[], empleados:[], total, status, notas }
+  // Cabecera
   document.getElementById("mc-cliente").textContent = data.cliente;
   document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString("es-CO", {
     dateStyle: "medium"
   });
   document.getElementById("mc-hora").textContent =
-    new Date(data.start).toLocaleTimeString("es-CO", { timeStyle: "short" }) +
-    " A " +
-    new Date(data.end).toLocaleTimeString("es-CO", { timeStyle: "short" });
-  // badge de estado
-  const statusBadge = document.getElementById("mc-status");
+    new Date(data.start).toLocaleTimeString("es-CO", { timeStyle: "short", hour12: true }) +
+    " – " +
+    new Date(data.end).toLocaleTimeString("es-CO", { timeStyle: "short", hour12: true });
+
+  // Estado
   const statusMap = {
     1: ["Pendiente", "bg-gradient-dark text-light"],
     2: ["Confirmada", "bg-success"],
     3: ["Cancelada", "bg-danger"]
   };
-  const [label, classes] = statusMap[data.status] || ["Desconocido", "bg-secondary"];
-  statusBadge.textContent = label;
-  statusBadge.className = "badge " + classes;
+  const [lbl, cls] = statusMap[data.status] || ["Desconocido", "bg-secondary"];
+  const badge = document.getElementById("mc-status");
+  badge.textContent = lbl;
+  badge.className = "badge " + cls;
 
-  // servicios list
+  // Lista de servicios
   const ul = document.getElementById("mc-servicios");
   ul.innerHTML = "";
-  data.servicios.forEach((serv, i) => {
+  data.items.forEach((item) => {
+    const hIni = new Date(item.start).toLocaleTimeString("es-CO", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    });
+    const hFin = new Date(item.end).toLocaleTimeString("es-CO", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    });
     const li = document.createElement("li");
-    li.className = "list-group-item d-flex justify-content-between";
+    li.className = "list-group-item";
     li.innerHTML = `
-      <span>${serv}</span>
-      <span class="text-muted small">${data.duracionPorServicio[i] || ""} min / ${data.empleados[i]}</span>
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>${item.servicio}</strong>
+          <br><small>${hIni} – ${hFin} (${item.duracion} min)</small>
+        </div>
+        <div class="text-end">
+          <small>${item.empleado}</small>
+        </div>
+      </div>
     `;
     ul.appendChild(li);
   });
 
-  // notas y total
+  // Notas y total
   document.getElementById("mc-notas").value = data.notas || "";
   document.getElementById("mc-total").textContent = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP"
   }).format(data.total);
 
-  // muestra modal
+  // Mostrar modal
   new bootstrap.Modal(document.getElementById("modalCita")).show();
+}
+
+function limpiarFormularioCita() {
+  document.getElementById("formCrearCita").reset(); // Limpia campos básicos
+
+  // Si estás usando TomSelect, reseteamos así:
+  const clienteSelect = document.querySelector("#selectCliente")?.tomselect;
+  if (clienteSelect) clienteSelect.clear();
+
+  // Limpiar contenedor de servicios
+  const contenedor = document.getElementById("serviciosContainer");
+  contenedor.innerHTML = "";
+
+  // Reiniciar total
+  document.getElementById("spanTotal").textContent = "$0";
 }
