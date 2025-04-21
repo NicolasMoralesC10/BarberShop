@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2025 a las 23:17:58
+-- Tiempo de generación: 21-04-2025 a las 15:10:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,6 +37,15 @@ CREATE TABLE `citas` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`id`, `cliente_id`, `fechaInicio`, `fechaFin`, `notas`, `total`, `status`) VALUES
+(1, 1, '2025-04-22 12:00:00', '2025-04-22 12:35:00', NULL, 25000, 1),
+(2, 1, '2025-04-23 12:00:00', '2025-04-23 12:15:00', NULL, 10000, 1),
+(3, 1, '2025-04-25 12:00:00', '2025-04-25 12:15:00', NULL, 10000, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -48,9 +57,14 @@ CREATE TABLE `citas_servicios` (
   `cita_id` int(11) NOT NULL,
   `servicio_id` int(11) NOT NULL,
   `empleado_id` int(11) NOT NULL,
-  `precio` int(11) NOT NULL,
-  `duracionM` int(11) NOT NULL
+  `duracionM` int(11) NOT NULL,
+  `fechaInicio` datetime NOT NULL,
+  `fechaFin` datetime NOT NULL,
+  `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
 
 -- --------------------------------------------------------
 
@@ -84,13 +98,6 @@ CREATE TABLE `empleados` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `empleados`
---
-
-INSERT INTO `empleados` (`id`, `nombre`, `password`, `telefono`, `cargo`, `fecha_contratacion`, `salario`, `status`) VALUES
-(31, 'Pedro Pascal', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173ca', '3001213261', 'Recepcionista', '2025-04-19', 120000, 1),
-(32, 'Pedro Pascal', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173ca', '300121326', 'Recepcionista', '2025-04-19', 120000, 1);
 
 -- --------------------------------------------------------
 
@@ -119,9 +126,17 @@ CREATE TABLE `servicios` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `precio` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `duracionMinutos` int(11) NOT NULL
+  `duracionMinutos` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `servicios`
+--
+
+INSERT INTO `servicios` (`id`, `nombre`, `descripcion`, `precio`, `duracionMinutos`, `status`) VALUES
+(1, 'Recorte', NULL, 15000, 20, 1),
+(2, 'perfilado barba', NULL, 10000, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -222,25 +237,25 @@ ALTER TABLE `ventas_productos`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `citas_servicios`
 --
 ALTER TABLE `citas_servicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -252,7 +267,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `servicios`
 --
 ALTER TABLE `servicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`

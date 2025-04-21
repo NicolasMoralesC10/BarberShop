@@ -10,7 +10,7 @@ class Citas extends Controllers
   public function Citas()
   {
     $data['page_title'] = "Citas";
-    $data['page_name'] = "Citas";
+    $data['page_name'] = "citas";
     $data['script'] = "citas";
 
 
