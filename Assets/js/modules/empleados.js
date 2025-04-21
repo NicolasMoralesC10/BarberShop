@@ -165,25 +165,23 @@ function opcionEstado(mode) {
 
 function limpiarFormulario() {
   // Limpiar inputs
-  const inputs = formulario.querySelectorAll('input');
-  inputs.forEach(input => {
-    if (input.hasAttribute('data-ignore-clear')) return;
+  const inputs = formulario.querySelectorAll("input");
+  inputs.forEach((input) => {
+    if (input.hasAttribute("data-ignore-clear")) return;
 
-    if (input.type === 'checkbox' || input.type === 'radio') {
+    if (input.type === "checkbox" || input.type === "radio") {
       input.checked = false;
     } else {
-      input.value = '';
+      input.value = "";
     }
   });
-  
 
   // Limpiar selects
-  const selects = frmCrearEmpleado.querySelectorAll('select');
-  selects.forEach(select => {
+  const selects = frmCrearEmpleado.querySelectorAll("select");
+  selects.forEach((select) => {
     select.selectedIndex = 0;
   });
 }
-
 
 function cargarTabla() {
   tbl_empleados = $("#tbl_empleados").dataTable({
@@ -255,6 +253,8 @@ function cargarTabla() {
     let filtro = $("#tbl_empleados_filter");
     let input = filtro.find("input");
 
+    // Agregar clase personalizada al input
+    input.attr("class", "form-buscar");
     // Crea el nuevo contenedor con el ícono de búsqueda
     let nuevoFiltro = $(`
       <div class="search-container">
