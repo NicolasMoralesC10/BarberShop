@@ -129,13 +129,13 @@ class Empleados extends Controllers
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
   }
 
-  public function getUsuariosById($id)
+  public function getEmpleadoById($id)
   {
 
     $intId = intval(strClean($id));
 
     if ($intId > 0) {
-      $arrData = $this->model->selectUsuariosById($id);
+      $arrData = $this->model->selectEmpleadoById($id);
     } else {
       $arrResponse = array('status' => false, 'msg' => 'tipo de dato no permitido');
     }
@@ -149,11 +149,11 @@ class Empleados extends Controllers
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
   }
 
-  function deleteUsuario()
+  function deleteEmpleado()
   {
     if ($_POST) {
       $intIdEmpleado = intval($_POST['txtIdUsuario']);
-      $requestDelete = $this->model->deleteUsuario($intIdEmpleado);
+      $requestDelete = $this->model->deleteEmpleado($intIdEmpleado);
 
       if ($requestDelete) {
         $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');

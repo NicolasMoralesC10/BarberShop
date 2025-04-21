@@ -8,18 +8,18 @@
             </div>
             <div class="modal-body">
                 <form id="frmCrearEmpleado" method="POST">
-                    <input type="hidden" name="txtIdEmpleado" id="txtIdEmpleado" value="0">
+                    <input type="hidden" name="txtIdEmpleado" id="txtIdEmpleado" value="0" data-ignore-clear>
                     <div class="row">
-                        <div class="mb-3 col-4">
+                        <div class="mb-3 col-4" id="nombreZone">
                             <label for="txtNombre" class="form-label">Nombre Completo</label>
                             <input type="text" class="form-control" id="txtNombre" name="txtNombre">
                         </div>
-                        <div class="mb-3 col-4">
+                        <div class="mb-3 col-4" id="passwordZone">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="text" class="form-control" id="txtPassword" name="txtPassword">
                         </div>
 
-                        <div class="mb-3 col-4">
+                        <div class="mb-3 col-4" id="telefonoZone">
                             <label for="txtTelefono" class="form-label">Telefono</label>
                             <input type="number" class="form-control" id="txtTelefono" name="txtTelefono">
                         </div>
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="mb-3 col-6">
                             <label for="txtSalario" class="form-label">Salario</label>
-                            <input type="number" class="form-control" id="txtSalario" name="txtSalario">
+                            <input type="text" class="form-control" id="txtSalario" name="txtSalario">
                         </div>
 
                         <div class="mb-3 col-6">
@@ -41,18 +41,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6"  id="fechaZone">
                             <label for="txtFechaContratacion" class="form-label">Fecha de Contratacion</label>
                             <input type="date" class="form-control" id="txtFechaContratacion" name="txtFechaContratacion">
                         </div>
-                        <div class="col-6">
-                            <div id="userStatusZone" class="mb-3">
-                                <label for="genero" class="form-label">Estado</label>
-                                <select class="form-control" name="txtEstado" id="txtEstado">
-                                    <option value="1">Activo</option>
-                                    <option value="2">Inactivo</option>
-                                </select>
-                            </div>
+                        <div class="mb-3 col-6" id="userStatusZone">
+                            <label for="genero" class="form-label">Estado</label>
+                            <select class="form-control" name="txtEstado" id="txtEstado">
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
                         </div>
                     </div>
             </div>

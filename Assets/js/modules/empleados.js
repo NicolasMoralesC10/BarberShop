@@ -15,10 +15,29 @@ cargarTabla();
 
 btnAgregar.addEventListener("click", () => {
   $("#crearEmpleadoModal").modal("show");
+  opcionEstado(false);
+});
+
+txtSalario.addEventListener("input", (e) => {
+  // Eliminar cualquier carácter que no sea dígito
+  let valor = e.target.value.replace(/\D/g, "");
+
+  // Aplicar formato con puntos como separador de miles
+  valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  e.target.value = valor;
+});
+
+// Limpiar el formato al enviar el formulario
+document.querySelector("form").addEventListener("submit", function () {
+  const raw = txtSalario.value.replace(/\./g, "");
+  txtSalario.value = raw;
 });
 
 frmCrearEmpleado.addEventListener("submit", (e) => {
   e.preventDefault();
+  const raw = txtSalario.value.replace(/\./g, "");
+  txtSalario.value = raw;
   let frmEmpleado = new FormData(frmCrearEmpleado);
   fetch(base_url + "/empleados/setEmpleado", {
     method: "POST",
@@ -62,7 +81,7 @@ document.addEventListener("click", (e) => {
         if (result.isConfirmed) {
           let frmData = new FormData();
           frmData.append("txtIdEmpleado", id);
-          fetch(base_url + "/empleado/deleteEmpleado", {
+          fetch(base_url + "/empleados/deleteEmpleado", {
             method: "POST",
             body: frmData
           })
@@ -80,7 +99,7 @@ document.addEventListener("click", (e) => {
     }
 
     if (action == "edit") {
-      fetch(base_url + "/empleado/getEmpleadoById/" + id)
+      fetch(base_url + "/empleados/getEmpleadoById/" + id)
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
@@ -110,14 +129,61 @@ document.addEventListener("click", (e) => {
 });
 
 function opcionEstado(mode) {
-  let userStatus = document.getElementById("userStatusZone");
+  const userStatus = document.getElementById("userStatusZone");
+  const passwordZone = document.getElementById("passwordZone");
+  const nombreZone = document.getElementById("nombreZone");
+  const telefonoZone = document.getElementById("telefonoZone");
+  const fechaZone = document.getElementById("fechaZone");
 
   if (mode) {
+    // Ocultar contraseña
+    passwordZone.style.display = "none";
+    nombreZone.classList.remove("col-4");
+    nombreZone.classList.add("col-6");
+    telefonoZone.classList.remove("col-4");
+    telefonoZone.classList.add("col-6");
+
+    // Mostrar estado y restaurar columnas
     userStatus.style.display = "block";
+    userStatus.classList.remove("d-none");
+    fechaZone.classList.remove("col-12");
+    fechaZone.classList.add("col-6");
   } else {
+    // Mostrar campo de contraseña
+    passwordZone.style.display = "block";
+    passwordZone.classList.add("col-4");
+    nombreZone.classList.remove("col-6");
+    nombreZone.classList.add("col-4");
+    telefonoZone.classList.remove("col-6");
+    telefonoZone.classList.add("col-4");
+    // Ocultar estado y expandir fecha de contratación
     userStatus.style.display = "none";
+    fechaZone.classList.remove("col-6");
+    fechaZone.classList.add("col-12");
   }
 }
+
+function limpiarFormulario() {
+  // Limpiar inputs
+  const inputs = formulario.querySelectorAll('input');
+  inputs.forEach(input => {
+    if (input.hasAttribute('data-ignore-clear')) return;
+
+    if (input.type === 'checkbox' || input.type === 'radio') {
+      input.checked = false;
+    } else {
+      input.value = '';
+    }
+  });
+  
+
+  // Limpiar selects
+  const selects = frmCrearEmpleado.querySelectorAll('select');
+  selects.forEach(select => {
+    select.selectedIndex = 0;
+  });
+}
+
 
 function cargarTabla() {
   tbl_empleados = $("#tbl_empleados").dataTable({
