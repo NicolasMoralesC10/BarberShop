@@ -74,8 +74,8 @@ class Clientes extends Controllers
           if ($intStatus == 0) {
             $intStatus = 1;
           }
-          $insert = $this->model->updateEmpleado(
-            $intIdEmpleado,
+          $insert = $this->model->updateCliente(
+            $intIdCliente,
             $strNombre,
             $strTelefono,
             $intStatus
@@ -108,7 +108,6 @@ class Clientes extends Controllers
 
   public function getClienteById($id)
   {
-
     $intId = intval(strClean($id));
 
     if ($intId > 0) {

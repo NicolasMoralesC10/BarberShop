@@ -60,7 +60,7 @@ class ClientesModel extends mysql
             $query_insert = "UPDATE clientes SET nombre = ?, telefono = ?, status = ? WHERE status > 0 AND id = {$this->idCliente}";
             $arrData = array(
                 $this->strNombre,
-                $this->intTelefono,
+                $this->strTelefono,
                 $this->intStatus,
             );
             $reques_insert = $this->update($query_insert, $arrData);
@@ -75,7 +75,7 @@ class ClientesModel extends mysql
         $this->idCliente = $idCliente;
 
         $sql = "UPDATE clientes SET status = ? WHERE id = ?";
-        $arrData = array(2, $this->idCliente);
+        $arrData = array(0, $this->idCliente);
         $request = $this->update($sql, $arrData);
         return $request;
     }
