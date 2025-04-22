@@ -108,14 +108,14 @@ class Empleados extends Controllers
         if (intval($insert) > 0) {
 
           if ($option == 1) {
-            $arrResponse = array('status' => true, 'msg' => 'Usuario insertado correctamente');
+            $arrResponse = array('status' => true, 'msg' => 'Empleado insertado correctamente');
           }
 
           if ($option == 2) {
-            $arrResponse = array('status' => true, 'msg' => 'Usuario actualizado correctamente');
+            $arrResponse = array('status' => true, 'msg' => 'Empleado actualizado correctamente');
           }
         } else if ($insert == 'exist') {
-          $arrResponse = array('status' => false, 'msg' => 'Ya existe un usuario con el mismo Telefono');
+          $arrResponse = array('status' => false, 'msg' => 'Ya existe un Empleado con el mismo Telefono');
         } else {
           $arrResponse = array('status' => false, 'msg' => 'Error al insertar');
         }
