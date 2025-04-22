@@ -121,4 +121,14 @@ class CitasModel extends mysql
         $request = $this->select_all($sql);
         return $request;
     }
+
+    public function cancelarCita(int $citaId)
+    {
+        $this->citaId = $citaId;
+
+        $sql = "UPDATE citas SET status = ? WHERE id = ?";
+        $arrData = array(0, $this->citaId);
+        $request = $this->update($sql, $arrData);
+        return $request;
+    }
 }

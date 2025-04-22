@@ -69,10 +69,7 @@ class Citas extends Controllers
         $hIni12 = (new DateTime($startSrv))->format('g:i A');
         $hFin12 = (new DateTime($endSrv))->format('g:i A');
 
-        echo json_encode([
-          'status' => false,
-          'msg'    => "El empleado “{$empleadoNombre}” ya tiene una cita de {$hIni12} a {$hFin12}."
-        ], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['status' => false, 'msg' => "El empleado “{$empleadoNombre}” ya tiene una cita de {$hIni12} a {$hFin12}."], JSON_UNESCAPED_UNICODE);
         return;
       }
 
@@ -114,22 +111,12 @@ class Citas extends Controllers
           $currentStart = $dtServiceEnd;
         }
 
-        $arrResponse = [
-          'status' => true,
-          'msg'    => 'Cita agendada correctamente',
-          'id'     => $newCitaId
-        ];
+        $arrResponse = ['status' => true, 'msg' => 'Cita agendada correctamente', 'id' => $newCitaId];
       } else {
-        $arrResponse = [
-          'status' => false,
-          'msg'    => 'Error al insertar la cita'
-        ];
+        $arrResponse = ['status' => false, 'msg' => 'Error al insertar la cita'];
       }
     } catch (\Throwable $e) {
-      $arrResponse = [
-        'status' => false,
-        'msg'    => 'Excepción: ' . $e->getMessage()
-      ];
+      $arrResponse = ['status' => false, 'msg' => 'Excepción: ' . $e->getMessage()];
     }
 
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
@@ -169,6 +156,30 @@ class Citas extends Controllers
     $citas = array_values($citas);
 
     echo json_encode($citas, JSON_UNESCAPED_UNICODE);
+  }
+
+  public function cancelarCita()
+  {
+    $json  = file_get_contents('php://input');
+    $input = json_decode($json, true);
+
+    if (empty($input['id'])) {
+      echo json_encode(['status' => false, 'msg' => 'ID de cita no proporcionado'], JSON_UNESCAPED_UNICODE);
+      return;
+    }
+    $citaId = intval(strClean($input['id']));
+
+    try {
+      $result = $this->model->cancelarCita($citaId);
+
+      if ($result > 0) {
+        echo json_encode(['status' => true, 'msg' => 'Cita cancelada correctamente'], JSON_UNESCAPED_UNICODE);
+      } else {
+        echo json_encode(['status' => false, 'msg' => 'No se encontró la cita o ya estaba cancelada'], JSON_UNESCAPED_UNICODE);
+      }
+    } catch (\Throwable $e) {
+      echo json_encode(['status' => false,'msg' => 'Error al cancelar la cita: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
   }
 
 

@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-gradient-dark">
-        <h5 class="modal-title text-light" id="modalCitaLabel">Detalles de la Cita</h5>
+        <h5 class="modal-title text-light text-bold fs-6" id="modalCitaLabel">Detalles de la Cita</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -41,7 +41,7 @@
 
       <div class="modal-footer">
         <!-- Acciones -->
-        <button type="button" class="btn btn-primary" id="btn-cancelar">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btn-cancelar">Cancelar Cita</button>
         <button type="button" class="btn btn-info" id="btn-reprogramar">Reprogramar</button>
         <button type="button" class="btn bg-gradient-dark" id="btn-guardar">Guardar cambios</button>
       </div>
@@ -60,7 +60,7 @@
     <div class="modal-content">
       <form id="formCrearCita">
         <div class="modal-header bg-gradient-dark">
-          <h5 class="modal-title text-light" id="modalCrearCitaLabel">Nueva Cita</h5>
+          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearCitaLabel">Nueva Cita</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">

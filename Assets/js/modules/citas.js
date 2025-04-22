@@ -137,13 +137,13 @@ document.addEventListener("DOMContentLoaded", function () {
         cliente: info.event.title,
         start: info.event.startStr,
         end: info.event.endStr,
-        items: info.event.extendedProps.items, // ✅ este es el array correcto
+        items: info.event.extendedProps.items,
         total: info.event.extendedProps.total,
         status: info.event.extendedProps.status,
         notas: info.event.extendedProps.notas || ""
       };
 
-      abrirModalEditar(data);
+      abrirModalEditar(data, calendar);
     }
   });
 
@@ -341,8 +341,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function abrirModalEditar(data) {
+function abrirModalEditar(data, calendar) {
   // Cabecera
+  document.getElementById("btn-cancelar").dataset.id = data.id;
   document.getElementById("mc-cliente").textContent = data.cliente;
   document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString("es-CO", {
     dateStyle: "medium"
@@ -354,7 +355,7 @@ function abrirModalEditar(data) {
 
   // Estado
   const statusMap = {
-    1: ["Pendiente", "bg-gradient-dark text-light"],
+    1: ["Pendiente", "bg-gradient-dark"],
     2: ["Confirmada", "bg-success"],
     3: ["Cancelada", "bg-danger"]
   };
@@ -399,6 +400,72 @@ function abrirModalEditar(data) {
     style: "currency",
     currency: "COP"
   }).format(data.total);
+
+  // 1. Elimina el event listener existente
+  const btnCancelar = document.getElementById("btn-cancelar");
+  const btnCancelarClonado = btnCancelar.cloneNode(true);
+  btnCancelar.parentNode.replaceChild(btnCancelarClonado, btnCancelar);
+
+  // 2. Agrega el event listener al botón clonado
+  btnCancelarClonado.addEventListener("click", () => {
+    const idCita = btnCancelarClonado.dataset.id;
+
+    if (!idCita) return;
+
+    Swal.fire({
+      icon: "warning",
+      title: "¿Estás seguro?",
+      text: "La cita se marcará como cancelada y no podrás revertirla.",
+      showCancelButton: true,
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No, mantener"
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+
+      fetch(`${base_url}/citas/cancelarCita`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: idCita })
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then((json) => {
+          if (json.status) {
+            Swal.fire({
+              icon: "success",
+              title: "Cancelada",
+              text: json.msg,
+              timer: 1500,
+              showConfirmButton: false
+            });
+
+            // Actualiza badge
+            const badge = document.getElementById("mc-status");
+            badge.textContent = "Cancelada";
+            badge.className = "badge bg-danger";
+
+            // Elimina evento del calendario
+            try {
+              const ev = calendar.getEventById(idCita);
+              if (ev) ev.remove();
+            } catch (error) {
+              console.error("Error al eliminar evento del calendario:", error);
+              Swal.fire("Error", "No se pudo eliminar el evento del calendario.", "error");
+            }
+
+            bootstrap.Modal.getInstance(document.getElementById("modalCita")).hide();
+          } else {
+            Swal.fire("Error", json.msg, "error");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          Swal.fire("Error", "No se pudo conectar con el servidor.", "error");
+        });
+    });
+  });
 
   // Mostrar modal
   new bootstrap.Modal(document.getElementById("modalCita")).show();

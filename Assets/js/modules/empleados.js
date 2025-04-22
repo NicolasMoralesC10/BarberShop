@@ -71,12 +71,12 @@ document.addEventListener("click", (e) => {
 
     if (action == "delete") {
       Swal.fire({
-        title: "Eliminar empleado",
-        text: "¿Está seguro de eliminar el empleado?",
         icon: "warning",
-        showDenyButton: true,
-        confirmButtonText: "Sí",
-        denyButtonText: `Cancelar`
+        title: "¿Estás seguro?",
+        text: "El empleado sera eliminado y no podrás revertirlo.",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "No, mantener"
       }).then((result) => {
         if (result.isConfirmed) {
           let frmData = new FormData();
