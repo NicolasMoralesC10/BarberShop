@@ -23,7 +23,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?= $data['page_name'] != 'clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
+        <a class="nav-link <?= $data['page_name'] != 'Clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
           <i class="material-symbols-rounded opacity-5">group</i>
           <span class="nav-link-text ms-1">Clientes</span>
         </a>
