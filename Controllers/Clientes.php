@@ -85,22 +85,22 @@ class Clientes extends Controllers
 
         if (intval($insert) > 0) {
           if ($option == 1) {
-            $arrResponse = array('status' => true, 'msg' => 'Cliente insertado correctamente');
+            $arrResponse = array('status' => true, 'msg' => 'Cliente creado correctamente.');
           }
 
           if ($option == 2) {
-            $arrResponse = array('status' => true, 'msg' => 'Cliente actualizado correctamente');
+            $arrResponse = array('status' => true, 'msg' => 'Cliente actualizado correctamente.');
           }
         } else if ($insert == 'exist') {
-          $arrResponse = array('status' => false, 'msg' => 'Ya existe un cliente con el mismo telefono');
+          $arrResponse = array('status' => false, 'msg' => 'Ya existe un cliente con este telefono.');
         } else {
-          $arrResponse = array('status' => false, 'msg' => 'Error al insertar');
+          $arrResponse = array('status' => false, 'msg' => 'Error al crear el usuario.');
         }
       } catch (\Throwable $th) {
         $arrResponse = array('status' => false, 'msg' => "Error desconocido: $th");
       }
     } else {
-      $arrResponse = array('status' => false, 'msg' => 'Debe insertar todos los datos');
+      $arrResponse = array('status' => false, 'msg' => 'Debe insertar todos los datos.');
     }
 
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

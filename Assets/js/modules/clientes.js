@@ -1,5 +1,6 @@
 let tbl_clientes = document.querySelector("#tbl_clientes");
 let btnAgregar = document.querySelector("#btnAgregar");
+let btnCerrar = document.querySelector("#btnCerrar");
 let frmCrearCliente = document.querySelector("#frmCrearCliente");
 
 let txtIdCliente = document.querySelector("#txtIdCliente");
@@ -7,8 +8,14 @@ let txtNombre = document.querySelector("#txtNombre");
 let txtTelefono = document.querySelector("#txtTelefono");
 let txtEstado = document.querySelector("#txtEstado");
 
+cargarTabla();
+
 btnAgregar.addEventListener("click", () => {
   $("#crearClienteModal").modal("show");
+});
+
+btnCerrar.addEventListener("click", () => {
+  limpiarFormulario();
 });
 
 frmCrearCliente.addEventListener("submit", (e) => {
@@ -47,7 +54,7 @@ document.addEventListener("click", (e) => {
     if (action == "delete") {
       Swal.fire({
         title: "Eliminar cliente",
-        text: "¿Está seguro de eliminar el cliente?",
+        text: "¿Desea eliminar este cliente?",
         icon: "warning",
         showDenyButton: true,
         confirmButtonText: "Sí",
@@ -175,7 +182,9 @@ function cargarTabla() {
     let filtro = $("#tbl_clientes_filter");
     let input = filtro.find("input");
 
+    // Agregar clase personalizada al input
     input.attr("class", "form-buscar");
+
     // Crea el nuevo contenedor con el ícono de búsqueda
     let nuevoFiltro = $(`
       <div class="search-container">
@@ -199,4 +208,15 @@ function cargarTabla() {
   }, 200);
 }
 
-cargarTabla();
+function limpiarFormulario() {
+  const inputs = frmCrearCliente.querySelectorAll("input");
+  inputs.forEach((input) => {
+    if (input.hasAttribute("data-ignore-clear")) return;
+    if (input.type === "checkbox" || input.type === "radio") {
+      input.checked = false;
+    } else {
+      input.value = "";
+      input.value = "";
+    }
+  });
+}
