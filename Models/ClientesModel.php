@@ -50,7 +50,7 @@ class ClientesModel extends mysql
         $this->strTelefono = $strTelefono;
         $this->intStatus = $status;
 
-        $sql = "SELECT * FROM clientes WHERE (telefono = {$this->strTelefono} AND status = 1) AND id != {$this->idCliente}";
+        $sql = "SELECT * FROM clientes WHERE (telefono = {$this->strTelefono} AND status > 0) AND id != {$this->idCliente}";
 
         $request = $this->select_all($sql);
 

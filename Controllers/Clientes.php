@@ -49,6 +49,25 @@ class Clientes extends Controllers
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
   }
 
+  public function getClienteById($id)
+  {
+    $intId = intval(strClean($id));
+
+    if ($intId > 0) {
+      $arrData = $this->model->selectClienteById($id);
+    } else {
+      $arrResponse = array('status' => false, 'msg' => 'Tipo de dato no permitido.');
+    }
+
+    if (!empty($arrData)) {
+      $arrResponse = array('status' => true, 'data' => $arrData);
+    } else {
+      $arrResponse = array('status' => false, 'msg' => 'No se encontraron datos con este ID.');
+    }
+
+    echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+  }
+
   public function setCliente()
   {
     $arrPosts = [
@@ -101,25 +120,6 @@ class Clientes extends Controllers
       }
     } else {
       $arrResponse = array('status' => false, 'msg' => 'Debe insertar todos los datos.');
-    }
-
-    echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-  }
-
-  public function getClienteById($id)
-  {
-    $intId = intval(strClean($id));
-
-    if ($intId > 0) {
-      $arrData = $this->model->selectClienteById($id);
-    } else {
-      $arrResponse = array('status' => false, 'msg' => 'tipo de dato no permitido');
-    }
-
-    if (!empty($arrData)) {
-      $arrResponse = array('status' => true, 'data' => $arrData);
-    } else {
-      $arrResponse = array('status' => false, 'msg' => 'No se encontraron datos con este id');
     }
 
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

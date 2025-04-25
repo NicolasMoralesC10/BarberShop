@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?= $data['page_name'] != 'servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
+        <a class="nav-link <?= $data['page_name'] != 'Servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
           <i class="material-symbols-rounded opacity-5">content_cut</i>
           <span class="nav-link-text ms-1">Servicios</span>
         </a>
