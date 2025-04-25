@@ -34,7 +34,7 @@
   <!-- Template Main JS File -->
   <script src="<?= media() ?>/js/main.js"></script>
   <?php if (isset($data['script'])): ?>
-    <script src="<?= media() ?>/js/<?= $data['script'] ?>.js"></script>
+    <script src="<?= media() ?>/js/modules/<?= $data['script'] ?>.js"></script>
   <?php endif; ?>
 
   </body>
