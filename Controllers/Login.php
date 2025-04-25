@@ -21,13 +21,13 @@ class Login extends Controllers
     public function loginUser()
     {
         if ($_POST) {
-            $arrPost = ['txtNombre', 'txtPassword'];
+            $arrPost = ['txtTelefono', 'txtPassword'];
             if (!check_post($arrPost)) {
                 $arrResponse = array('status' => false, 'msg' => 'Error de datos');
             } else {
-                $strUsuario = strClean($_POST['txtNombre']);
+                $strTelefono = strClean($_POST['txtTelefono']);
                 $strPassword = hash("SHA256", $_POST['txtPassword']);
-                $requestUser = $this->model->loginUser($strUsuario, $strPassword);
+                $requestUser = $this->model->loginUser($strTelefono, $strPassword);
                 if (empty($requestUser)) {
                     $arrResponse = array('status' => false, 'msg' => 'El usuario o la contraseña es incorrecto');
                 } else {

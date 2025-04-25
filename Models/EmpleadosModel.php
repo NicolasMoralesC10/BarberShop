@@ -90,7 +90,7 @@ class EmpleadosModel extends mysql
         $this->idEmpleado = $idEmpleado;
 
         $sql = "UPDATE empleados SET status = ? WHERE id = ?";
-        $arrData = array(2, $this->idEmpleado);
+        $arrData = array(0, $this->idEmpleado);
         $request = $this->update($sql, $arrData);
         return $request;
     }

@@ -108,6 +108,14 @@
                           <i class="material-symbols-rounded opacity-9">account_circle</i>
                       </a>
                   </li>
+                  <li class="nav-item d-flex ps-3 align-items-center">
+                      <a href="<?= base_url() ?>/logout" class="nav-link text-body font-weight-bold px-0">
+                          <i class="material-symbols-rounded opacity-9"><span class="material-symbols-outlined">
+                                  logout
+                              </span>
+                          </i>
+                      </a>
+                  </li>
               </ul>
           </div>
       </div>

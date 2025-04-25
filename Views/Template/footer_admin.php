@@ -107,7 +107,7 @@
 <script src="<?= media() ?>/vendor/jquery/jquery-ui.js"></script>
 <script src="<?= media() ?>/vendor/datatables/datatables.min.js"></script>
 <script src="<?= media() ?>/vendor/fullcalendar/dist/index.global.min.js"></script>
-
+<script src="<?= media() ?>/vendor/sweetalert/sweetalert2.all.min.js"></script>
 
 
 <!-- jQuery y Bootstrap Bundle -->
@@ -121,11 +121,11 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <!-- <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script> -->
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
 <!-- PDFMake (para exportar PDF) -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>

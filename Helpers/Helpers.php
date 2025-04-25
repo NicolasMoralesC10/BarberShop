@@ -34,6 +34,12 @@ function footer_admin($data = "")
     require_once($view_footer);
 }
 
+function footer_login($data = "")
+{
+    $view_footer = "Views/Template/footer_login.php";
+    require_once($view_footer);
+}
+
 function dep($data)
 {
     $format = print_r('<pre>');

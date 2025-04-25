@@ -152,7 +152,7 @@ class Empleados extends Controllers
   function deleteEmpleado()
   {
     if ($_POST) {
-      $intIdEmpleado = intval($_POST['txtIdUsuario']);
+      $intIdEmpleado = intval($_POST['txtIdEmpleado']);
       $requestDelete = $this->model->deleteEmpleado($intIdEmpleado);
 
       if ($requestDelete) {

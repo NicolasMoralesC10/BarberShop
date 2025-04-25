@@ -4,7 +4,7 @@ class LoginModel extends Mysql
 {
 
     private $intIdUsuario;
-    private $strEmpleado;
+    private $strTelefono;
     private $strToken;
 
     public function __construct()
@@ -12,12 +12,12 @@ class LoginModel extends Mysql
         parent::__construct();
     }
 
-    public function loginUser(string $empleado, string $password)
+    public function loginUser(string $telefono, string $password)
     {
-        $this->strEmpleado = $empleado;
+        $this->strTelefono = $telefono;
         $this->strPassword = $password;
         $sql = "SELECT id, status FROM empleados WHERE
-        nombre = '{$this->strEmpleado}' AND
+        telefono = '{$this->strTelefono}' AND
         password = '{$this->strPassword}' AND
         status = 1";
 

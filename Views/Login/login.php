@@ -31,6 +31,7 @@
     <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- CSS Files -->
+    <link rel="stylesheet" href="<?= media() ?>/vendor/sweetalert/sweetalert2.min.css">
     <link id="pagestyle" href="<?= media() ?>/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
 
@@ -68,12 +69,12 @@
                             <div class="card-body">
                                 <form id="formLogin" method="POST" class="text-start" novalidate>
                                     <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Nombre</label>
-                                        <input type="text" id="txtNombre" name="txtNombre" class="form-control">
+                                        <label class="form-label">Telefono</label>
+                                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required>
                                     </div>
                                     <div class="input-group input-group-outline mb-3">
                                         <label class="form-label">Contraseña</label>
-                                        <input type="password" id="txtPassword" name="txtPassword" class="form-control">
+                                        <input type="password" id="txtPassword" name="txtPassword" class="form-control" required>
                                     </div>
                                     <!-- <div class="form-check form-switch d-flex align-items-center mb-3">
                                         <input class="form-check-input" type="checkbox" id="rememberMe" checked>
@@ -92,59 +93,10 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer position-absolute bottom-2 py-2 w-100">
-                <div class="container">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-12 col-md-6 my-auto">
-                            <div class="copyright text-center text-sm text-white text-lg-start">
-                                © <script>
-                                    document.write(new Date().getFullYear())
-                                </script>,
-                                made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                                <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Creative Tim</a>
-                                for a better web.
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com" class="nav-link text-white" target="_blank">Creative Tim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-white" target="_blank">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/blog" class="nav-link text-white" target="_blank">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-white" target="_blank">License</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </main>
-    <!--   Core JS Files   -->
-    <script src="<?= media() ?>/js/core/popper.min.js"></script>
-    <script src="<?= media() ?>/js/core/bootstrap.min.js"></script>
-    <script src="<?= media() ?>/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="<?= media() ?>/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="<?= media() ?>/js/modules/login.js"></script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="<?= media() ?>/js/material-dashboard.min.js?v=3.2.0"></script>
+    <?php footer_login($data); ?>
 </body>
 
 </html>
