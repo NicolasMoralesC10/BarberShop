@@ -14,7 +14,6 @@ cargarTabla();
 
 btnAgregar.addEventListener("click", () => {
   $("#crearProductoModal").modal("show");
-  // opcionEstado(false);
 });
 txtStock.addEventListener("input", (e) => {
   // Eliminar cualquier carácter que no sea dígito
@@ -53,7 +52,9 @@ document.querySelector("form").addEventListener("submit", function () {
   const raw3 = txtStockMin.value.replace(/\./g, "");
   txtStockMin.value = raw3;
 });
-
+btnCerrar.addEventListener("click", () => {
+  limpiarFormulario();
+});
 frmCrearProducto.addEventListener("submit", (e) => {
   e.preventDefault();
   const raw = txtPrecio.value.replace(/\./g, "");
@@ -137,7 +138,6 @@ document.addEventListener("click", (e) => {
             txtIdProducto.value = data.id;
             txtEstado.value = data.status;
             $("#crearProductoModal").modal("show");
-            // opcionEstado(true);
           } else {
             Swal.fire({
               title: "Error",
@@ -150,45 +150,6 @@ document.addEventListener("click", (e) => {
     }
   } catch {}
 });
-
-// function opcionEstado(mode) {
-//   const productStatus = document.getElementById("productStatusZone");
-//   const descripcionZone = document.getElementById("descripcionZone");
-//   const stockZone = document.getElementById("stockZone");
-//   const stockMinZone = document.getElementById("stockMinZone");
-//   const telefonoZone = document.getElementById("telefonoZone");
-
-//   if (mode) {
-//     // Ocultar contraseña
-//     descripcionZone.style.display = "none";
-//     stockZone.classList.remove("col-4");
-//     stockZone.classList.add("col-6");
-//     nombreZone.classList.remove("col-6");
-//     nombreZone.classList.add("col-4");
-//     stockMinZone.classList.remove("col-4");
-//     stockMinZone.classList.add("col-6");
-
-//     // Mostrar estado y restaurar columnas
-//     productStatus.style.display = "block";
-//     productStatus.classList.remove("d-none");
-//     telefonoZone.classList.remove("col-12");
-//     telefonoZone.classList.add("col-6");
-//   } else {
-//     // Mostrar campo de contraseña
-//     descripcionZone.style.display = "block";
-//     descripcionZone.classList.add("col-4");
-//     stockZone.classList.remove("col-6");
-//     stockZone.classList.add("col-4");
-//     nombreZone.classList.remove("col-6");
-//     nombreZone.classList.add("col-4");
-//     stockMinZone.classList.remove("col-6");
-//     stockMinZone.classList.add("col-4");
-//     // Ocultar estado y expandir fecha de contratación
-//     productStatus.style.display = "none";
-//     telefonoZone.classList.remove("col-6");
-//     telefonoZone.classList.add("col-12");
-//   }
-// }
 
 function limpiarFormulario() {
   // Limpiar inputs
@@ -316,4 +277,16 @@ function cargarTabla() {
     // Reemplazar el contenido del filtro con la nueva estructura
     filtro.html(nuevoFiltro);
   }, 200);
+}
+function limpiarFormulario() {
+  const inputs = frmCrearProducto.querySelectorAll("input");
+  inputs.forEach((input) => {
+    if (input.hasAttribute("data-ignore-clear")) return;
+    if (input.type === "checkbox" || input.type === "radio") {
+      input.checked = false;
+    } else {
+      input.value = "";
+      input.value = "";
+    }
+  });
 }

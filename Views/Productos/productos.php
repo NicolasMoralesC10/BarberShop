@@ -20,9 +20,10 @@ getModal('productosModal', $data); ?>
               <tr>
                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Descripción</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Precio</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Stock</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
               </tr>
             </thead>
 
