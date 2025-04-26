@@ -8,6 +8,7 @@ class Login extends Controllers
         session_start();
         if (isset($_SESSION['login'])) {
             header('Location: ' . base_url() . '/dashboard');
+            exit();
         }
     }
     public function login()

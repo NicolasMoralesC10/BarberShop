@@ -14,7 +14,7 @@
                       <input type="text" class="form-control">
                   </div>
               </div>
-              <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+              <ul class="navbar-nav d-flex align-items-center pt-1 justify-content-end">
                   <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                           <div class="sidenav-toggler-inner">
@@ -103,11 +103,35 @@
                           </li>
                       </ul>
                   </li>
-                  <li class="nav-item d-flex align-items-center">
-                      <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+                  <li class="nav-item dropdown pe-3 d-flex align-items-center">
+                      <a href="javascript:;" class="nav-link text-body p-0" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="material-symbols-rounded opacity-9">account_circle</i>
                       </a>
+                      <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="userDropdown">
+                          <li>
+                              <a class="dropdown-item border-radius-md d-flex align-items-center" href="/perfil">
+                                  <i class="material-symbols-rounded me-2">person</i>
+                                  <span><?= isset($_SESSION) ? $_SESSION['userData']['nombre'] : "Sesion no iniciada"; ?></span>
+                              </a>
+                          </li>
+                          <hr class="dropdown-divider my-1">
+                          <li>
+                              <a class="dropdown-item border-radius-md d-flex align-items-center">
+                                  <i class="material-symbols-rounded me-2">admin_panel_settings</i>
+                                  <span><?= isset($_SESSION) ? $_SESSION['userData']['cargo'] : "Informacion no disponible" ?></span></span>
+                              </a>
+                          </li>
+                          <hr class="dropdown-divider my-1">
+                          <li>
+                              <a class="dropdown-item border-radius-md d-flex align-items-center" href="/configuracion">
+                                  <i class="material-symbols-rounded me-2">settings</i>
+                                  <span>Configuración</span>
+                              </a>
+                          </li>
+
+                      </ul>
                   </li>
+
                   <li class="nav-item d-flex ps-3 align-items-center">
                       <a href="<?= base_url() ?>/logout" class="nav-link text-body font-weight-bold px-0">
                           <i class="material-symbols-rounded opacity-9"><span class="material-symbols-outlined">

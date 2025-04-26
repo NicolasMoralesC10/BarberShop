@@ -6,6 +6,11 @@ class Citas extends Controllers
   public function __construct()
   {
     parent::__construct();
+    session_start();
+    if (empty($_SESSION['login'])) {
+      header('Location: ' . base_url() . '/login');
+      
+    }
   }
   public function Citas()
   {
@@ -178,7 +183,7 @@ class Citas extends Controllers
         echo json_encode(['status' => false, 'msg' => 'No se encontró la cita o ya estaba cancelada'], JSON_UNESCAPED_UNICODE);
       }
     } catch (\Throwable $e) {
-      echo json_encode(['status' => false,'msg' => 'Error al cancelar la cita: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+      echo json_encode(['status' => false, 'msg' => 'Error al cancelar la cita: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
     }
   }
 
