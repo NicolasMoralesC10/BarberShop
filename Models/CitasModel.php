@@ -96,6 +96,7 @@ class CitasModel extends mysql
           INNER JOIN citas_servicios cs ON c.id = cs.cita_id
           INNER JOIN servicios s ON cs.servicio_id = s.id
           INNER JOIN empleados e ON cs.empleado_id = e.id
+          WHERE c.status = 1 
           ORDER BY c.id, cs.id";
         $request = $this->select_all($sql);
         return $request;
