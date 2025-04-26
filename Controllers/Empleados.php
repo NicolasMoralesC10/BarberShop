@@ -33,7 +33,7 @@ class Empleados extends Controllers
                       </div>
                     </div>';
       $arrData[$i]['cargoF'] = ' <p class="text-xs font-weight-bold mb-0"  style="text-align:left">' . $arrData[$i]['cargo'] . '</p>
-                    <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
+                    <p class="text-xs text-secondary mb-0" style="text-align:left">Barber Shop</p>';
 
       $arrData[$i]['fecha_contratacionF'] =  '
                     <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['fecha_contratacion'] . '</span>
@@ -48,10 +48,10 @@ class Empleados extends Controllers
 
       if ($arrData[$i]['status'] == 1) {
         $arrData[$i]['status'] = '
-                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;">Online</span>
+                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;padding-top:8px">Activo</span>
                ';
       } else {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;">Offline</span>';
+        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;padding-top:8px">Inactivo</span>';
       }
     }
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
