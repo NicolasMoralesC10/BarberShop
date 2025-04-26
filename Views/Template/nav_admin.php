@@ -1,5 +1,5 @@
   <!-- Navbar -->
-  <nav class="navbar navbar-main navbar-expand-lg px-1 mx-3 mt-3 mb-3 shadow-none border-radius-xl blur shadow-blur" id="navbarBlur" data-scroll="true">
+  <nav class="navbar navbar-main navbar-expand-lg px-1 mx-3 mt-3 mb-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
       <div class="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -32,14 +32,14 @@
 
                   <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="material-symbols-rounded opacity-9">notifications</i>
+                          <i class="material-symbols-rounded">notifications</i>
                       </a>
                       <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                           <li class="mb-2">
                               <a class="dropdown-item border-radius-md" href="javascript:;">
                                   <div class="d-flex py-1">
                                       <div class="my-auto">
-                                          <img src="<?= media() ?>/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                          <img src="<?= media() ?>/img/team-2.jpg" class="avatar avatar-sm me-3 ">
                                       </div>
                                       <div class="d-flex flex-column justify-content-center">
                                           <h6 class="text-sm font-weight-normal mb-1">

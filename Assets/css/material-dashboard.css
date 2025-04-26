@@ -4984,6 +4984,7 @@ fieldset:disabled .btn {
   --bs-navbar-toggler-border-radius: 0.375rem;
   --bs-navbar-toggler-focus-width: 0.2rem;
   --bs-navbar-toggler-transition: box-shadow 0.15s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.9) !important;
   position: relative;
   display: flex;
   flex-wrap: wrap;
