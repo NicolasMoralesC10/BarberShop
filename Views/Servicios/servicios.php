@@ -10,12 +10,12 @@ getModal('serviciosModal', $data); ?>
     <div class="card my-4">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
         <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-          <h6 class="text-white text-capitalize ps-3">Tabla <?= $data['page_title'] ?></h6>
+          <h6 class="text-white text-capitalize ps-3"><?= $data['page_title'] ?></h6>
         </div>
       </div>
       <div class="card-body px-1 pb-2">
         <div class="contennedor">
-          <div class="row ps-5 pe-5" style="gap: 12.5%;" id="cards_servicios">
+          <div class="row ps-5 pe-5" style="gap: 11.1%;" id="cards_servicios">
 
           </div>
         </div>

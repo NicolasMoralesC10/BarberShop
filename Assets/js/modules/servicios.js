@@ -48,7 +48,8 @@ frmCrearServicio.addEventListener("submit", (e) => {
           icon: "success",
         });
         /* tbl_clientes.api().ajax.reload(function () {}); */
-        cards_servicios.api().ajax.reload(function () {});
+        /* cards_servicios.api().ajax.reload(function () {}); */
+        window.reload();
         $("#crearServicioModal").modal("hide");
         /*  clearForm() */
       } else {
@@ -105,11 +106,12 @@ document.addEventListener("click", (e) => {
             console.log(data);
             txtNombre.value = data.nombre;
             txtPrecio.value = data.precio;
-            txtDescripcion.value = data.telefono;
-            txtImagen.value = data.imagen;
+            txtDescripcion.value = data.descripcion;
+            /* txtImagen.value = data.imagen; */
+            document.getElementById("imgPreview").src = data.imagen;
             txtIdServicio.value = data.id;
             $("#crearServicioModal").modal("show");
-            opcionEstado(true);
+            /* opcionEstado(true); */
           } else {
             Swal.fire({
               title: "Error",
@@ -124,7 +126,7 @@ document.addEventListener("click", (e) => {
   } catch {}
 });
 
-function opcionEstado(mode) {
+/* function opcionEstado(mode) {
   let userStatus = document.getElementById("userStatusZone");
 
   if (mode) {
@@ -132,7 +134,7 @@ function opcionEstado(mode) {
   } else {
     userStatus.style.display = "none";
   }
-}
+} */
 
 function loadCards() {
   fetch(base_url + "/servicios/getServicios")
@@ -194,7 +196,12 @@ function cargarTabla() {
       url: " " + base_url + "/servicios/getServicios",
       dataSrc: "",
     },
-    columns: [{ data: "nombreF" }, { data: "telefonoF" }, { data: "status" }, { data: "accion" }],
+    columns: [
+      { data: "nombreF" },
+      { data: "telefonoF" },
+      { data: "status" },
+      { data: "accion" },
+    ],
     responsive: "true",
     iDisplayLength: 5,
     order: [
@@ -221,7 +228,9 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
+    let clearButton = $(
+      `<span class="material-symbols-rounded clear-icon">close</span>`
+    );
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });
@@ -240,7 +249,14 @@ function limpiarFormulario() {
       input.checked = false;
     } else {
       input.value = "";
-      input.value = "";
+    }
+  });
+
+  const textareas = frmCrearServicio.querySelectorAll("textarea");
+  textareas.forEach((textarea) => {
+    if (textarea.hasAttribute("data-ignore-clear")) return;
+    if (textarea) {
+      textarea.value = "";
     }
   });
 }

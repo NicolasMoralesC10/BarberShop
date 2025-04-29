@@ -127,6 +127,7 @@ CREATE TABLE `servicios` (
   `descripcion` text DEFAULT NULL,
   `precio` int(11) NOT NULL,
   `duracionMinutos` int(11) NOT NULL,
+  `imagen` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

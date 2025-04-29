@@ -2,9 +2,9 @@
 <div class="modal fade" id="crearServicioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header" style="background-color: black">
-                <h1 class="modal-title fs-5" style="color: white;" id="exampleModalLabel">Crear Servicio</h1>
-                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            <div class="modal-header bg-gradient-dark">
+                <h1 class="modal-title text-light fs-6 text-bold" id="exampleModalLabel">Añadir Servicio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="frmCrearServicio" method="POST">
@@ -36,12 +36,13 @@
                     <div class="mb-3">
                         <label for="txtImagen" class="form-label">Imagen</label>
                         <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/*">
+                        <img id="imgPreview"  src="" alt="Imagen actual" width="100">
                     </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrar">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-primary">Añadir</button>
                 </form>
             </div>
         </div>

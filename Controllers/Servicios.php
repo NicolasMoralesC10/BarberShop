@@ -21,10 +21,10 @@ class Servicios extends Controllers
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
       if ($arrData[$i]['status'] >= 0) {
-        $arrData[$i]['card'] = '<div class="card col-3 mt-5" data-animation="true">
+        $arrData[$i]['card'] = '<div class="card col-2 mt-5" data-animation="true">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
-                                          <img src="https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+                                          <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
                                         </a>
                                         <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
                                       </div>
