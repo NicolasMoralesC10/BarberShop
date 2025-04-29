@@ -20,8 +20,8 @@ class Servicios extends Controllers
   {
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
-        if ($arrData[$i]['status'] >= 0) {
-            $arrData[$i]['card'] = '<div class="card" data-animation="true">
+      if ($arrData[$i]['status'] >= 0) {
+        $arrData[$i]['card'] = '<div class="card col-3 mt-5" data-animation="true">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
                                           <img src="https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
@@ -30,7 +30,7 @@ class Servicios extends Controllers
                                       </div>
                                       <div class="card-body text-center">
                                         <div class="d-flex mt-n6 mx-auto">
-                                          <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
+                                          <button class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Edit" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
                                             <i class="material-symbols-rounded text-lg">edit</i>
                                           </button>
                                           <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
@@ -51,15 +51,15 @@ class Servicios extends Controllers
                                         <p class="text-sm my-auto"> Barcelona, Spain</p>
                                       </div>
                                     </div>';
-        }
+      }
 
-      $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
+      /* $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
                                   <i class="material-symbols-rounded">Person_Edit</i>
                                 </button>
 
                                 <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
                                   <i class="material-symbols-rounded">Delete</i>
-                                </button>';
+                                </button>'; */
 
       /* if ($arrData[$i]['status'] == 1) {
         $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Online</span>';
@@ -94,17 +94,33 @@ class Servicios extends Controllers
     $arrPosts = [
       'txtNombre',
       'txtPrecio',
-      'txtDesc',
-      'txtEstado'
+      'txtDescripcion'
     ];
 
     if (check_post($arrPosts)) {
       $strNombre = strClean($_POST['txtNombre']);
       $intPrecio = intval(strClean($_POST['txtPrecio']));
-      $strDesc = strClean($_POST['txtDesc']);
-      /* $intStatus = intval(strClean($_POST['txtEstado'])); */
+      $strDesc = strClean($_POST['txtDescripcion']);
       $intStatus = 1;
-      $intIdServicio= intval(strClean($_POST['txtIdServicio']));
+      $intIdServicio = intval(strClean($_POST['txtIdServicio']));
+
+      // Manejo de imagen
+      $strImagen = '';
+      if (isset($_FILES['txtImagen']) && $_FILES['txtImagen']['error'] === 0) {
+        $nombreOriginal = $_FILES['txtImagen']['name'];
+        $extension = pathinfo($nombreOriginal, PATHINFO_EXTENSION);
+        $nombreNuevo = uniqid('img_') . '.' . $extension;
+        $rutaDestino = 'uploads/servicios/' . $nombreNuevo;
+
+        // Mover el archivo a la carpeta final
+        if (move_uploaded_file($_FILES['txtImagen']['tmp_name'], $rutaDestino)) {
+          $strImagen = $rutaDestino; // Ruta que vas a guardar en la base de datos
+        } else {
+          $arrResponse = array('status' => false, 'msg' => 'Error al subir la imagen.');
+          echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+          return;
+        }
+      }
 
       try {
         if ($intIdServicio === 0 || $intIdServicio === "" || $intIdServicio === "0") {
@@ -112,6 +128,7 @@ class Servicios extends Controllers
             $strNombre,
             $intPrecio,
             $strDesc,
+            $strImagen,
             $intStatus,
           );
           $option = 1;
@@ -124,6 +141,7 @@ class Servicios extends Controllers
             $strNombre,
             $intPrecio,
             $strDesc,
+            $strImagen,
             $intStatus,
           );
           $option = 2;

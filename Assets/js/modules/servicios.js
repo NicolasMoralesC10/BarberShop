@@ -2,12 +2,21 @@
 let cards_servicios = document.querySelector("#cards_servicios");
 let btnAgregar = document.querySelector("#btnAgregar");
 let btnCerrar = document.querySelector("#btnCerrar");
-let frmCrearCliente = document.querySelector("#frmCrearCliente");
+let frmCrearServicio = document.querySelector("#frmCrearServicio");
 
-let txtIdCliente = document.querySelector("#txtIdCliente");
+let txtIdServicio = document.querySelector("#txtIdServicio");
 let txtNombre = document.querySelector("#txtNombre");
-let txtTelefono = document.querySelector("#txtTelefono");
-let txtEstado = document.querySelector("#txtEstado");
+let txtPrecio = document.querySelector("#txtPrecio");
+let txtDescripcion = document.querySelector("#txtDescripcion");
+let txtImagen = document.querySelector("#txtImagen");
+
+/* txtImagen.addEventListener("change", (evento) => {
+  const archivo = evento.target.files[0];
+  if (archivo) {
+    console.log("Se seleccionó una imagen:", archivo.name);
+    // Aquí puedes hacer más cosas, como mostrar una vista previa
+  }
+}); */
 
 loadCards();
 
@@ -19,23 +28,28 @@ btnCerrar.addEventListener("click", () => {
   limpiarFormulario();
 });
 
-frmCrearCliente.addEventListener("submit", (e) => {
+frmCrearServicio.addEventListener("submit", (e) => {
   e.preventDefault();
-  let frmCliente = new FormData(frmCrearCliente);
-  fetch(base_url + "/clientes/setCliente", {
+  let frmServicio = new FormData(frmCrearServicio);
+
+  frmServicio.forEach((valor, clave) => {
+    console.log(clave, valor);
+  });
+  fetch(base_url + "/servicios/setServicio", {
     method: "POST",
-    body: frmCliente,
+    body: frmServicio,
   })
     .then((res) => res.json())
     .then((data) => {
       if (data.status) {
         Swal.fire({
-          title: "Registro Cliente",
+          title: "¡Registro Servicio!",
           text: data.msg,
           icon: "success",
         });
-        tbl_clientes.api().ajax.reload(function () {});
-        $("#crearClienteModal").modal("hide");
+        /* tbl_clientes.api().ajax.reload(function () {}); */
+        cards_servicios.api().ajax.reload(function () {});
+        $("#crearServicioModal").modal("hide");
         /*  clearForm() */
       } else {
         Swal.fire({
@@ -54,8 +68,8 @@ document.addEventListener("click", (e) => {
 
     if (action == "delete") {
       Swal.fire({
-        title: "Eliminar cliente",
-        text: "¿Desea eliminar este cliente?",
+        title: "Eliminar servicio",
+        text: "¿Desea eliminar este servicio?",
         icon: "warning",
         showDenyButton: true,
         confirmButtonText: "Sí",
@@ -63,8 +77,8 @@ document.addEventListener("click", (e) => {
       }).then((result) => {
         if (result.isConfirmed) {
           let frmData = new FormData();
-          frmData.append("txtIdCliente", id);
-          fetch(base_url + "/clientes/deleteCliente", {
+          frmData.append("txtIdServicio", id);
+          fetch(base_url + "/servicios/deleteServicio", {
             method: "POST",
             body: frmData,
           })
@@ -75,24 +89,26 @@ document.addEventListener("click", (e) => {
                 text: data.msg,
                 icon: data.status ? "success" : "error",
               });
-              tbl_clientes.api().ajax.reload(function () {});
+              /* tbl_clientes.api().ajax.reload(function () {}); */
+              cards_servicios.api().ajax.reload(function () {});
             });
         }
       });
     }
 
     if (action == "edit") {
-      fetch(base_url + "/clientes/getClienteById/" + id)
+      fetch(base_url + "/servicios/getServicioById/" + id)
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
             data = data.data;
             console.log(data);
             txtNombre.value = data.nombre;
-            txtTelefono.value = data.telefono;
-            txtIdCliente.value = data.id;
-            txtEstado.value = data.status;
-            $("#crearClienteModal").modal("show");
+            txtPrecio.value = data.precio;
+            txtDescripcion.value = data.telefono;
+            txtImagen.value = data.imagen;
+            txtIdServicio.value = data.id;
+            $("#crearServicioModal").modal("show");
             opcionEstado(true);
           } else {
             Swal.fire({
@@ -100,7 +116,8 @@ document.addEventListener("click", (e) => {
               text: data.msg,
               icon: "error",
             });
-            tbl_clientes.api().ajax.reload(function () {});
+            /* tbl_clientes.api().ajax.reload(function () {}); */
+            cards_servicios.api().ajax.reload(function () {});
           }
         });
     }
@@ -119,9 +136,10 @@ function opcionEstado(mode) {
 
 function loadCards() {
   fetch(base_url + "/servicios/getServicios")
-    .then((data) => {
-      data.map((card) => {
-        cards_servicios.innerHTML += card;
+    .then((res) => res.json())
+    .then((servicios) => {
+      servicios.map((servicio) => {
+        cards_servicios.innerHTML += servicio.card;
       });
     })
     .catch((error) => {
@@ -176,12 +194,7 @@ function cargarTabla() {
       url: " " + base_url + "/servicios/getServicios",
       dataSrc: "",
     },
-    columns: [
-      { data: "nombreF" },
-      { data: "telefonoF" },
-      { data: "status" },
-      { data: "accion" },
-    ],
+    columns: [{ data: "nombreF" }, { data: "telefonoF" }, { data: "status" }, { data: "accion" }],
     responsive: "true",
     iDisplayLength: 5,
     order: [
@@ -208,9 +221,7 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(
-      `<span class="material-symbols-rounded clear-icon">close</span>`
-    );
+    let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });
@@ -222,7 +233,7 @@ function cargarTabla() {
 }
 
 function limpiarFormulario() {
-  const inputs = frmCrearCliente.querySelectorAll("input");
+  const inputs = frmCrearServicio.querySelectorAll("input");
   inputs.forEach((input) => {
     if (input.hasAttribute("data-ignore-clear")) return;
     if (input.type === "checkbox" || input.type === "radio") {

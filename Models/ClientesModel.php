@@ -27,17 +27,16 @@ class ClientesModel extends mysql
         $this->strNombre = $strNombre;
         $this->strTelefono = $strTelefono;
 
-        $query_empleados = "SELECT * FROM clientes WHERE telefono = {$this->strTelefono} AND status > 0";
-
-        $request = $this->select_all($query_empleados);
+        $query_clientes = "SELECT * FROM clientes WHERE telefono = {$this->strTelefono} AND status > 0";
+        $request = $this->select_all($query_clientes);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
             $query_insert = "INSERT INTO clientes (nombre, telefono, status) VALUES (?,?,?)";
             $arrData = array($this->strNombre, $this->strTelefono, 1);
-            $reques_insert = $this->insert($query_insert, $arrData);
-            $respuesta = $reques_insert;
+            $request_insert = $this->insert($query_insert, $arrData);
+            $respuesta = $request_insert;
         }
 
         return $respuesta;

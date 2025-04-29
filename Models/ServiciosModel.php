@@ -22,21 +22,21 @@ class ServiciosModel extends mysql
         return $request;
     }
 
-    public function insertServicio(string $strNombre, int $intPrecio, string $strDesc = null)
+    public function insertServicio(string $strNombre, int $intPrecio, string $strDesc = null, string $strImagen)
     {
         $this->strNombre = $strNombre;
         $this->intPrecio = $intPrecio;
         $this->strDesc = $strDesc;
+        $this->strImagen = $strImagen;
 
-        $query_servicios = "SELECT * FROM servicios WHERE nombre = {$this->strNombre} AND status > 0";
-
+        $query_servicios = "SELECT * FROM servicios WHERE nombre = '{$this->strNombre}' AND status > 0";
         $request = $this->select_all($query_servicios);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "INSERT INTO servicios (nombre, precio, descripcion, status) VALUES (?,?,?,?)";
-            $arrData = array($this->strNombre, $this->intPrecio, $this->strDesc, 1);
+            $query_insert = "INSERT INTO servicios (nombre, precio, descripcion, imagen, status) VALUES (?,?,?,?,?)";
+            $arrData = array($this->strNombre, $this->intPrecio, $this->strDesc, $this->strImagen, 1);
             $reques_insert = $this->insert($query_insert, $arrData);
             $respuesta = $reques_insert;
         }

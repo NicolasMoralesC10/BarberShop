@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" style="background-color: black">
-                <h1 class="modal-title fs-5" style="color: white;" id="exampleModalLabel">Crear servicio</h1>
+                <h1 class="modal-title fs-5" style="color: white;" id="exampleModalLabel">Crear Servicio</h1>
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
@@ -11,7 +11,7 @@
                     <input type="hidden" name="txtIdServicio" id="txtIdServicio" value="0">
                     <div class="row">
                         <div class="mb-3 col-6">
-                            <label for="txtNombre" class="form-label">Nombre(s)</label>
+                            <label for="txtNombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="txtNombre" name="txtNombre">
                         </div>
 
@@ -28,6 +28,15 @@
                             <option value="2">Inactivo</option>
                         </select>
                     </div> -->
+                    <div class="mb-3">
+                        <label for="txtDescripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtImagen" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/*">
+                    </div>
 
             </div>
             <div class="modal-footer">

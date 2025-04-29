@@ -14,8 +14,10 @@ getModal('serviciosModal', $data); ?>
         </div>
       </div>
       <div class="card-body px-1 pb-2">
-        <div class="" id="cards_servicios">
+        <div class="contennedor">
+          <div class="row ps-5 pe-5" style="gap: 12.5%;" id="cards_servicios">
 
+          </div>
         </div>
         <!-- <div class="table-responsive p-3">
           <table id="tbl_clientes" class="table align-items-center mb-0">
@@ -33,8 +35,8 @@ getModal('serviciosModal', $data); ?>
           </table>
         </div>
       </div> -->
+      </div>
     </div>
   </div>
-</div>
 
-<?php footer_admin($data); ?>
+  <?php footer_admin($data); ?>
