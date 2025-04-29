@@ -60,7 +60,7 @@
     <div class="modal-content">
       <form id="formCrearCita">
         <div class="modal-header bg-gradient-dark">
-          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearCitaLabel">Nueva Cita</h5>
+          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearCitaLabel">Añadir Cita</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
