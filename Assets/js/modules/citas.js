@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
   calendar.render();
 
   // Inicializar Flatpickr
-  flatpickr("#inputFechaHora", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
+  flatpickr("#inputFechaHora", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today", locale: "es" });
 
   // Datos iniciales
   let serviciosList = [];

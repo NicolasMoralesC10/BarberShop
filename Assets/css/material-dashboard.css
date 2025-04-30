@@ -2872,6 +2872,50 @@ progress {
 }
 /* fin Calendario */
 
+/* fecha flatpickr *//* ===== Flatpickr personalizado: encabezado gris oscuro, texto blanco ===== */
+
+/* Fondo del encabezado (mes y año) */
+.flatpickr-calendar .flatpickr-months .flatpickr-month {
+  background-color: #2c2c2c !important; /* Gris oscuro en lugar de negro absoluto */
+  color: white !important;
+  height: 36px;
+  line-height: 36px;
+}
+
+/* Texto del mes y año */
+.flatpickr-calendar .flatpickr-months .flatpickr-month .cur-month,
+.flatpickr-calendar .flatpickr-months .flatpickr-month .numInput {
+  color: white !important;
+}
+
+/* Fondo para los días de la semana */
+.flatpickr-calendar .flatpickr-weekdays {
+  background-color: #2c2c2c !important;
+}
+
+/* Texto blanco para los días de la semana */
+.flatpickr-calendar .flatpickr-weekday {
+  color: white !important;
+}
+
+/* Elimina espacio extra entre encabezado y calendario */
+.flatpickr-calendar .flatpickr-innerContainer {
+  margin-top: 0 !important;
+}
+
+.flatpickr-day {
+  color: #333 !important;
+}
+
+/* Flechas de navegación (SVGs) blancas */
+.flatpickr-calendar .flatpickr-prev-month svg,
+.flatpickr-calendar .flatpickr-next-month svg {
+  fill: white !important;
+}
+
+/* NO toques el color de los días normales del calendario */
+
+
 .form-control {
   display: block;
   width: 100%;
@@ -2887,7 +2931,7 @@ progress {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.form-buscar{
+.form-buscar {
   display: block;
   width: 100%;
   padding: 0.2rem 0;
@@ -5918,7 +5962,7 @@ fieldset:disabled .btn {
   z-index: 3;
   color: var(--bs-pagination-active-color);
   background-color: var(--bs-pagination-active-bg);
-/*   border-color: var(--bs-pagination-active-border-color); */
+  /*   border-color: var(--bs-pagination-active-border-color); */
 }
 
 .page-link.disabled,
@@ -28166,7 +28210,7 @@ p {
   font-size: 5rem;
 }
 
-.flatpickr-calendar {
+/* .flatpickr-calendar {
   background: transparent;
   opacity: 0;
   display: none;
@@ -28387,35 +28431,35 @@ p {
         /*rtl:begin:ignore*/
   /*
         */
-  left: 0;
+ /*  left: 0; */
   /*
         /*rtl:end:ignore*/
   /*
         */
-}
-
+/* }
+ */
 /*
       /*rtl:begin:ignore*/
 /*
       /*rtl:end:ignore*/
-.flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
-.flatpickr-months .flatpickr-next-month.flatpickr-next-month {
+/* .flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
+.flatpickr-months .flatpickr-next-month.flatpickr-next-month { */
   /*
         /*rtl:begin:ignore*/
   /*
         */
-  right: 0;
+/*   right: 0; */
   /*
         /*rtl:end:ignore*/
   /*
         */
-}
+/* } */
 
 /*
       /*rtl:begin:ignore*/
 /*
       /*rtl:end:ignore*/
-.flatpickr-months .flatpickr-prev-month:hover,
+/* .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
   color: #959ea9;
 }
@@ -28436,7 +28480,7 @@ p {
   -webkit-transition: fill 0.1s;
   transition: fill 0.1s;
   fill: inherit;
-}
+}  */
 
 .numInputWrapper {
   position: relative;
@@ -29083,7 +29127,7 @@ span.flatpickr-weekday {
   background-color: #fff;
 }
 
-.flatpickr-calendar.open {
+/* .flatpickr-calendar.open {
   margin-left: 0px;
   margin-top: 4px;
 }
@@ -29092,9 +29136,6 @@ span.flatpickr-weekday {
   margin-top: -20px;
 }
 
-.flatpickr-calendar .flatpickr-innerContainer {
-  margin-top: 15px !important;
-}
 
 .flatpickr-calendar .numInputWrapper span {
   border: none;
@@ -29143,7 +29184,7 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)) {
   box-shadow: -10px 0 0 #e91e63;
-}
+} */
 
 /*! nouislider - 14.6.3 - 11/19/2020 */
 /* Functional styling;
