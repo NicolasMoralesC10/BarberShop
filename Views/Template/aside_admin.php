@@ -12,43 +12,43 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'dashboard' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/dashboard">
-          <i class="material-symbols-rounded opacity-5">dashboard</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">dashboard</span>
           <span class="nav-link-text ms-1">Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'citas' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/citas">
-          <i class="material-symbols-rounded opacity-5">calendar_month</i>
+        <span class="material-symbols-rounded opacity-5" translate="no">calendar_month</span>
           <span class="nav-link-text ms-1">Citas</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
-          <i class="material-symbols-rounded opacity-5">group</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">group</span>
           <span class="nav-link-text ms-1">Clientes</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
-          <i class="material-symbols-rounded opacity-5">content_cut</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">content_cut</span>
           <span class="nav-link-text ms-1">Servicios</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'productos' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/productos">
-          <i class="material-symbols-rounded opacity-5">shopping_bag</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">shopping_bag</span>
           <span class="nav-link-text ms-1">Productos</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'ventas' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/ventas">
-          <i class="material-symbols-rounded opacity-5">point_of_sale</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">point_of_sale</span>
           <span class="nav-link-text ms-1">Ventas</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'Empleados' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/empleados">
-          <i class=" material-symbols-rounded text-2xl opacity-7">person_apron</i>
+          <span class=" material-symbols-rounded text-2xl opacity-6" translate="no">person_apron</span>
           <span class="nav-link-text ms-1">Empleados</span>
         </a>
       </li>
@@ -58,19 +58,19 @@
       </li>
       <li class="nav-item">
         <a class="nav-link text-dark" href="../pages/profile.html">
-          <i class="material-symbols-rounded opacity-5">person</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">person</span>
           <span class="nav-link-text ms-1">Profile</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-dark" href="../pages/sign-in.html">
-          <i class="material-symbols-rounded opacity-5">login</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">login</span>
           <span class="nav-link-text ms-1">Sign In</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-dark" href="../pages/sign-up.html">
-          <i class="material-symbols-rounded opacity-5">assignment</i>
+          <span class="material-symbols-rounded opacity-5" translate="no">assignment</span>
           <span class="nav-link-text ms-1">Sign Up</span>
         </a>
       </li>
