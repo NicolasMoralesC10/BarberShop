@@ -26,18 +26,11 @@
   <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/buttons.bootstrap5.min.css">
   <link rel="stylesheet" href="<?= media() ?>/scss/material-dashboard.scss" />
 
-  <!-- Flatpickr CSS -->
- <!--  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
   <!-- Tom Select CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css"
     rel="stylesheet" />
-
-    <link 
-  rel="stylesheet" 
-  href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css" 
-/>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

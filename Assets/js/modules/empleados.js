@@ -267,14 +267,14 @@ function cargarTabla() {
     // Crea el nuevo contenedor con el ícono de búsqueda
     let nuevoFiltro = $(`
       <div class="search-container">
-          <span class="material-symbols-rounded search-icon">search</span>
+          <span class="material-symbols-rounded search-icon" translate="no">search</span>
       </div>
   `);
 
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
+    let clearButton = $(`<span class="material-symbols-rounded clear-icon" translate="no">close</span>`);
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });

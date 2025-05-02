@@ -39,11 +39,11 @@ class Empleados extends Controllers
                     <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['fecha_contratacion'] . '</span>
                   ';
       $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
-                          <i class="material-symbols-rounded">Person_Edit</i>
+                          <span class="material-symbols-rounded" translate="no">Person_Edit</span>
                         </button>
                         
                         <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
-                          <i class="material-symbols-rounded">Delete</i>
+                          <span class="material-symbols-rounded" translate="no">Delete</span>
                         </button>';
 
       if ($arrData[$i]['status'] == 1) {

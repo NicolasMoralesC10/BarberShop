@@ -32,7 +32,7 @@
 
                   <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="material-symbols-rounded">notifications</i>
+                          <span class="material-symbols-rounded" translate="no">notifications</span>
                       </a>
                       <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                           <li class="mb-2">
@@ -105,26 +105,26 @@
                   </li>
                   <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="material-symbols-rounded opacity-9">account_circle</i>
+                          <span class="material-symbols-rounded opacity-9" translate="no">account_circle</span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="userDropdown">
                           <li>
                               <a class="dropdown-item border-radius-md d-flex align-items-center" href="/perfil">
-                                  <i class="material-symbols-rounded me-2">person</i>
+                                  <span class="material-symbols-rounded me-2" translate="no">person</span>
                                   <span><?= isset($_SESSION) ? $_SESSION['userData']['nombre'] : "Sesion no iniciada"; ?></span>
                               </a>
                           </li>
                           <hr class="dropdown-divider my-1">
                           <li>
                               <a class="dropdown-item border-radius-md d-flex align-items-center">
-                                  <i class="material-symbols-rounded me-2">admin_panel_settings</i>
+                                  <span class="material-symbols-rounded me-2" translate="no">admin_panel_settings</span>
                                   <span><?= isset($_SESSION) ? $_SESSION['userData']['cargo'] : "Informacion no disponible" ?></span></span>
                               </a>
                           </li>
                           <hr class="dropdown-divider my-1">
                           <li>
                               <a class="dropdown-item border-radius-md d-flex align-items-center" href="/configuracion">
-                                  <i class="material-symbols-rounded me-2">settings</i>
+                                  <span class="material-symbols-rounded me-2" translate="no">settings</span>
                                   <span>Configuración</span>
                               </a>
                           </li>
@@ -133,10 +133,10 @@
                   </li>
                   <li class="nav-item d-flex ps-3 align-items-center">
                       <a href="<?= base_url() ?>/logout" class="nav-link text-body font-weight-bold px-0">
-                          <i class="material-symbols-rounded opacity-9"><span class="material-symbols-outlined">
+                          <span class="material-symbols-rounded opacity-9" translate="no"><span class="material-symbols-outlined">
                                   logout
                               </span>
-                          </i>
+                          </span>
                       </a>
                   </li>
               </ul>

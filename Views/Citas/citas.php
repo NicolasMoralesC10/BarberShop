@@ -12,7 +12,7 @@ getModal('citasModal', $data);
   </div>
   <div class="col-lg-12">
     <button type="button" class="btn btn-lg bg-gradient-dark shadow-dark" style="margin-left: 5px;" id="btnAgregarCita">
-      <i class="material-symbols-rounded">Person_Add</i>
+      <span class="material-symbols-rounded" translate="no">Person_Add</span>
     </button>
     <div class="card my-4">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
