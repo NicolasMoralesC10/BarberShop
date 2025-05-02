@@ -8,12 +8,22 @@ let txtPassword = document.querySelector("#txtPassword");
 let txtTelefono = document.querySelector("#txtTelefono");
 let txtSalario = document.querySelector("#txtSalario");
 let txtCargo = document.querySelector("#txtCargo");
-let txtFechaContratacion = document.querySelector("#txtFechaContratacion");
 let txtEstado = document.querySelector("#txtEstado");
+
+let pickerFechaContratacion = flatpickr("#txtFechaContratacion", {
+  enableTime: false,
+  altInput: true,
+  enableTime: false,
+  altFormat: "Y-m-d",
+  dateFormat: "Y-m-d",
+  minDate: "2000-01-01",
+  locale: "es"
+});
 
 cargarTabla();
 
 btnAgregar.addEventListener("click", () => {
+  limpiarFormulario();
   $("#crearEmpleadoModal").modal("show");
   opcionEstado(false);
 });
@@ -53,7 +63,7 @@ frmCrearEmpleado.addEventListener("submit", (e) => {
         });
         tbl_empleados.api().ajax.reload(function () {});
         $("#crearEmpleadoModal").modal("hide");
-        /*  clearForm() */
+        limpiarFormulario();
       } else {
         Swal.fire({
           title: "Error",
@@ -109,7 +119,7 @@ document.addEventListener("click", (e) => {
             txtPassword.value = data.password;
             txtTelefono.value = data.telefono;
             txtCargo.value = data.cargo;
-            txtFechaContratacion.value = data.fecha_contratacion;
+            pickerFechaContratacion.setDate(data.fecha_contratacion, true);
             txtSalario.value = data.salario;
             txtIdEmpleado.value = data.id;
             txtEstado.value = data.status;
@@ -164,23 +174,22 @@ function opcionEstado(mode) {
 }
 
 function limpiarFormulario() {
-  // Limpiar inputs
-  const inputs = formulario.querySelectorAll("input");
-  inputs.forEach((input) => {
-    if (input.hasAttribute("data-ignore-clear")) return;
+  const form = document.getElementById("frmCrearEmpleado");
 
-    if (input.type === "checkbox" || input.type === "radio") {
-      input.checked = false;
-    } else {
-      input.value = "";
+  [...form.querySelectorAll("input, select, textarea")].forEach((el) => {
+    if (!el.hasAttribute("data-ignore-clear")) {
+      if (el.tagName === "SELECT") {
+        el.selectedIndex = 0;
+      } else {
+        el.value = "";
+      }
     }
   });
 
-  // Limpiar selects
-  const selects = frmCrearEmpleado.querySelectorAll("select");
-  selects.forEach((select) => {
-    select.selectedIndex = 0;
-  });
+  // Limpiar fecha en Flatpickr si está inicializado
+  if (pickerFechaContratacion) {
+    pickerFechaContratacion.clear();
+  }
 }
 
 function cargarTabla() {
