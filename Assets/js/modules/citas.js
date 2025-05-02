@@ -150,12 +150,15 @@ document.addEventListener("DOMContentLoaded", function () {
   calendar.render();
 
   // Inicializar Flatpickr
-  flatpickr("#inputFechaHora", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
-
-  // Datos iniciales
-  let serviciosList = [];
-  let empleadosList = [];
-  let totalGlobal = 0;
+  flatpickr("#inputFechaHora", {
+    enableTime: true,
+    time_24hr: false,
+    altInput: true, // Muestra valor alternativo (formato 12h)
+    altFormat: "Y-m-d h:i K", // Formato mostrado al usuario
+    dateFormat: "Y-m-d H:i", // Formato del valor real (24h)
+    minDate: "today",
+    locale: "es"
+  });
 
   // Fetch datos de clientes, servicios y empleados
   fetch(base_url + "/citas/getClientes")
@@ -168,93 +171,67 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-  fetch(base_url + "/citas/getServicios")
-    .then((r) => r.json())
-    .then((data) => (serviciosList = data));
-  fetch(base_url + "/citas/getEmpleados")
-    .then((r) => r.json())
-    .then((data) => (empleadosList = data));
-
   const contenedor = document.getElementById("serviciosContainer");
-  const spanTotal = document.getElementById("spanTotal");
 
-  // FUNCION recalcularTotal (modificado para usar dataset.raw)
+  //  Variables globales para listas
+  let serviciosList = [];
+  let empleadosList = [];
+
+  //  Fetch inicial de servicios
+  fetch(`${base_url}/citas/getServicios`)
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((data) => {
+      serviciosList = data; // esperamos objetos {id, nombre, precio, duracionMinutos}
+    })
+    .catch(console.error);
+
+  // Fetch inicial de empleados
+  fetch(`${base_url}/citas/getEmpleados`)
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((data) => {
+      empleadosList = data; // esperamos objetos {id, nombre}
+    })
+    .catch(console.error);
+
+  //  Botón para agregar nuevas filas
+  document.getElementById("btnAgregarServicio").addEventListener("click", nuevaFilaServicio);
+
+  //  Función para recalcular el total global
   function recalcularTotal() {
-    totalGlobal = Array.from(contenedor.children).reduce((sum, row) => {
-      // CAMBIO: usar dataset.raw en lugar de input.value
-      const precio = Number(row.querySelector(".inputPrecio").dataset.raw) || 0;
-      return sum + precio;
-    }, 0);
-    spanTotal.textContent = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(
-      totalGlobal
+    const container = document.getElementById("serviciosContainer");
+    const total = Array.from(container.querySelectorAll(".inputPrecio")).reduce(
+      (sum, ip) => sum + Number(ip.dataset.raw || 0),
+      0
     );
+    document.getElementById("spanTotal").textContent = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP"
+    }).format(total);
   }
 
-  // TomSelect para servicio
-  function crearTomSelectServicio(row) {
-    return new TomSelect(row.querySelector(".select-servicio"), {
-      options: serviciosList.map((s) => ({
-        value: s.id,
-        text: s.nombre,
-        precio: s.precio,
-        duracionMinutos: s.duracionMinutos
-      })),
-      labelField: "text",
-      valueField: "value",
-      maxItems: 1, // solo un servicio
-      create: false, // no permitir crear nuevos
-      onChange: function (v) {
-        const data = this.options[v];
-        if (!data) return;
-        row.querySelector(".inputDuracion").value = data.duracionMinutos;
-        const ip = row.querySelector(".inputPrecio");
-        ip.value = new Intl.NumberFormat("es-CO", {
-          style: "currency",
-          currency: "COP"
-        }).format(data.precio);
-        ip.dataset.raw = data.precio;
-        recalcularTotal();
-      },
-      onItemAdd: function (value, item) {
-        // Una vez seleccione, bloqueo la entrada
-        this.control_input.setAttribute("readonly", "readonly");
-      },
-      onItemRemove: function (value) {
-        // Si remueve la selección, la vuelvo editable
-        this.control_input.removeAttribute("readonly");
-      }
-    });
-  }
-
-  // TomSelect para empleado
-  function crearTomSelectEmpleado(row) {
-    return new TomSelect(row.querySelector(".select-empleado"), {
-      options: empleadosList.map((e) => ({ value: e.id, text: e.nombre })),
-      labelField: "text",
-      valueField: "value",
-      maxItems: 1,
-      create: false,
-      onItemAdd: function () {
-        this.control_input.setAttribute("readonly", "readonly");
-      },
-      onItemRemove: function () {
-        this.control_input.removeAttribute("readonly");
-      }
-    });
-  }
-
+  //  Función que añade una fila de servicio + empleado
   function nuevaFilaServicio() {
-    // 1. Crear contenedor de fila
+    //  Crear la fila HTML
     const row = document.createElement("div");
     row.className = "row g-2 mb-2";
     row.innerHTML = `
       <div class="col-md-4">
         <label class="form-label">Servicio</label>
-        <select class="form-select select-servicio" required></select>
+        <select class="form-select select-servicio" required>
+          <option value="" disabled selected>Selecciona un servicio…</option>
+        </select>
       </div>
       <div class="col-md-3">
         <label class="form-label">Empleado</label>
-        <select class="form-select select-empleado" required></select>
+        <select class="form-select select-empleado" required>
+          <option value="" disabled selected>Selecciona un empleado…</option>
+        </select>
       </div>
       <div class="col-md-2">
         <label class="form-label">Duración (min)</label>
@@ -264,24 +241,59 @@ document.addEventListener("DOMContentLoaded", function () {
         <label class="form-label">Precio</label>
         <input type="text" class="form-control inputPrecio" readonly data-raw="0">
       </div>
-      <div class="col-md-1 text-end">
-        <button type="button" class="btn btn-danger btn-sm btn-eliminar" style="margin-top:32px">×</button>
-      </div>
+     <div class="col-md-1 d-flex align-items-end pt-4">
+        <button type="button" class="btn btn-danger btn-sm btn-eliminar w-100 mt-2">×</button>
+     </div>
+
     `;
-    contenedor.appendChild(row);
+    document.getElementById("serviciosContainer").appendChild(row);
 
-    // 2. Inicializar TomSelect para servicio y empleado
-    const tsServicio = crearTomSelectServicio(row);
-    const tsEmpleado = crearTomSelectEmpleado(row);
+    // Rellenar opciones desde tus listas
+    const selServ = row.querySelector(".select-servicio");
+    const selEmp = row.querySelector(".select-empleado");
 
-    // 3. Botón eliminar: destruye instancias y fila
+    serviciosList.forEach((s) => {
+      selServ.insertAdjacentHTML(
+        "beforeend",
+        `
+        <option value="${s.id}"
+                data-precio="${s.precio}"
+                data-duracion="${s.duracionMinutos}">
+          ${s.nombre}
+        </option>`
+      );
+    });
+
+    empleadosList.forEach((e) => {
+      selEmp.insertAdjacentHTML(
+        "beforeend",
+        `
+        <option value="${e.id}">${e.nombre}</option>`
+      );
+    });
+
+    // Listener nativo para cambio en servicio
+    selServ.addEventListener("change", () => {
+      const opt = selServ.selectedOptions[0];
+      const dur = parseInt(opt.dataset.duracion) || 0;
+      const precio = parseInt(opt.dataset.precio) || 0;
+      row.querySelector(".inputDuracion").value = dur;
+      const ip = row.querySelector(".inputPrecio");
+      ip.value = new Intl.NumberFormat("es-CO", {
+        style: "currency",
+        currency: "COP"
+      }).format(precio);
+      ip.dataset.raw = precio;
+      recalcularTotal();
+    });
+
+    selEmp.addEventListener("change", () => {
+      // … tu código si quieres reaccionar al seleccionar empleado …
+    });
+
+    // Eliminar fila
     row.querySelector(".btn-eliminar").addEventListener("click", () => {
-      // destruye los TomSelect para evitar memory leaks
-      tsServicio.destroy();
-      tsEmpleado.destroy();
-      // remueve la fila
       row.remove();
-      // recalcula total
       recalcularTotal();
     });
   }

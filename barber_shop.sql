@@ -90,7 +90,7 @@ CREATE TABLE `clientes` (
 CREATE TABLE `empleados` (
   `id` int(11) NOT NULL,
   `nombre` varchar(250) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `cargo` varchar(50) NOT NULL,
   `fecha_contratacion` date NOT NULL,

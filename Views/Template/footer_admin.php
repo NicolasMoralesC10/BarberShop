@@ -108,7 +108,7 @@
 <script src="<?= media() ?>/vendor/datatables/datatables.min.js"></script>
 <script src="<?= media() ?>/vendor/fullcalendar/dist/index.global.min.js"></script>
 <script src="<?= media() ?>/vendor/sweetalert/sweetalert2.all.min.js"></script>
-
+<script src="<?= media() ?>/vendor/flatpickr/flatpickr.js"></script>
 
 <!-- jQuery y Bootstrap Bundle -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
@@ -121,11 +121,9 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <!-- <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script> -->
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
 
 <!-- PDFMake (para exportar PDF) -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>

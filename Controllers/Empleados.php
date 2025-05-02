@@ -48,10 +48,10 @@ class Empleados extends Controllers
 
       if ($arrData[$i]['status'] == 1) {
         $arrData[$i]['status'] = '
-                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;padding-top:8px">Activo</span>
+                        <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;padding-top:7px">Activo</span>
                ';
       } else {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;padding-top:8px">Inactivo</span>';
+        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;padding-top:7px">Inactivo</span>';
       }
     }
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);

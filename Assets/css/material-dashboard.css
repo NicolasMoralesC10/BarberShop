@@ -2872,6 +2872,47 @@ progress {
 }
 /* fin Calendario */
 
+/* fecha flatpickr *//* ===== Flatpickr personalizado: encabezado gris oscuro, texto blanco ===== */
+
+/* Fondo del encabezado (mes y año) */
+.flatpickr-calendar .flatpickr-months .flatpickr-month {
+  background-color: #2c2c2c !important; /* Gris oscuro en lugar de negro absoluto */
+  color: white !important;
+  height: 36px;
+  line-height: 36px;
+}
+
+/* Texto del mes y año */
+.flatpickr-calendar .flatpickr-months .flatpickr-month .cur-month,
+.flatpickr-calendar .flatpickr-months .flatpickr-month .numInput {
+  color: white !important;
+}
+
+/* Fondo para los días de la semana */
+.flatpickr-calendar .flatpickr-weekdays {
+  background-color: #2c2c2c !important;
+}
+
+/* Texto blanco para los días de la semana */
+.flatpickr-calendar .flatpickr-weekday {
+  color: white !important;
+}
+
+/* Elimina espacio extra entre encabezado y calendario */
+.flatpickr-calendar .flatpickr-innerContainer {
+  margin-top: 0 !important;
+}
+
+.flatpickr-day {
+  color: #333 !important;
+}
+
+/* Flechas de navegación (SVGs) blancas */
+.flatpickr-calendar .flatpickr-prev-month svg,
+.flatpickr-calendar .flatpickr-next-month svg {
+  fill: white !important;
+}
+
 .form-control {
   display: block;
   width: 100%;
@@ -2887,7 +2928,15 @@ progress {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.form-buscar{
+input.form-control[readonly],
+textarea.form-control[readonly],
+select.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+  cursor: default;
+}
+
+.form-buscar {
   display: block;
   width: 100%;
   padding: 0.2rem 0;
@@ -2913,9 +2962,10 @@ progress {
   overflow: hidden;
 }
 
-.form-control[type="file"]:not(:disabled):not([readonly]) {
+/* .form-control[type="file"]:not(:disabled):not([readonly]) {
   cursor: pointer;
-}
+  opacity: 1;
+} */
 
 .form-control:focus {
   color: #212529;
@@ -2967,9 +3017,9 @@ progress {
   }
 }
 
-.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+/* .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: var(--bs-secondary-bg);
-}
+} */
 
 .form-control-plaintext {
   display: block;
@@ -3037,9 +3087,9 @@ textarea.form-control-lg {
   padding: 0.5rem;
 }
 
-.form-control-color:not(:disabled):not([readonly]) {
+/* .form-control-color:not(:disabled):not([readonly]) {
   cursor: pointer;
-}
+} */
 
 .form-control-color::-moz-color-swatch {
   border: 0 !important;
@@ -3061,26 +3111,28 @@ textarea.form-control-lg {
 
 .form-select {
   --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23262626' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
+  font-size: 1rem; /* igual que .form-control */
   font-weight: 400;
-  line-height: 1.5rem;
-  color: #404040;
-  appearance: none;
-  background-color: transparent;
-  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  line-height: 1.5;
+  color: #404040; /* igual que .form-control */
+  background-color: #fff; /* igual que .form-control */
+  background-clip: padding-box;
+  background-image: var(--bs-form-select-bg-img);
   background-repeat: no-repeat;
-  background-position: right 0 center;
+  background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #d2d6da;
+  border: 1px solid #ced4da; /* igual que .form-control */
   border-radius: 0.375rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   appearance: none;
   min-height: 38px;
   box-sizing: border-box;
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .form-select {
@@ -3089,9 +3141,11 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-  border-color: transparent;
-  outline: 0;
-  box-shadow: none;
+    color: #212529;
+    background-color: #fff;
+    border-color: #000000;
+    outline: 0;
+    box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.633);
 }
 
 .form-select[multiple],
@@ -5918,7 +5972,7 @@ fieldset:disabled .btn {
   z-index: 3;
   color: var(--bs-pagination-active-color);
   background-color: var(--bs-pagination-active-bg);
-/*   border-color: var(--bs-pagination-active-border-color); */
+  /*   border-color: var(--bs-pagination-active-border-color); */
 }
 
 .page-link.disabled,
@@ -24027,7 +24081,7 @@ label,
   font-size: 0.875rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
-  color: #737373;
+  color: #262626;
   margin-left: 0.25rem;
 }
 
@@ -28166,7 +28220,7 @@ p {
   font-size: 5rem;
 }
 
-.flatpickr-calendar {
+/* .flatpickr-calendar {
   background: transparent;
   opacity: 0;
   display: none;
@@ -28387,35 +28441,35 @@ p {
         /*rtl:begin:ignore*/
   /*
         */
-  left: 0;
+ /*  left: 0; */
   /*
         /*rtl:end:ignore*/
   /*
         */
-}
-
+/* }
+ */
 /*
       /*rtl:begin:ignore*/
 /*
       /*rtl:end:ignore*/
-.flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
-.flatpickr-months .flatpickr-next-month.flatpickr-next-month {
+/* .flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
+.flatpickr-months .flatpickr-next-month.flatpickr-next-month { */
   /*
         /*rtl:begin:ignore*/
   /*
         */
-  right: 0;
+/*   right: 0; */
   /*
         /*rtl:end:ignore*/
   /*
         */
-}
+/* } */
 
 /*
       /*rtl:begin:ignore*/
 /*
       /*rtl:end:ignore*/
-.flatpickr-months .flatpickr-prev-month:hover,
+/* .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
   color: #959ea9;
 }
@@ -28436,7 +28490,7 @@ p {
   -webkit-transition: fill 0.1s;
   transition: fill 0.1s;
   fill: inherit;
-}
+}  */
 
 .numInputWrapper {
   position: relative;
@@ -29083,7 +29137,7 @@ span.flatpickr-weekday {
   background-color: #fff;
 }
 
-.flatpickr-calendar.open {
+/* .flatpickr-calendar.open {
   margin-left: 0px;
   margin-top: 4px;
 }
@@ -29092,9 +29146,6 @@ span.flatpickr-weekday {
   margin-top: -20px;
 }
 
-.flatpickr-calendar .flatpickr-innerContainer {
-  margin-top: 15px !important;
-}
 
 .flatpickr-calendar .numInputWrapper span {
   border: none;
@@ -29143,7 +29194,7 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)) {
   box-shadow: -10px 0 0 #e91e63;
-}
+} */
 
 /*! nouislider - 14.6.3 - 11/19/2020 */
 /* Functional styling;

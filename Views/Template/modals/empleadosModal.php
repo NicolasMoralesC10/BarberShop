@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-6"  id="fechaZone">
                             <label for="txtFechaContratacion" class="form-label">Fecha de Contratacion</label>
-                            <input type="date" class="form-control" id="txtFechaContratacion" name="txtFechaContratacion">
+                            <input type="text" class="form-control" id="txtFechaContratacion" name="txtFechaContratacion">
                         </div>
                         <div class="mb-3 col-6" id="userStatusZone">
                             <label for="genero" class="form-label">Estado</label>
@@ -54,9 +54,9 @@
                         </div>
                     </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-info">Crear</button>
+            <div class="modal-footer bg-gradient-dark">
+                <button type="button" class="btn btn-secondary mb-0" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary mb-0">Crear</button>
                 </form>
             </div>
         </div>
