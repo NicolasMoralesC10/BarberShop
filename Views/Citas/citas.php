@@ -11,13 +11,13 @@ getModal('citasModal', $data);
     </p>
   </div>
   <div class="col-lg-12">
-    <button type="button" class="btn btn-lg bg-gradient-dark shadow-dark" style="margin-left: 5px;" id="btnAgregarCita">
-      <span class="material-symbols-rounded" translate="no">Person_Add</span>
-    </button>
     <div class="card my-4">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+        <div class="bg-gradient-dark d-flex justify-content-between align-items-center shadow-dark border-radius-lg pt-3 pb-3 px-3">
           <h6 class="text-white text-capitalize ps-3">Calendario <?= $data['page_title'] ?></h6>
+          <button type="button" class="btn btn-lg bg-gradient-primary shadow-dark mt-0 mb-0" id="btnAgregarCita" style="margin: none;">
+            <span class="material-symbols-rounded text-3xl" translate="no">calendar_add_on</span>
+          </button>
         </div>
       </div>
       <div class="card-body px-1 pb-2 p-3">

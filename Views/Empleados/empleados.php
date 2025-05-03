@@ -14,11 +14,10 @@ getModal('empleadosModal', $data); ?>
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
         <div class="bg-gradient-dark d-flex justify-content-between align-items-center shadow-dark border-radius-lg pt-3 pb-3 px-3">
           <h6 class="text-white text-capitalize m-0">Registros <?= $data['page_title'] ?></h6>
-          <button type="button" class="btn btn-lg bg-gradient-secondary shadow-dark mt-0 mb-0" id="btnAgregar" style="margin: none;">
+          <button type="button" class="btn btn-lg bg-gradient-primary shadow-dark mt-0 mb-0" id="btnAgregar" style="margin: none;">
             <span class="material-symbols-rounded" translate="no">Person_Add</span>
           </button>
         </div>
-
       </div>
       <div class="card-body px-1 pb-2">
         <div class="table-responsive p-3">

@@ -25,12 +25,11 @@
   <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="<?= media() ?>/vendor/datatables/buttons.bootstrap5.min.css">
   <link rel="stylesheet" href="<?= media() ?>/scss/material-dashboard.scss" />
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+  <link rel="stylesheet" href="<?= media() ?>\vendor\flatpickr\themes\airbnb.css">
+  
   <!-- Tom Select CSS -->
   <link
-    href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css"
-    rel="stylesheet" />
+    href="<?= media() ?>/vendor/tom-select/tom-select.bootstrap5.min.css" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

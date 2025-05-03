@@ -118,7 +118,7 @@ class CitasModel extends mysql
 
     public function selectEmpleados()
     {
-        $sql = "SELECT id, nombre, cargo FROM empleados WHERE status = 1";
+        $sql = "SELECT id, nombre, cargo FROM empleados WHERE status = 1 AND cargo != 'Administrador' AND cargo != 'Recepcionista'";
         $request = $this->select_all($sql);
         return $request;
     }
