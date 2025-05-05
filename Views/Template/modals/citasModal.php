@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-gradient-dark">
-        <h5 class="modal-title text-light text-bold fs-6" id="modalCitaLabel">Detalles de la Cita</h5>
+        <h5 class="modal-title text-light text-bold fs-7" id="modalCitaLabel">Detalles de la Cita</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -29,13 +29,13 @@
         <!-- 3. Notas -->
         <div class="mb-3">
           <h6>Notas</h6>
-          <textarea id="mc-notas" class="form-control" rows="3"></textarea>
+          <textarea id="mc-notas"inputNotas class="form-control" rows="3"></textarea>
         </div>
 
         <!-- 4. Totales y cobro -->
         <div class="mb-3 d-flex justify-content-end align-items-center">
           <strong class="me-2">Total:</strong>
-          <span id="mc-total" class="fs-5 text-success"></span>
+          <span id="mc-total" class="fs-5 text-bold text-dark"></span>
         </div>
       </div>
 
@@ -60,7 +60,7 @@
     <div class="modal-content">
       <form id="formCrearCita">
         <div class="modal-header bg-gradient-dark">
-          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearCitaLabel">Añadir Cita</h5>
+          <h5 class="modal-title text-light text-bold fs-7" id="modalCrearCitaLabel">Añadir Cita</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
@@ -84,14 +84,14 @@
 
           <div class="mb-3">
             <div id="serviciosContainer" class="d-flex flex-wrap align-items-center gap-2"></div>
-            <button type="button" class="btn btn-sm bg-gradient-dark text-light mt-2" id="btnAgregarServicio">
+            <button type="button" class="btn btn-sm bg-gradient-dark text-light mt-3" id="btnAgregarServicio">
               + Agregar Servicio
             </button>
           </div>
 
           <div class="d-flex justify-content-end align-items-center">
             <strong class="me-2">Total:</strong>
-            <span id="spanTotal" class="fs-5 text-dark">$0</span>
+            <span id="spanTotal" class="fs-5 text-bold text-dark">$0</span>
           </div>
 
         </div>

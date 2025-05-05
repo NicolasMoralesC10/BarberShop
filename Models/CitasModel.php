@@ -8,7 +8,7 @@ class CitasModel extends mysql
         parent::__construct();
     }
 
-    // Inserta la cita y devuelve el ID generado
+
     public function insertCita(int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total)
     {
         // No verificamos duplicados en este caso
@@ -25,7 +25,6 @@ class CitasModel extends mysql
         return $this->insert($query, $arrData);
     }
 
-    // Inserta un servicio asociado a la cita
     public function insertCitaServicio(int $citaId, int $servicioId, int $empleadoId, int $duracionM, string $fechaInicio, string $fechaFin, int $precio)
     {
         $query = "INSERT INTO citas_servicios
@@ -43,16 +42,24 @@ class CitasModel extends mysql
         return $this->insert($query, $arrData);
     }
 
+    public function updateCita(int $citaId, int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total) {
+        $sql = "UPDATE citas SET cliente_id  = ?, fechaInicio = ?, fechaFin = ?,notas = ?, total = ? WHERE id = ?";
+        return $this->update($sql, [
+            $clienteId,
+            $fechaInicio,
+            $fechaFin,
+            $notas,
+            $total,
+            $citaId
+        ]);
+    }
 
     public function getCitasDisEmpleado(int $empleadoId, string $fechaInicio, string $fechaFin)
     {
-        // Sanitizar valores para incluir directamente en la cadena SQL
         $this->empleadoId = $empleadoId;
         $this->fechaInicio = $fechaInicio;
         $this->fechaFin = $fechaFin;
 
-
-        // Consulta similar a tu ejemplo de excepciones, adaptada a citas y empleados
         $query = "
           SELECT c.id, c.fechaInicio, c.fechaFin, e.nombre AS empleadoNombre
             FROM citas c
@@ -67,7 +74,7 @@ class CitasModel extends mysql
              )
         ";
 
-        // select_all devuelve un array de filas encontradas
+
         return $this->select_all($query);
     }
 
@@ -102,6 +109,36 @@ class CitasModel extends mysql
         return $request;
     }
 
+    public function selectCitaById(int $citaId)
+    {
+        $this->citaId = $citaId;
+        $sql = "
+            SELECT 
+              c.id,
+              c.cliente_id,
+              cl.nombre        AS cliente,
+              c.fechaInicio   AS start,
+              c.fechaFin      AS end,
+              c.total,
+              c.status,
+              c.notas,
+              cs.servicio_id,
+              s.nombre         AS servicio,
+              cs.empleado_id,
+              e.nombre         AS empleado,
+              cs.duracionM AS duracionM,
+              cs.precio
+            FROM citas c
+            INNER JOIN clientes cl ON c.cliente_id = cl.id
+            INNER JOIN citas_servicios cs ON c.id = cs.cita_id
+            INNER JOIN servicios s     ON cs.servicio_id = s.id
+            INNER JOIN empleados e     ON cs.empleado_id  = e.id
+            WHERE c.id = {$this->citaId}
+            ORDER BY cs.id
+        ";
+        return $this->select_all($sql, [$citaId]);
+    }
+
     public function selectClientes()
     {
         $sql = "SELECT id, nombre, telefono FROM clientes WHERE status = 1";
@@ -131,5 +168,11 @@ class CitasModel extends mysql
         $arrData = array(0, $this->citaId);
         $request = $this->update($sql, $arrData);
         return $request;
+    }
+
+    public function deleteCitaServicios(int $citaId)
+    {
+        $sql = "DELETE FROM citas_servicios WHERE cita_id = ?";
+        return $this->delete($sql, [$citaId]);
     }
 }

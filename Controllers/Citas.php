@@ -9,7 +9,6 @@ class Citas extends Controllers
     session_start();
     if (empty($_SESSION['login'])) {
       header('Location: ' . base_url() . '/login');
-      
     }
   }
   public function Citas()
@@ -24,109 +23,114 @@ class Citas extends Controllers
 
   public function setCitas()
   {
-    // Leer JSON bruto
+
     $json  = file_get_contents('php://input');
     $input = json_decode($json, true);
 
-    // Validar datos mínimos
-    if (
-      empty($input['cliente_id']) || empty($input['fechaInicio']) || empty($input['servicios']) || !is_array($input['servicios'])
-    ) {
+    if (empty($input['cliente_id']) || empty($input['fechaInicio']) || empty($input['servicios']) || !is_array($input['servicios'])) {
       echo json_encode(['status' => false, 'msg' => 'Datos inválidos'], JSON_UNESCAPED_UNICODE);
       return;
     }
 
-    // Sanitizar y preparar variables
-    $clienteId = intval(strClean($input['cliente_id']));
-    $fechaInicio = strClean($input['fechaInicio']); // "YYYY-MM-DD HH:ii:ss"
-    $notas = isset($input['notas']) ? strClean($input['notas']) : null;
-    /*     $status = 1; // pendiente por defecto */
+    $citaId      = isset($input['id']) ? intval(strClean($input['id'])) : 0;
+    $clienteId   = intval(strClean($input['cliente_id']));
+    $fechaInicio = strClean($input['fechaInicio']);
+    $notas       = $input['notas'] ?? null;
 
-    // Calcular total y minutos totales
-    $total          = 0;
+    $total = 0;
     $minutosTotales = 0;
     foreach ($input['servicios'] as $srv) {
-      $precio = intval(strClean($srv['precio']));
+      $precio   = intval(strClean($srv['precio']));
       $duracion = intval(strClean($srv['duracionM']));
-      $total += $precio;
+      $total   += $precio;
       $minutosTotales += $duracion;
     }
 
-    // Calcular fechaFin global de la cita
+    // Calculo fechaFin
     $dt = new DateTime($fechaInicio);
     $dt->modify("+{$minutosTotales} minutes");
     $fechaFin = $dt->format('Y-m-d H:i:s');
 
-    // Validar disponibilidad servicio a servicio
-    $currentStart = new DateTime($fechaInicio);
-    foreach ($input['servicios'] as $srv) {
-      $duracion = intval(strClean($srv['duracionM']));
-      $dtServiceEnd = clone $currentStart;
-      $dtServiceEnd->modify("+{$duracion} minutes");
-
-      $startSrv = $currentStart->format('Y-m-d H:i:s');
-      $endSrv = $dtServiceEnd->format('Y-m-d H:i:s');
-      $empId = intval(strClean($srv['empleado_id']));
-
-      $conflictos = $this->model->getCitasDisEmpleado($empId, $startSrv, $endSrv);
-      if (!empty($conflictos)) {
-        $empleadoNombre = $conflictos[0]['empleadoNombre'];
-        $hIni12 = (new DateTime($startSrv))->format('g:i A');
-        $hFin12 = (new DateTime($endSrv))->format('g:i A');
-
-        echo json_encode(['status' => false, 'msg' => "El empleado “{$empleadoNombre}” ya tiene una cita de {$hIni12} a {$hFin12}."], JSON_UNESCAPED_UNICODE);
-        return;
-      }
-
-      // avanzamos al siguiente servicio
-      $currentStart = $dtServiceEnd;
-    }
-
     try {
-      // Insertar cita principal
-      $newCitaId = $this->model->insertCita(
-        $clienteId,
-        $fechaInicio,
-        $fechaFin,
-        $notas,
-        $total
-      );
+      if ($citaId > 0) {
+        // ─── FLUJO DE ACTUALIZAR / REPROGRAMAR ───
+        $upd = $this->model->updateCita(
+          $citaId,
+          $clienteId,
+          $fechaInicio,
+          $fechaFin,
+          $notas,
+          $total
+        );
 
-      if ($newCitaId > 0) {
-        // Insertar cada servicio con sus tiempos
-        $currentStart = new DateTime($fechaInicio);
-        foreach ($input['servicios'] as $srv) {
-          $duracion     = intval(strClean($srv['duracionM']));
-          $dtServiceEnd = clone $currentStart;
-          $dtServiceEnd->modify("+{$duracion} minutes");
+        if ($upd > 0) {
+          // Borrar servicios anteriores
+          $this->model->deleteCitaServicios($citaId);
 
-          $startSrv = $currentStart->format('Y-m-d H:i:s');
-          $endSrv   = $dtServiceEnd->format('Y-m-d H:i:s');
+          // Reinsertar pivot con nuevos tiempos
+          $currentStart = new DateTime($fechaInicio);
+          foreach ($input['servicios'] as $srv) {
+            $duracion     = intval(strClean($srv['duracionM']));
+            $dtSrvEnd     = clone $currentStart;
+            $dtSrvEnd->modify("+{$duracion} minutes");
 
-          $this->model->insertCitaServicio(
-            $newCitaId,
-            intval(strClean($srv['servicio_id'])),
-            intval(strClean($srv['empleado_id'])),
-            $duracion,
-            $startSrv,
-            $endSrv,
-            intval(strClean($srv['precio']))
-          );
+            $this->model->insertCitaServicio(
+              $citaId,
+              intval(strClean($srv['servicio_id'])),
+              intval(strClean($srv['empleado_id'])),
+              $duracion,
+              $currentStart->format('Y-m-d H:i:s'),
+              $dtSrvEnd->format('Y-m-d H:i:s'),
+              intval(strClean($srv['precio']))
+            );
+            $currentStart = $dtSrvEnd;
+          }
 
-          $currentStart = $dtServiceEnd;
+          $arrResponse = ['status' => true, 'msg' => 'Cita actualizada correctamente', 'id' => $citaId];
+        } else {
+          $arrResponse = ['status' => false, 'msg' => 'No se pudo actualizar la cita'];
         }
-
-        $arrResponse = ['status' => true, 'msg' => 'Cita agendada correctamente', 'id' => $newCitaId];
       } else {
-        $arrResponse = ['status' => false, 'msg' => 'Error al insertar la cita'];
+        // Insertar cabecera
+        $newId = $this->model->insertCita(
+          $clienteId,
+          $fechaInicio,
+          $fechaFin,
+          $notas,
+          $total
+        );
+
+        if ($newId > 0) {
+          // Insertar pivot
+          $currentStart = new DateTime($fechaInicio);
+          foreach ($input['servicios'] as $srv) {
+            $duracion = intval(strClean($srv['duracionM']));
+            $dtSrvEnd = clone $currentStart;
+            $dtSrvEnd->modify("+{$duracion} minutes");
+
+            $this->model->insertCitaServicio(
+              $newId,
+              intval(strClean($srv['servicio_id'])),
+              intval(strClean($srv['empleado_id'])),
+              $duracion,
+              $currentStart->format('Y-m-d H:i:s'),
+              $dtSrvEnd->format('Y-m-d H:i:s'),
+              intval(strClean($srv['precio']))
+            );
+
+            $currentStart = $dtSrvEnd;
+          }
+
+          $arrResponse = ['status' => true, 'msg' => 'Cita agendada correctamente', 'id' => $newId];
+        } else {
+          $arrResponse = ['status' => false, 'msg' => 'Error al insertar la cita'];
+        }
       }
     } catch (\Throwable $e) {
       $arrResponse = ['status' => false, 'msg' => 'Excepción: ' . $e->getMessage()];
     }
-
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
   }
-
 
 
   public function getCitas()
@@ -162,6 +166,49 @@ class Citas extends Controllers
 
     echo json_encode($citas, JSON_UNESCAPED_UNICODE);
   }
+
+  public function getCitaById()
+  {
+    $id = intval(strClean($_GET['id'] ?? 0));
+    if ($id <= 0) {
+      echo json_encode(['status' => false, 'msg' => 'ID inválido'], JSON_UNESCAPED_UNICODE);
+      return;
+    }
+
+    $rawData = $this->model->selectCitaById($id);
+    if (empty($rawData)) {
+      echo json_encode(['status' => false, 'msg' => 'Cita no encontrada'], JSON_UNESCAPED_UNICODE);
+      return;
+    }
+
+    $first = $rawData[0];
+    $cita = [
+      'id'         => intval($first['id']),
+      'cliente_id' => intval($first['cliente_id']),
+      'cliente'    => $first['cliente'],
+      'start'      => $first['start'],
+      'end'        => $first['end'],
+      'servicios'  => [],
+      'empleados'  => [],
+      'duraciones' => [],
+      'total'      => intval($first['total']),
+      'status'     => intval($first['status']),
+      'notas'      => $first['notas']
+    ];
+
+    foreach ($rawData as $row) {
+      $cita['servicios'][]  = $row['servicio'];
+      $cita['empleados'][]  = $row['empleado'];
+      $cita['servicio_ids'][]  = intval($row['servicio_id']);
+      $cita['empleado_ids'][]  = intval($row['empleado_id']);
+      $cita['duraciones'][] = intval($row['duracionM']);
+      $cita['precios'][]    = intval($row['precio']);
+    }
+
+    // Devolverlo (sin reindexar porque es un solo objeto)
+    echo json_encode(['status' => true, 'data' => $cita], JSON_UNESCAPED_UNICODE);
+  }
+
 
   public function cancelarCita()
   {
