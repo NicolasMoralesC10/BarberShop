@@ -1,0 +1,25 @@
+.card-img-container {
+  width: 100%;
+  height: 220px; /* Puedes ajustar la altura según tu diseño */
+  overflow: hidden;
+  border-top-left-radius: 1rem; /* Opcional: para esquinas redondeadas */
+  border-top-right-radius: 1rem;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imgPreview {
+  border: 2px solid black; /* Borde negro de 2px */
+  border-radius: 15px; /* Esquinas redondeadas */
+  padding: 5px; /* Un poco de espacio dentro del borde */
+  max-width: 100%; /* La imagen no debe sobrepasar el contenedor */
+  max-height: 200px; /* Limita la altura máxima de la imagen */
+  object-fit: contain; /* Mantiene la relación de aspecto de la imagen */
+  display: block; /* Hace que la imagen se comporte como un bloque */
+  margin: 10px auto;
+}

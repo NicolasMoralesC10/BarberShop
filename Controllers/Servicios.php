@@ -21,7 +21,7 @@ class Servicios extends Controllers
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
       if ($arrData[$i]['status'] >= 0) {
-        $arrData[$i]['card'] = '<div class="card col-2 mt-5" data-animation="true">
+        $arrData[$i]['card'] = '<div class="card col-3 mt-5" data-animation="true">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
                                           <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
@@ -46,9 +46,7 @@ class Servicios extends Controllers
                                       </div>
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex">
-                                        <p class="font-weight-normal my-auto">$' . $arrData[$i]['precio'] . '</p>
-                                        <i class="material-symbols-rounded position-relative ms-auto text-lg me-1 my-auto">place</i>
-                                        <p class="text-sm my-auto"> Barcelona, Spain</p>
+                                        <p class="font-weight-normal my-auto ms-auto me-auto">$' . $arrData[$i]['precio'] . '</p>
                                       </div>
                                     </div>';
       }
@@ -94,12 +92,13 @@ class Servicios extends Controllers
     $arrPosts = [
       'txtNombre',
       'txtPrecio',
-      'txtDescripcion'
+      'txtDuracion'
     ];
 
     if (check_post($arrPosts)) {
       $strNombre = strClean($_POST['txtNombre']);
       $intPrecio = intval(strClean($_POST['txtPrecio']));
+      $intDuracion = intval(strClean($_POST['txtDuracion']));
       $strDesc = strClean($_POST['txtDescripcion']);
       $intStatus = 1;
       $intIdServicio = intval(strClean($_POST['txtIdServicio']));
@@ -127,6 +126,7 @@ class Servicios extends Controllers
           $insert = $this->model->insertServicio(
             $strNombre,
             $intPrecio,
+            $intDuracion,
             $strDesc,
             $strImagen,
             $intStatus,
@@ -140,6 +140,7 @@ class Servicios extends Controllers
             $intIdServicio,
             $strNombre,
             $intPrecio,
+            $intDuracion,
             $strDesc,
             $strImagen,
             $intStatus,

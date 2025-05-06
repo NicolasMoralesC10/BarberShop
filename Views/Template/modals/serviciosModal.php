@@ -21,6 +21,13 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="mb-3 col-12">
+                            <label for="txtDuracion" class="form-label">Duracion (min)</label>
+                            <input type="number" min="1" class="form-control" id="txtDuracion" name="txtDuracion">
+                        </div>
+                    </div>
+
                     <!-- <div id="userStatusZone" class="mb-3">
                         <label for="genero" class="form-label">Estado</label>
                         <select class="form-control" name="txtEstado" id="txtEstado">
@@ -36,7 +43,7 @@
                     <div class="mb-3">
                         <label for="txtImagen" class="form-label">Imagen</label>
                         <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/*">
-                        <img id="imgPreview"  src="" alt="Imagen actual" width="100">
+                        <img id="imgPreview" src="" alt="Imagen actual" class="imgPreview">
                     </div>
 
             </div>

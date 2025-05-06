@@ -7,21 +7,28 @@ let frmCrearServicio = document.querySelector("#frmCrearServicio");
 let txtIdServicio = document.querySelector("#txtIdServicio");
 let txtNombre = document.querySelector("#txtNombre");
 let txtPrecio = document.querySelector("#txtPrecio");
+let txtDuracion = document.querySelector("#txtDuracion");
 let txtDescripcion = document.querySelector("#txtDescripcion");
 let txtImagen = document.querySelector("#txtImagen");
+let imgPreview = document.querySelector("#imgPreview");
 
-/* txtImagen.addEventListener("change", (evento) => {
+txtImagen.addEventListener("change", (evento) => {
   const archivo = evento.target.files[0];
   if (archivo) {
-    console.log("Se seleccionó una imagen:", archivo.name);
-    // Aquí puedes hacer más cosas, como mostrar una vista previa
+    const lector = new FileReader();
+    lector.onload = function (e) {
+      imgPreview.hidden = false;
+      imgPreview.setAttribute("src", e.target.result);
+    };
+    lector.readAsDataURL(archivo);
   }
-}); */
+});
 
 loadCards();
 
 btnAgregar.addEventListener("click", () => {
   $("#crearServicioModal").modal("show");
+  imgPreview.hidden = true;
 });
 
 btnCerrar.addEventListener("click", () => {
@@ -47,9 +54,7 @@ frmCrearServicio.addEventListener("submit", (e) => {
           text: data.msg,
           icon: "success",
         });
-        /* tbl_clientes.api().ajax.reload(function () {}); */
-        /* cards_servicios.api().ajax.reload(function () {}); */
-        window.reload();
+        window.location.reload();
         $("#crearServicioModal").modal("hide");
         /*  clearForm() */
       } else {
@@ -106,9 +111,11 @@ document.addEventListener("click", (e) => {
             console.log(data);
             txtNombre.value = data.nombre;
             txtPrecio.value = data.precio;
+            txtDuracion.value = data.duracionMinutos;
             txtDescripcion.value = data.descripcion;
             /* txtImagen.value = data.imagen; */
-            document.getElementById("imgPreview").src = data.imagen;
+            imgPreview.hidden = false;
+            imgPreview.src = data.imagen;
             txtIdServicio.value = data.id;
             $("#crearServicioModal").modal("show");
             /* opcionEstado(true); */
@@ -196,12 +203,7 @@ function cargarTabla() {
       url: " " + base_url + "/servicios/getServicios",
       dataSrc: "",
     },
-    columns: [
-      { data: "nombreF" },
-      { data: "telefonoF" },
-      { data: "status" },
-      { data: "accion" },
-    ],
+    columns: [{ data: "nombreF" }, { data: "telefonoF" }, { data: "status" }, { data: "accion" }],
     responsive: "true",
     iDisplayLength: 5,
     order: [
@@ -228,9 +230,7 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(
-      `<span class="material-symbols-rounded clear-icon">close</span>`
-    );
+    let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });
@@ -259,4 +259,7 @@ function limpiarFormulario() {
       textarea.value = "";
     }
   });
+
+  const imgPreview = document.querySelector("#imgPreview");
+  if (imgPreview) imgPreview.src = "";
 }

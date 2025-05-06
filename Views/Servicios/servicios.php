@@ -14,7 +14,7 @@ getModal('serviciosModal', $data); ?>
         </div>
       </div>
       <div class="card-body px-1 pb-2">
-        <div class="contennedor">
+        <div class="contenedor">
           <div class="row ps-5 pe-5" style="gap: 11.1%;" id="cards_servicios">
 
           </div>

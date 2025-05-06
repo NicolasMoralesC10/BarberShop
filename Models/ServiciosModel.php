@@ -22,10 +22,11 @@ class ServiciosModel extends mysql
         return $request;
     }
 
-    public function insertServicio(string $strNombre, int $intPrecio, string $strDesc = null, string $strImagen)
+    public function insertServicio(string $strNombre, int $intPrecio, int $intDuracion, string $strDesc = null, string $strImagen)
     {
         $this->strNombre = $strNombre;
         $this->intPrecio = $intPrecio;
+        $this->intDuracion = $intDuracion;
         $this->strDesc = $strDesc;
         $this->strImagen = $strImagen;
 
@@ -35,8 +36,8 @@ class ServiciosModel extends mysql
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "INSERT INTO servicios (nombre, precio, descripcion, imagen, status) VALUES (?,?,?,?,?)";
-            $arrData = array($this->strNombre, $this->intPrecio, $this->strDesc, $this->strImagen, 1);
+            $query_insert = "INSERT INTO servicios (nombre, precio, duracionMinutos, descripcion, imagen, status) VALUES (?,?,?,?,?,?)";
+            $arrData = array($this->strNombre, $this->intPrecio, $this->intDuracion, $this->strDesc, $this->strImagen, 1);
             $reques_insert = $this->insert($query_insert, $arrData);
             $respuesta = $reques_insert;
         }
@@ -44,30 +45,59 @@ class ServiciosModel extends mysql
         return $respuesta;
     }
 
-    public function updateServicio(int $idServicio, string $strNombre, int $intPrecio, string $strDesc = null, int $intStatus)
+    public function updateServicio(int $idServicio, string $strNombre, int $intPrecio, int $intDuracion, string $strDesc = null, string $strImagen = null, int $intStatus)
     {
         $this->idServicio = $idServicio;
         $this->strNombre = $strNombre;
         $this->intPrecio = $intPrecio;
+        $this->intDuracion = $intDuracion;
         $this->strDesc = $strDesc;
+        $this->strImagen = $strImagen;
         $this->intStatus = $intStatus;
 
-        $sql = "SELECT * FROM servicios WHERE (nombre = {$this->strNombre} AND status > 0) AND id != {$this->idServicio}";
+        $sql = "SELECT * FROM servicios WHERE (nombre = '{$this->strNombre}' AND status > 0) AND id != {$this->idServicio}";
 
         $request = $this->select_all($sql);
 
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "UPDATE servicios SET nombre = ?, precio = ?, descripcion = ?, status = ? WHERE status > 0 AND id = {$this->idServicio}";
+
+            if (empty($this->strImagen)) {
+                $query_insert = "UPDATE servicios SET nombre = ?, precio = ?, duracionMinutos = ?, descripcion = ?, status = ? WHERE status > 0 AND id = {$this->idServicio}";
+                $arrData = array(
+                    $this->strNombre,
+                    $this->intPrecio,
+                    $this->intDuracion,
+                    $this->strDesc,
+                    $this->intStatus,
+                );
+                $reques_insert = $this->update($query_insert, $arrData);
+                $respuesta = $reques_insert;
+            } else {
+                $query_insert = "UPDATE servicios SET nombre = ?, precio = ?, duracionMinutos = ?, descripcion = ?, imagen = ?, status = ? WHERE status > 0 AND id = {$this->idServicio}";
+                $arrData = array(
+                    $this->strNombre,
+                    $this->intPrecio,
+                    $this->intDuracion,
+                    $this->strDesc,
+                    $this->strImagen,
+                    $this->intStatus,
+                );
+                $reques_insert = $this->update($query_insert, $arrData);
+                $respuesta = $reques_insert;
+            }
+
+            /* $query_insert = "UPDATE servicios SET nombre = ?, precio = ?, duracionMinutos = ?, descripcion = ?, status = ? WHERE status > 0 AND id = {$this->idServicio}";
             $arrData = array(
                 $this->strNombre,
                 $this->intPrecio,
+                $this->intDuracion,
                 $this->strDesc,
                 $this->intStatus,
             );
             $reques_insert = $this->update($query_insert, $arrData);
-            $respuesta = $reques_insert;
+            $respuesta = $reques_insert; */
         }
 
         return $respuesta;

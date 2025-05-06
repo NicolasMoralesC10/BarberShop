@@ -32,6 +32,8 @@
   <link
     href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css"
     rel="stylesheet" />
+  <!-- Servicios CSS -->
+  <link rel="stylesheet" href="<?= media() ?>/css/servicios.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
