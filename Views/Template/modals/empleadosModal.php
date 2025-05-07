@@ -56,7 +56,7 @@
             </div>
             <div class="modal-footer bg-gradient-dark">
                 <button type="button" class="btn btn-secondary mb-0" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary mb-0">Crear</button>
+                <button type="submit" id="btnCrearEmpleado" class="btn btn-primary mb-0">Crear</button>
                 </form>
             </div>
         </div>

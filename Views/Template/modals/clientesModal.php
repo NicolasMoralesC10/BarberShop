@@ -2,8 +2,8 @@
 <div class="modal fade" id="crearClienteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header" style="background-color: black">
-                <h1 class="modal-title fs-5" style="color: white;" id="modalTitle">Añadir cliente</h1>
+            <div class="modal-header bg-gradient-dark">
+                <h1 class="modal-title text-light fs-6 text-bold" id="modalTitle">Añadir cliente</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -35,9 +35,9 @@
                     </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" id="btnEnviar">Añadir</button>
+            <div class="modal-footer bg-gradient-dark">
+                <button type="button" class="btn btn-secondary mb-0" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary mb-0" id="btnEnviar">Añadir</button>
                 </form>
             </div>
         </div>

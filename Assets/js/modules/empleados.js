@@ -17,7 +17,7 @@ let pickerFechaContratacion = flatpickr("#txtFechaContratacion", {
   altFormat: "Y-m-d",
   dateFormat: "Y-m-d",
   minDate: "2000-01-01",
-  locale: "es"
+  locale: "es",
 });
 
 cargarTabla();
@@ -51,7 +51,7 @@ frmCrearEmpleado.addEventListener("submit", (e) => {
   let frmEmpleado = new FormData(frmCrearEmpleado);
   fetch(base_url + "/empleados/setEmpleado", {
     method: "POST",
-    body: frmEmpleado
+    body: frmEmpleado,
   })
     .then((res) => res.json())
     .then((data) => {
@@ -59,7 +59,7 @@ frmCrearEmpleado.addEventListener("submit", (e) => {
         Swal.fire({
           title: "Registro Empleado",
           text: data.msg,
-          icon: "success"
+          icon: "success",
         });
         tbl_empleados.api().ajax.reload(function () {});
         $("#crearEmpleadoModal").modal("hide");
@@ -68,7 +68,7 @@ frmCrearEmpleado.addEventListener("submit", (e) => {
         Swal.fire({
           title: "Error",
           text: data.msg,
-          icon: "error"
+          icon: "error",
         });
       }
     });
@@ -86,21 +86,21 @@ document.addEventListener("click", (e) => {
         text: "El empleado sera eliminado y no podrás revertirlo.",
         showCancelButton: true,
         confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "No, mantener"
+        cancelButtonText: "No, mantener",
       }).then((result) => {
         if (result.isConfirmed) {
           let frmData = new FormData();
           frmData.append("txtIdEmpleado", id);
           fetch(base_url + "/empleados/deleteEmpleado", {
             method: "POST",
-            body: frmData
+            body: frmData,
           })
             .then((res) => res.json())
             .then((data) => {
               Swal.fire({
                 title: data.status ? "Correcto" : "Error",
                 text: data.msg,
-                icon: data.status ? "success" : "error"
+                icon: data.status ? "success" : "error",
               });
               tbl_empleados.api().ajax.reload(function () {});
             });
@@ -123,13 +123,15 @@ document.addEventListener("click", (e) => {
             txtSalario.value = data.salario;
             txtIdEmpleado.value = data.id;
             txtEstado.value = data.status;
+            document.querySelector("#exampleModalLabel").textContent = "Actualizar Empleado";
+            document.querySelector("#btnCrearEmpleado").textContent = "Actualizar";
             $("#crearEmpleadoModal").modal("show");
             opcionEstado(true);
           } else {
             Swal.fire({
               title: "Error",
               text: data.msg,
-              icon: "error"
+              icon: "error",
             });
             tbl_empleados.api().ajax.reload(function () {});
           }
@@ -175,6 +177,8 @@ function opcionEstado(mode) {
 
 function limpiarFormulario() {
   const form = document.getElementById("frmCrearEmpleado");
+  document.querySelector("#exampleModalLabel").textContent = "Añadir Empleado";
+  document.querySelector("#btnCrearEmpleado").textContent = "Añadir";
 
   [...form.querySelectorAll("input, select, textarea")].forEach((el) => {
     if (!el.hasAttribute("data-ignore-clear")) {
@@ -204,7 +208,7 @@ function cargarTabla() {
       { extend: "excel", text: "Excel", className: "bg-gradient-dark shadow-dark" },
       /*  { extend: "pdf", text: "PDF", className: "bg-gradient-dark shadow-dark" },
       { extend: "print", text: "Imprimir", className: "bg-gradient-dark shadow-dark" }, */
-      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" }
+      { extend: "colvis", text: "Columnas", className: "bg-gradient-dark shadow-dark" },
     ],
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
@@ -220,26 +224,26 @@ function cargarTabla() {
         first: "Primero",
         last: "Último",
         next: "›",
-        previous: "‹"
-      }
+        previous: "‹",
+      },
     },
     ajax: {
       url: " " + base_url + "/empleados/getEmpleados",
-      dataSrc: ""
+      dataSrc: "",
     },
     columns: [
       { data: "nombreF" },
       { data: "cargoF" },
       { data: "status" },
       { data: "fecha_contratacionF" },
-      { data: "accion" }
+      { data: "accion" },
     ],
     responsive: "true",
     iDisplayLength: 5,
     order: [
       [2, "asc"],
-      [3, "asc"]
-    ]
+      [3, "asc"],
+    ],
     /*  columnDefs: [
         {
             targets: 2, // columna Estado
@@ -274,7 +278,9 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(`<span class="material-symbols-rounded clear-icon" translate="no">close</span>`);
+    let clearButton = $(
+      `<span class="material-symbols-rounded clear-icon" translate="no">close</span>`
+    );
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });

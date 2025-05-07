@@ -64,7 +64,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-        <input type="number" id="intIdCita" name="intIdCita" class="form-control" required />
+        <input type="number" id="intIdCita" class="form-control" hidden/>
           <div class="mb-3">
             <label for="selectCliente" class="form-label">Cliente</label>
             <select id="selectCliente" class="form-select" required>

@@ -42,7 +42,8 @@ class CitasModel extends mysql
         return $this->insert($query, $arrData);
     }
 
-    public function updateCita(int $citaId, int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total) {
+    public function updateCita(int $citaId, int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total)
+    {
 
         $this->citaId = $citaId;
         $this->clienteId = $clienteId;
@@ -52,14 +53,14 @@ class CitasModel extends mysql
         $this->total = $total;
 
 
-        $sql = "UPDATE citas SET cliente_id  = ?, fechaInicio = ?, fechaFin = ?,notas = ?, total = ? WHERE id = ?";
+        $sql = "UPDATE citas SET cliente_id  = ?, fechaInicio = ?, fechaFin = ?,notas = ?, total = ? WHERE id = {$this->citaId}";
         $arrData = array(
-        $clienteId,
-        $fechaInicio,
-        $fechaFin,
-        $notas,
-        $total,
-        $citaId);
+            $clienteId,
+            $fechaInicio,
+            $fechaFin,
+            $notas,
+            $total,
+        );
         return $this->update($sql, $arrData);
     }
 
@@ -181,7 +182,10 @@ class CitasModel extends mysql
 
     public function deleteCitaServicios(int $citaId)
     {
+        $this->citaId = $citaId;
         $sql = "DELETE FROM citas_servicios WHERE cita_id = ?";
-        return $this->delete($sql, [$citaId]);
+        $arrData = array($this->citaId);
+        $request = $this->delete($sql, $arrData);
+        return $request;
     }
 }

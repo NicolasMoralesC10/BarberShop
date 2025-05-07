@@ -30,6 +30,7 @@
   <!-- Tom Select CSS -->
   <link
     href="<?= media() ?>/vendor/tom-select/tom-select.bootstrap5.min.css" rel="stylesheet" />
+    
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

@@ -52,7 +52,7 @@ class Citas extends Controllers
     $fechaFin = $dt->format('Y-m-d H:i:s');
 
     try {
-      if ($citaId > 0) {
+      if (intval($citaId) > 0) {
         // ─── FLUJO DE ACTUALIZAR / REPROGRAMAR ───
         $upd = $this->model->updateCita(
           $citaId,
@@ -63,7 +63,7 @@ class Citas extends Controllers
           $total
         );
 
-        if ($upd > 0) {
+        if (intval($upd) > 0) {
           // Borrar servicios anteriores
           $this->model->deleteCitaServicios($citaId);
 

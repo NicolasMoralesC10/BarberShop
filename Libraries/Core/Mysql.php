@@ -1,30 +1,34 @@
 <?php
 
-class Mysql extends Conexion{
+class Mysql extends Conexion
+{
     private $conexion;
     private $strquery;
     private $arrValues;
 
-    function __construct(){
+    function __construct()
+    {
         $this->conexion = new Conexion();
-        $this->conexion = $this->conexion->conect();        
+        $this->conexion = $this->conexion->conect();
     }
 
-    public function insert(string $query, array $arrValues){
+    public function insert(string $query, array $arrValues)
+    {
         $this->strquery = $query;
         $this->arrValues = $arrValues;
 
         $insert = $this->conexion->prepare($this->strquery);
         $resInsert = $insert->execute($this->arrValues);
-        if($resInsert){
+        if ($resInsert) {
             $lastInsert = $this->conexion->lastInsertId();
-        }else{
+        } else {
             $lastInsert = 0;
         }
 
         return $lastInsert;
     }
-    public function select(string $query){
+    public function select(string $query)
+    {
         $this->strquery = $query;
         $result = $this->conexion->prepare($this->strquery);
         $result->execute();
@@ -32,7 +36,8 @@ class Mysql extends Conexion{
         return $data;
     }
 
-    public function select_all(string $query){
+    public function select_all(string $query)
+    {
         $this->strquery = $query;
         $result = $this->conexion->prepare($this->strquery);
         $result->execute();
@@ -40,7 +45,8 @@ class Mysql extends Conexion{
         return $data;
     }
 
-    public function update(string $query, array $arrValues){
+    public function update(string $query, array $arrValues)
+    {
         $this->strquery = $query;
         $this->arrValues = $arrValues;
         $update = $this->conexion->prepare($this->strquery);
@@ -48,10 +54,18 @@ class Mysql extends Conexion{
         return $resExecute;
     }
 
-    public function delete(string $query){
+    /*    public function delete(string $query){
         $this->strquery = $query;
         $result = $this->conexion->prepare($this->strquery);
         $del = $result->execute();
+        return $del;
+    } */
+
+    public function delete(string $query, array $params)
+    {
+        $this->strquery = $query;
+        $result = $this->conexion->prepare($this->strquery);
+        $del = $result->execute($params);  // Pasar los parámetros de la consulta
         return $del;
     }
 }

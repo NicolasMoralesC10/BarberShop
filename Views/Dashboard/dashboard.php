@@ -69,7 +69,7 @@
     </div>
   </div>
   <div class="col-xl-3 col-sm-6">
-    <div class="card">
+    <div class="card"> 
       <div class="card-header p-2 ps-3">
         <div class="d-flex justify-content-between">
           <div>
