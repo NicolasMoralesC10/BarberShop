@@ -1,6 +1,8 @@
 let btnAgregar = document.querySelector("#btnAgregarCita");
+let intIdCita = document.querySelector("#intIdCita");
 
 btnAgregar.addEventListener("click", () => {
+   limpiarFormularioCita();
   $("#modalCrearCita").modal("show");
 });
 
@@ -258,7 +260,7 @@ function abrirModalCrearOModificar(cita) {
 
   document.querySelector("#selectCliente").value = cita.cliente_id;
   tsCliente.setValue(cita.cliente_id);
-
+  intIdCita.value = cita.id || 0; 
   fechaCita.setDate(cita.start, true);
 
   document.getElementById("mc-notas").value = cita.notas || "";
@@ -285,48 +287,12 @@ function abrirModalCrearOModificar(cita) {
     ip.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(cita.precios[i]);
   });
 
-  // 4) Cambiar el texto del botón
+  // Cambiar el texto del botón
   document.querySelector("#modalCrearCita .modal-title").textContent = "Actualizar Cita";
   document.querySelector("#formCrearCita button[type=submit]").textContent = "Guardar Cambios";
 
-  // 5) Cuando envíe el form, hago UPDATE en lugar de INSERT
-  document.getElementById("formCrearCita").onsubmit = function (e) {
-    e.preventDefault();
-    const payload = {
-      id: cita.id,
-      cliente_id: this.selectCliente.value,
-      fechaInicio: this.inputFechaHora.value,
-      notas: this.inputNotas.value,
-      servicios: Array.from(contenedor.children).map((row) => ({
-        servicio_id: row.querySelector(".select-servicio").value,
-        empleado_id: row.querySelector(".select-empleado").value,
-        duracionM: Number(row.querySelector(".inputDuracion").value),
-        precio: Number(row.querySelector(".inputPrecio").dataset.raw)
-      }))
-    };
 
-    fetch(`${base_url}/citas/updateCita`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    })
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((json) => {
-        if (json.status) {
-          calendar.refetchEvents(); // refresca el calendario
-          bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
-          Swal.fire("Guardado", "Cita actualizada", "success");
-        } else {
-          Swal.fire("Error", json.msg, "error");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        Swal.fire("Error", "No se pudo actualizar", "error");
-      });
-  };
-
-  // 6) Muestra el modal
+  // Muestra el modal
   new bootstrap.Modal(document.getElementById("modalCrearCita")).show();
 }
 
@@ -562,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showConfirmButton: false
           });
           limpiarFormularioCita();
-          // Opcional: cerrar modal y refrescar calendario si todo salió bien
+          // cerrar modal y refrescar calendario 
           bootstrap.Modal.getInstance(document.getElementById("modalCrearCita")).hide();
           calendar?.refetchEvents?.();
         } else {

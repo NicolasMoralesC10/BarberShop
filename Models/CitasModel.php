@@ -43,15 +43,24 @@ class CitasModel extends mysql
     }
 
     public function updateCita(int $citaId, int $clienteId, string $fechaInicio, string $fechaFin, ?string $notas, int $total) {
+
+        $this->citaId = $citaId;
+        $this->clienteId = $clienteId;
+        $this->fechaInicio = $fechaInicio;
+        $this->fechaFin = $fechaFin;
+        $this->notas = $notas;
+        $this->total = $total;
+
+
         $sql = "UPDATE citas SET cliente_id  = ?, fechaInicio = ?, fechaFin = ?,notas = ?, total = ? WHERE id = ?";
-        return $this->update($sql, [
-            $clienteId,
-            $fechaInicio,
-            $fechaFin,
-            $notas,
-            $total,
-            $citaId
-        ]);
+        $arrData = array(
+        $clienteId,
+        $fechaInicio,
+        $fechaFin,
+        $notas,
+        $total,
+        $citaId);
+        return $this->update($sql, $arrData);
     }
 
     public function getCitasDisEmpleado(int $empleadoId, string $fechaInicio, string $fechaFin)

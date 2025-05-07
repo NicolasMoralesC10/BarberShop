@@ -28,7 +28,7 @@ class Citas extends Controllers
     $input = json_decode($json, true);
 
     if (empty($input['cliente_id']) || empty($input['fechaInicio']) || empty($input['servicios']) || !is_array($input['servicios'])) {
-      echo json_encode(['status' => false, 'msg' => 'Datos inválidos'], JSON_UNESCAPED_UNICODE);
+      echo json_encode(['status' => false, 'msg' => 'Datos inválidos, proporcione todo los datos.'], JSON_UNESCAPED_UNICODE);
       return;
     }
 

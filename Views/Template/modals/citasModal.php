@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="modalCita" tabindex="-1" aria-labelledby="modalCitaLabel" aria-hidden="true">
+<div class="modal fade" id="modalCita" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="modalCitaLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-gradient-dark">
-        <h5 class="modal-title text-light text-bold fs-7" id="modalCitaLabel">Detalles de la Cita</h5>
+        <h5 class="modal-title text-light text-bold" style="font-size:1.1rem" id="modalCitaLabel">Detalles de la Cita</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -51,7 +51,7 @@
 
 <!-- Modal Crear Cita -->
 <div
-  class="modal fade"
+  class="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false"
   id="modalCrearCita"
   tabindex="-1"
   aria-labelledby="modalCrearCitaLabel"
@@ -60,11 +60,11 @@
     <div class="modal-content">
       <form id="formCrearCita">
         <div class="modal-header bg-gradient-dark">
-          <h5 class="modal-title text-light text-bold fs-7" id="modalCrearCitaLabel">Añadir Cita</h5>
+          <h5 class="modal-title text-light text-bold" style="font-size:1.1rem" id="modalCrearCitaLabel">Añadir Cita</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          
+        <input type="number" id="intIdCita" name="intIdCita" class="form-control" required />
           <div class="mb-3">
             <label for="selectCliente" class="form-label">Cliente</label>
             <select id="selectCliente" class="form-select" required>
