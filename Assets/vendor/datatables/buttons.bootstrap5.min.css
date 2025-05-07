@@ -36,6 +36,14 @@
   margin-right: 2%;
 }
 
+#tbl_clientes_filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 2%;
+}
+
 /* Contenedor del input y el ícono */
 .search-container {
   position: relative;
@@ -45,7 +53,8 @@
   border-radius: 15px;
   background-color: #f8f9fa;
   padding: 6px 12px;
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* Efecto cuando se hace hover o cuando el input tiene focus dentro */
@@ -65,6 +74,15 @@
 
 /* Estilo del input */
 #tbl_empleados_filter input {
+  width: 250px !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+
+#tbl_clientes_filter input {
   width: 250px !important;
   border: none !important;
   outline: none !important;
@@ -443,16 +461,24 @@ div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group:first-child {
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
-div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group:last-child:first-child {
+div.dataTables_wrapper
+  div.dt-buttons.btn-group
+  div.btn-group:last-child:first-child {
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
 }
-div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group button.dt-btn-split-drop:last-child {
+div.dataTables_wrapper
+  div.dt-buttons.btn-group
+  div.btn-group
+  button.dt-btn-split-drop:last-child {
   border: 1px solid rgb(108, 117, 125);
 }
-div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group div.dt-btn-split-wrapper {
+div.dataTables_wrapper
+  div.dt-buttons.btn-group
+  div.btn-group
+  div.dt-btn-split-wrapper {
   border: none;
 }
 div.dt-button-collection div.btn-group {

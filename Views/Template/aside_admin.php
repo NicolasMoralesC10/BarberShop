@@ -26,12 +26,15 @@
         <a class="nav-link <?= $data['page_name'] != 'clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
           <span class="material-symbols-rounded opacity-5" translate="no">group</span>
           <span class="nav-link-text ms-2">Clientes</span>
+        <a class="nav-link <?= $data['page_name'] != 'Clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
+          <i class="material-symbols-rounded opacity-5">group</i>
+          <span class="nav-link-text ms-1">Clientes</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?= $data['page_name'] != 'servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
-          <span class="material-symbols-rounded opacity-5" translate="no">content_cut</span>
-          <span class="nav-link-text ms-2">Servicios</span>
+        <a class="nav-link <?= $data['page_name'] != 'Servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
+          <i class="material-symbols-rounded opacity-5">content_cut</i>
+          <span class="nav-link-text ms-1">Servicios</span>
         </a>
       </li>
       <li class="nav-item">
