@@ -22,10 +22,15 @@ class ClientesModel extends mysql
         return $request;
     }
 
-    public function insertCliente(string $strNombre, string $strTelefono)
+    public function insertCliente(string $strNombre, string $strTelefono, string $strObservaciones)
     {
         $this->strNombre = $strNombre;
         $this->strTelefono = $strTelefono;
+        if (empty($strObservaciones)) {
+            $this->strObservaciones = null;
+        } else {
+            $this->strObservaciones = $strObservaciones;
+        }
 
         $query_clientes = "SELECT * FROM clientes WHERE telefono = {$this->strTelefono} AND status > 0";
         $request = $this->select_all($query_clientes);
@@ -33,8 +38,8 @@ class ClientesModel extends mysql
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "INSERT INTO clientes (nombre, telefono, status) VALUES (?,?,?)";
-            $arrData = array($this->strNombre, $this->strTelefono, 1);
+            $query_insert = "INSERT INTO clientes (nombre, telefono, observaciones, status) VALUES (?,?,?,?)";
+            $arrData = array($this->strNombre, $this->strTelefono, $this->strObservaciones, 1);
             $request_insert = $this->insert($query_insert, $arrData);
             $respuesta = $request_insert;
         }
@@ -42,11 +47,16 @@ class ClientesModel extends mysql
         return $respuesta;
     }
 
-    public function updateCliente(int $idCliente, string $strNombre, string $strTelefono, int $status)
+    public function updateCliente(int $idCliente, string $strNombre, string $strTelefono, string $strObservaciones, int $status)
     {
         $this->idCliente = $idCliente;
         $this->strNombre = $strNombre;
         $this->strTelefono = $strTelefono;
+        if (empty($strObservaciones)) {
+            $this->strObservaciones = null;
+        } else {
+            $this->strObservaciones = $strObservaciones;
+        }
         $this->intStatus = $status;
 
         $sql = "SELECT * FROM clientes WHERE (telefono = {$this->strTelefono} AND status > 0) AND id != {$this->idCliente}";
@@ -56,10 +66,11 @@ class ClientesModel extends mysql
         if (!empty($request)) {
             $respuesta = 'exist';
         } else {
-            $query_insert = "UPDATE clientes SET nombre = ?, telefono = ?, status = ? WHERE status > 0 AND id = {$this->idCliente}";
+            $query_insert = "UPDATE clientes SET nombre = ?, telefono = ?, observaciones = ?, status = ? WHERE status > 0 AND id = {$this->idCliente}";
             $arrData = array(
                 $this->strNombre,
                 $this->strTelefono,
+                $this->strObservaciones,
                 $this->intStatus,
             );
             $reques_insert = $this->update($query_insert, $arrData);

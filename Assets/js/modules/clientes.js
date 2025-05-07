@@ -1,21 +1,19 @@
 let tbl_clientes = document.querySelector("#tbl_clientes");
 let btnAgregar = document.querySelector("#btnAgregar");
-let btnCerrar = document.querySelector("#btnCerrar");
 let frmCrearCliente = document.querySelector("#frmCrearCliente");
 
 let txtIdCliente = document.querySelector("#txtIdCliente");
 let txtNombre = document.querySelector("#txtNombre");
 let txtTelefono = document.querySelector("#txtTelefono");
+let txtObservaciones = document.querySelector("#txtObservaciones");
 let txtEstado = document.querySelector("#txtEstado");
 
 cargarTabla();
 
 btnAgregar.addEventListener("click", () => {
-  $("#crearClienteModal").modal("show");
-});
-
-btnCerrar.addEventListener("click", () => {
   limpiarFormulario();
+  opcionEstado(false);
+  $("#crearClienteModal").modal("show");
 });
 
 frmCrearCliente.addEventListener("submit", (e) => {
@@ -35,7 +33,7 @@ frmCrearCliente.addEventListener("submit", (e) => {
         });
         tbl_clientes.api().ajax.reload(function () {});
         $("#crearClienteModal").modal("hide");
-        /*  clearForm() */
+        limpiarFormulario();
       } else {
         Swal.fire({
           title: "Error",
@@ -87,10 +85,14 @@ document.addEventListener("click", (e) => {
           if (data.status) {
             data = data.data;
             console.log(data);
+            document.getElementById("modalTitle").textContent =
+              "Actualizar datos";
+            document.getElementById("btnEnviar").textContent = "Actualizar";
             txtNombre.value = data.nombre;
             txtTelefono.value = data.telefono;
-            txtIdCliente.value = data.id;
+            txtObservaciones.value = data.observaciones;
             txtEstado.value = data.status;
+            txtIdCliente.value = data.id;
             $("#crearClienteModal").modal("show");
             opcionEstado(true);
           } else {
@@ -166,6 +168,7 @@ function cargarTabla() {
     columns: [
       { data: "nombreF" },
       { data: "telefonoF" },
+      { data: "observacionesF" },
       { data: "status" },
       { data: "accion" },
     ],
@@ -209,6 +212,8 @@ function cargarTabla() {
 }
 
 function limpiarFormulario() {
+  document.getElementById("modalTitle").textContent = "Añadir cliente";
+  document.getElementById("btnEnviar").textContent = "Añadir";
   const inputs = frmCrearCliente.querySelectorAll("input");
   inputs.forEach((input) => {
     if (input.hasAttribute("data-ignore-clear")) return;
@@ -218,5 +223,10 @@ function limpiarFormulario() {
       input.value = "";
       input.value = "";
     }
+  });
+
+  const textareas = frmCrearCliente.querySelectorAll("textarea");
+  textareas.forEach((textarea) => {
+    textarea.value = "";
   });
 }

@@ -26,11 +26,23 @@ class Clientes extends Controllers
                                   </div>
                                   <div class="d-flex flex-column justify-content-center">
                                     <h6 class="mb-0 text-sm">' . $arrData[$i]['nombre'] . '</h6>
+                                    <p class="text-xs text-secondary mb-0" style="text-align:left">' . (new DateTime($arrData[$i]['fecha_registro']))->format('Y-m-d') . '</p>
                                   </div>
-                                </div>';
+                                 </div>';
 
-      $arrData[$i]['telefonoF'] = '<p class="text-xs font-weight-bold mb-0" style="text-align:left">' . $arrData[$i]['telefono'] . '</p>
-                                   <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
+      $arrData[$i]['telefonoF'] = '<p class="text-xs font-weight-bold mb-0" style="text-align:center">' . $arrData[$i]['telefono'] . '</p>';
+
+      if (empty($arrData[$i]['observaciones'])) {
+        $arrData[$i]['observacionesF'] = '<p class="text-xs font-weight-bold mb-0" style="text-align:center">Sin observaciones</p>';
+      } else {
+        $arrData[$i]['observacionesF'] = '<p class="text-xs font-weight-bold mb-0" style="text-align:center">' . $arrData[$i]['observaciones'] . '</p>';
+      }
+
+      if ($arrData[$i]['status'] == 1) {
+        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Activo</span>';
+      } else {
+        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.7rem;">Inactivo</span>';
+      }
 
       $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
                                   <i class="material-symbols-rounded">Person_Edit</i>
@@ -39,12 +51,6 @@ class Clientes extends Controllers
                                 <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
                                   <i class="material-symbols-rounded">Delete</i>
                                 </button>';
-
-      if ($arrData[$i]['status'] == 1) {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Online</span>';
-      } else {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary">Offline</span>';
-      }
     }
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
   }
@@ -73,12 +79,12 @@ class Clientes extends Controllers
     $arrPosts = [
       'txtNombre',
       'txtTelefono',
-      'txtEstado'
     ];
 
     if (check_post($arrPosts)) {
       $strNombre = strClean($_POST['txtNombre']);
       $strTelefono = strClean($_POST['txtTelefono']);
+      $strObservaciones = strClean($_POST['txtObservaciones']);
       $intStatus = intval(strClean($_POST['txtEstado']));
       $intIdCliente = intval(strClean($_POST['txtIdCliente']));
 
@@ -87,16 +93,15 @@ class Clientes extends Controllers
           $insert = $this->model->insertCliente(
             $strNombre,
             $strTelefono,
+            $strObservaciones,
           );
           $option = 1;
         } else {
-          if ($intStatus == 0) {
-            $intStatus = 1;
-          }
           $insert = $this->model->updateCliente(
             $intIdCliente,
             $strNombre,
             $strTelefono,
+            $strObservaciones,
             $intStatus
           );
           $option = 2;
@@ -113,7 +118,7 @@ class Clientes extends Controllers
         } else if ($insert == 'exist') {
           $arrResponse = array('status' => false, 'msg' => 'Ya existe un cliente con este telefono.');
         } else {
-          $arrResponse = array('status' => false, 'msg' => 'Error al crear el usuario.');
+          $arrResponse = array('status' => false, 'msg' => 'Error al crear el cliente.');
         }
       } catch (\Throwable $th) {
         $arrResponse = array('status' => false, 'msg' => "Error desconocido: $th");
@@ -132,9 +137,9 @@ class Clientes extends Controllers
       $requestDelete = $this->model->deleteCliente($intIdCliente);
 
       if ($requestDelete) {
-        $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente');
+        $arrResponse = array('status' => true, 'msg' => 'Cliente eliminado correctamente.');
       } else {
-        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el cliente');
+        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el cliente.');
       }
 
       echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

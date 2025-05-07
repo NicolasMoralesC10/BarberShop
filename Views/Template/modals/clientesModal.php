@@ -3,8 +3,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" style="background-color: black">
-                <h1 class="modal-title fs-5" style="color: white;" id="exampleModalLabel">Añadir cliente</h1>
-                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                <h1 class="modal-title fs-5" style="color: white;" id="modalTitle">Añadir cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="frmCrearCliente" method="POST">
@@ -21,22 +21,10 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="mb-3 col-6">
-                            <label for="txtCargo" class="form-label">Salario</label>
-                            <input type="number" class="form-control" id="txtCargo" name="txtCargo">
-                        </div>
-
-                        <div class="mb-3 col-6">
-                            <label for="genero" class="form-label">Genero</label>
-                            <select class="form-control" name="genero" id="genero">
-                                <option value="0">Seleccione el Genero</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Femenino</option>
-                                <option value="3">Otro</option>
-                            </select>
-                        </div>
-                    </div> -->
+                    <div class="mb-3">
+                        <label for="txtObservaciones" class="form-label">Observacion(es)</label>
+                        <textarea class="form-control" id="txtObservaciones" name="txtObservaciones" rows="3"></textarea>
+                    </div>
 
                     <div id="userStatusZone" class="mb-3">
                         <label for="genero" class="form-label">Estado</label>
@@ -48,8 +36,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrar">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Añadir</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="btnEnviar">Añadir</button>
                 </form>
             </div>
         </div>

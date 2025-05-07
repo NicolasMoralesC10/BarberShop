@@ -21,7 +21,7 @@ class Servicios extends Controllers
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
       if ($arrData[$i]['status'] >= 0) {
-        $arrData[$i]['card'] = '<div class="card col-3 mt-5" data-animation="true">
+        $arrData[$i]['card'] = '<div class="card col-2 mt-5" data-animation="true">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
                                           <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
@@ -113,7 +113,7 @@ class Servicios extends Controllers
 
         // Mover el archivo a la carpeta final
         if (move_uploaded_file($_FILES['txtImagen']['tmp_name'], $rutaDestino)) {
-          $strImagen = $rutaDestino; // Ruta que vas a guardar en la base de datos
+          $strImagen = $rutaDestino; // Ruta a guardar en la base de datos
         } else {
           $arrResponse = array('status' => false, 'msg' => 'Error al subir la imagen.');
           echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

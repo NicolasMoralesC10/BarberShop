@@ -20,6 +20,7 @@ getModal('clientesModal', $data); ?>
               <tr>
                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Telefono</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Observaciones</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Accion</th>
               </tr>
