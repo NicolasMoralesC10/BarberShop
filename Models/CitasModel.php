@@ -76,17 +76,37 @@ class CitasModel extends mysql
             JOIN citas_servicios cs ON cs.cita_id = c.id
             JOIN empleados e ON e.id = cs.empleado_id
            WHERE cs.empleado_id = {$this->empleadoId}
-             AND c.status = 1  -- solo citas activas (1 = pendiente/confirmada)
+             AND c.status = 1 
              AND (
-                  (c.fechaInicio <= '{$this->fechaInicio}' AND c.fechaFin   >= '{$this->fechaInicio}')
-               OR (c.fechaInicio <= '{$this->fechaFin}' AND c.fechaFin   >= '{$this->fechaFin}')
-               OR (c.fechaInicio >= '{$this->fechaInicio}' AND c.fechaFin   <= '{$this->fechaFin}')
+                  (cs.fechaInicio <= '{$this->fechaInicio}' AND cs.fechaFin   >= '{$this->fechaInicio}')
+               OR (cs.fechaInicio <= '{$this->fechaFin}' AND cs.fechaFin   >= '{$this->fechaFin}')
+               OR (cs.fechaInicio >= '{$this->fechaInicio}' AND cs.fechaFin   <= '{$this->fechaFin}')
              )
         ";
-
-
         return $this->select_all($query);
     }
+
+    public function getCitasDisEmpleadoRepro(int $empId, string $start, string $end, int $excludeCitaId)
+    {
+        $this->empId = $empId;
+        $this->start = $start;
+        $this->end = $end;
+        $this->excludeCitaId = $excludeCitaId;
+
+        $sql = "SELECT cs.fechaInicio, cs.fechaFin, e.nombre AS empleadoNombre, cs.cita_id
+            FROM citas_servicios cs
+            JOIN empleados e ON cs.empleado_id = e.id
+            WHERE cs.empleado_id = {$this->empId}
+            AND cs.cita_id != {$this->excludeCitaId}
+              AND (
+                (cs.fechaInicio < '{$this->end}' AND cs.fechaFin > '{$this->start}')
+                OR
+                (cs.fechaInicio >= '{$this->start}' AND cs.fechaInicio < '{$this->end}')
+              )";
+
+        return $this->select_all($sql);
+    }
+
 
     public function EmpleadoDisponible(int $empleadoId, string $fechaInicio, string $fechaFin): bool
     {

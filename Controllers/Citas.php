@@ -36,20 +36,54 @@ class Citas extends Controllers
     $clienteId   = intval(strClean($input['cliente_id']));
     $fechaInicio = strClean($input['fechaInicio']);
     $notas       = $input['notas'] ?? null;
+    $excludeCita = $citaId > 0 ? $citaId : 0;
 
     $total = 0;
     $minutosTotales = 0;
+    $currentStart = new DateTime($fechaInicio);
+
     foreach ($input['servicios'] as $srv) {
-      $precio   = intval(strClean($srv['precio']));
+      $precio = intval(strClean($srv['precio']));
       $duracion = intval(strClean($srv['duracionM']));
-      $total   += $precio;
+      $total += $precio;
       $minutosTotales += $duracion;
     }
 
-    // Calculo fechaFin
     $dt = new DateTime($fechaInicio);
     $dt->modify("+{$minutosTotales} minutes");
     $fechaFin = $dt->format('Y-m-d H:i:s');
+
+
+    $currentStart = new DateTime($fechaInicio);
+    foreach ($input['servicios'] as $srv) {
+      $duracion = intval(strClean($srv['duracionM']));
+      $dtServiceEnd = clone $currentStart;
+      $dtServiceEnd->modify("+{$duracion} minutes");
+
+      $startSrv = $currentStart->format('Y-m-d H:i:s');
+      $endSrv = $dtServiceEnd->format('Y-m-d H:i:s');
+      $empId = intval(strClean($srv['empleado_id']));
+
+      if ($citaId > 0) {
+        $conflictos = $this->model->getCitasDisEmpleadoRepro($empId, $startSrv, $endSrv, $excludeCita);
+      } else {
+        $conflictos = $this->model->getCitasDisEmpleado($empId, $startSrv, $endSrv);
+      }
+
+
+      if (!empty($conflictos)) {
+        $empleadoNombre = $conflictos[0]['empleadoNombre'];
+        $hIni12 = (new DateTime($startSrv))->format('g:i A');
+        $hFin12 = (new DateTime($endSrv))->format('g:i A');
+
+        echo json_encode(['status' => false, 'msg' => "El empleado “{$empleadoNombre}” ya tiene una cita de {$hIni12} a {$hFin12} "], JSON_UNESCAPED_UNICODE);
+        return;
+      }
+
+      // avanzamos al siguiente servicio
+      $currentStart = $dtServiceEnd;
+    }
+
 
     try {
       if (intval($citaId) > 0) {
@@ -223,6 +257,7 @@ class Citas extends Controllers
 
     try {
       $result = $this->model->cancelarCita($citaId);
+      $this->model->deleteCitaServicios($citaId);
 
       if ($result > 0) {
         echo json_encode(['status' => true, 'msg' => 'Cita cancelada correctamente'], JSON_UNESCAPED_UNICODE);

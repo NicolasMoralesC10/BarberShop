@@ -36,6 +36,15 @@ class Mysql extends Conexion
         return $data;
     }
 
+    public function selectParams(string $query, array $arrValues = [])
+    {
+        $this->strquery = $query;
+        $result = $this->conexion->prepare($this->strquery);
+        $result->execute($arrValues);
+        return $result->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function select_all(string $query)
     {
         $this->strquery = $query;
