@@ -269,6 +269,30 @@ class Citas extends Controllers
     }
   }
 
+  public function updateNotas(){
+    $json  = file_get_contents('php://input');
+    $input = json_decode($json, true);
+
+    if (empty($input['citaId']) || empty($input['notas'])) {
+      echo json_encode(['status' => false, 'msg' => 'ID o notas no proporcionados'], JSON_UNESCAPED_UNICODE);
+      return;
+    }
+
+    $citaId = intval(strClean($input['citaId']));
+    $notas  = strClean($input['notas']);
+
+    try {
+      $result = $this->model->updateNotas($citaId, $notas);
+      if ($result > 0) {
+        echo json_encode(['status' => true, 'msg' => 'Notas actualizadas correctamente'], JSON_UNESCAPED_UNICODE);
+      } else {
+        echo json_encode(['status' => false, 'msg' => 'No se encontró la cita o no se pudo actualizar'], JSON_UNESCAPED_UNICODE);
+      }
+    } catch (\Throwable $e) {
+      echo json_encode(['status' => false, 'msg' => 'Error al actualizar las notas: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+  }
+
 
   public function getClientes()
   {

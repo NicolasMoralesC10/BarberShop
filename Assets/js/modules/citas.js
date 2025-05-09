@@ -127,6 +127,7 @@ function nuevaFilaServicio() {
 function abrirModalEditar(data, calendar) {
   // Cabecera
   document.getElementById("btn-cancelar").dataset.id = data.id;
+  document.getElementById("intIdCita").value = data.id;
   document.getElementById("mc-cliente").textContent = data.cliente;
   document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString(
     "es-CO",
@@ -181,7 +182,7 @@ function abrirModalEditar(data, calendar) {
   });
 
   // Notas y total
-  document.getElementById("mc-notas").value = data.notas || "";
+  document.getElementById("mcNotas").value = data.notas || "";
   document.getElementById("mc-total").textContent = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -200,7 +201,7 @@ function abrirModalCrearOModificar(cita) {
   intIdCita.value = cita.id || 0;
   fechaCita.setDate(cita.start, true);
 
-  document.getElementById("mc-notas").value = cita.notas || "";
+  document.getElementById("mcNotas").value = cita.notas || "";
 
   //   Por cada servicio (usar los IDs, no los nombres)
   cita.servicio_ids.forEach((svcId, i) => {
@@ -396,6 +397,64 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
   calendar.render();
+
+  const btnGuardarNota = document.getElementById("btn-guardar");
+
+  btnGuardarNota.addEventListener("click", () => {
+    const mcNotas = document.getElementById("mcNotas").value;
+    const citaId = document.getElementById("intIdCita").value;
+
+    // Validar que las notas no estén vacías
+    if (!mcNotas.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "¡Atención!",
+        text: "Las notas no pueden estar vacías.",
+      });
+      return;
+    }
+
+    const payload = {
+      citaId: citaId,
+      notas: mcNotas,
+    };
+
+    // Realizar la petición fetch para guardar los cambios
+    fetch(base_url + "/citas/updateNotas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.status) {
+          Swal.fire({
+            icon: "success",
+            title: "Notas Agregadas",
+            text: res.msg || "Las notas fueron agregadas correctamente",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          // Cerrar el modal
+          bootstrap.Modal.getInstance(document.getElementById("modalCita")).hide();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error al actualizar",
+            text: res.msg || "Ocurrió un error inesperado",
+          });
+        }
+      })
+      .catch((err) => {
+        // Manejo de errores
+        Swal.fire({
+          icon: "error",
+          title: "Error de conexión",
+          text: "No se pudo conectar con el servidor. Intenta más tarde.",
+        });
+      });
+  });
 
   // 1. Elimina el event listener existente
   const btnCancelar = document.getElementById("btn-cancelar");

@@ -48,8 +48,8 @@
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'Empleados' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/empleados">
-          <span class=" material-symbols-rounded text-2xl opacity-6" translate="no">person_apron</span>
-          <span class="nav-link-text ms-2">Empleados</span>
+          <span class=" material-symbols-rounded text-2xl opacity-6 md-2" translate="no">person_apron</span>
+          <span class="nav-link-text ms-1">Empleados</span>
         </a>
       </li>
 

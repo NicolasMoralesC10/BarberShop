@@ -64,6 +64,17 @@ class CitasModel extends mysql
         return $this->update($sql, $arrData);
     }
 
+    public function updateNotas(int $citaId, string $notas)
+    {
+        $this->notas = $notas;
+        $this->citaId = $citaId;
+
+        $sql = "UPDATE citas SET notas = ? WHERE id = ?";
+        $arrData = array($this->notas, $this->citaId);
+        $request = $this->update($sql, $arrData);
+        return $request;
+    }
+
     public function getCitasDisEmpleado(int $empleadoId, string $fechaInicio, string $fechaFin)
     {
         $this->empleadoId = $empleadoId;
