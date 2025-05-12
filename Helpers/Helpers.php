@@ -15,13 +15,11 @@ function header_admin($data = "")
     $view_header = "Views/Template/header_admin.php";
     require_once($view_header);
 }
-
 function aside_admin($data = "")
 {
     $view_header = "Views/Template/aside_admin.php";
     require_once($view_header);
 }
-
 function nav_admin($data = "")
 {
     $view_header = "Views/Template/nav_admin.php";

@@ -44,6 +44,14 @@
   margin-right: 2%;
 }
 
+#tbl_productos_filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 2%;
+}
+
 /* Contenedor del input y el ícono */
 .search-container {
   position: relative;
@@ -90,6 +98,16 @@
   font-size: 14px !important;
   color: #333 !important;
 }
+
+#tbl_productos_filter input {
+  width: 250px !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+
 
 /* Ocultar el botón de borrar por defecto en navegadores basados en WebKit */
 input[type="search"]::-webkit-search-cancel-button {

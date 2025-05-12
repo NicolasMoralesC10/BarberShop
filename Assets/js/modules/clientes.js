@@ -157,8 +157,8 @@ function cargarTabla() {
       paginate: {
         first: "Primero",
         last: "Último",
-        next: "Siguiente",
-        previous: "Anterior",
+        next: "›",
+        previous: "‹",
       },
     },
     ajax: {
