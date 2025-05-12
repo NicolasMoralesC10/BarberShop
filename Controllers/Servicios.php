@@ -21,7 +21,16 @@ class Servicios extends Controllers
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
       if ($arrData[$i]['status'] >= 0) {
-        $arrData[$i]['card'] = '<div class="card col-2 mt-5" data-animation="true">
+        $cardClass = 'card mt-5';
+
+        if ($i % 4 === 0) {
+          $cardClass .= ' ms-5';
+        }
+
+        if ($i % 4 === 3) {
+          $cardClass .= ' me-5';
+        }
+        $arrData[$i]['card'] = '<div class="' . $cardClass . '" data-animation="true" style="width: 50%;">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
                                           <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
@@ -46,7 +55,8 @@ class Servicios extends Controllers
                                       </div>
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex">
-                                        <p class="font-weight-normal my-auto ms-auto me-auto">$' . $arrData[$i]['precio'] . '</p>
+                                        <p class="font-weight-normal my-auto">$' . $arrData[$i]['precio'] . '</p>
+                                        <p class="font-weight-normal ms-auto me-1 my-auto">' . $arrData[$i]['duracionMinutos'] . ' minutos</p>
                                       </div>
                                     </div>';
       }

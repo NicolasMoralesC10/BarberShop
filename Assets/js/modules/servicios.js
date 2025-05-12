@@ -53,8 +53,9 @@ frmCrearServicio.addEventListener("submit", (e) => {
           title: "¡Registro Servicio!",
           text: data.msg,
           icon: "success",
+        }).then(() => {
+          window.location.reload();
         });
-        window.location.reload();
         $("#crearServicioModal").modal("hide");
         /*  clearForm() */
       } else {
@@ -203,7 +204,12 @@ function cargarTabla() {
       url: " " + base_url + "/servicios/getServicios",
       dataSrc: "",
     },
-    columns: [{ data: "nombreF" }, { data: "telefonoF" }, { data: "status" }, { data: "accion" }],
+    columns: [
+      { data: "nombreF" },
+      { data: "telefonoF" },
+      { data: "status" },
+      { data: "accion" },
+    ],
     responsive: "true",
     iDisplayLength: 5,
     order: [
@@ -230,7 +236,9 @@ function cargarTabla() {
     // Mover el input original dentro del contenedor nuevo
     input.appendTo(nuevoFiltro);
 
-    let clearButton = $(`<span class="material-symbols-rounded clear-icon">close</span>`);
+    let clearButton = $(
+      `<span class="material-symbols-rounded clear-icon">close</span>`
+    );
     clearButton.click(function () {
       input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
     });
