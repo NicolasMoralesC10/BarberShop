@@ -13,7 +13,9 @@ let txtEstado = document.querySelector("#txtEstado");
 cargarTabla();
 
 btnAgregar.addEventListener("click", () => {
+  limpiarFormulario();
   $("#crearProductoModal").modal("show");
+    opcionEstado(false);
 });
 txtStock.addEventListener("input", (e) => {
   // Eliminar cualquier carácter que no sea dígito
@@ -137,7 +139,8 @@ document.addEventListener("click", (e) => {
             txtPrecio.value = data.precio;
             txtIdProducto.value = data.id;
             txtEstado.value = data.status;
-            $("#crearProductoModal").modal("show");
+            $("#crearProductoModal").modal("show");   
+            opcionEstado(true);   
           } else {
             Swal.fire({
               title: "Error",
@@ -170,7 +173,14 @@ function limpiarFormulario() {
     select.selectedIndex = 0;
   });
 }
-
+function opcionEstado(mode) {
+  let userStatus = document.getElementById("productStatusZone");
+  if (mode) {
+    userStatus.style.display = "block";
+  } else {
+    userStatus.style.display = "none";
+  }
+}
 function cargarTabla() {
   tbl_productos = $("#tbl_productos").dataTable({
     responsive: true,

@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="modalCita" tabindex="-1" aria-labelledby="modalCitaLabel" aria-hidden="true">
+<div class="modal fade" id="modalVenta" tabindex="-1" aria-labelledby="modalVentaLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-gradient-dark">
-        <h5 class="modal-title text-light text-bold fs-6" id="modalCitaLabel">Detalles de la Cita</h5>
+        <h5 class="modal-title text-light text-bold fs-6" id="modalVentaLabel">Detalles de la Venta</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -11,8 +11,8 @@
         <div class="d-flex justify-content-between mb-3">
           <div>
             <strong>Cliente:</strong> <span id="mc-cliente"></span><br>
+            <strong>Empleado:</strong> <span id="mc-empleado"></span><br>
             <strong>Fecha:</strong> <span class="me-4" id="mc-fecha"></span>
-            <strong>Hora:</strong> <span id="mc-hora"></span>
           </div>
           <div>
             <span class="badge" id="mc-status"></span>
@@ -21,16 +21,13 @@
 
         <!-- 2. Servicios y empleados asignados -->
         <div class="mb-3">
-          <h6>Servicios</h6>
-          <ul class="list-group" id="mc-servicios">
+          <h6>Productos</h6>
+          <ul class="list-group" id="mc-productos">
           </ul>
         </div>
 
         <!-- 3. Notas -->
-        <div class="mb-3">
-          <h6>Notas</h6>
-          <textarea id="mc-notas" class="form-control" rows="3"></textarea>
-        </div>
+
 
         <!-- 4. Totales y cobro -->
         <div class="mb-3 d-flex justify-content-end align-items-center">
@@ -41,26 +38,25 @@
 
       <div class="modal-footer">
         <!-- Acciones -->
-        <button type="button" class="btn btn-primary" id="btn-cancelar">Cancelar Cita</button>
-        <button type="button" class="btn btn-info" id="btn-reprogramar">Reprogramar</button>
+        <button type="button" class="btn btn-primary" id="btn-cancelar">Cancelar Venta</button>
         <button type="button" class="btn bg-gradient-dark" id="btn-guardar">Guardar cambios</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal Crear Cita -->
+<!-- Modal Crear Venta -->
 <div
   class="modal fade"
-  id="modalCrearCita"
+  id="modalCrearVenta"
   tabindex="-1"
-  aria-labelledby="modalCrearCitaLabel"
+  aria-labelledby="modalCrearVentaLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form id="formCrearCita">
+      <form id="formCrearVenta">
         <div class="modal-header bg-gradient-dark">
-          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearCitaLabel">Nueva Cita</h5>
+          <h5 class="modal-title text-light text-bold fs-6" id="modalCrearVentaLabel">Nueva Venta</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
@@ -69,23 +65,28 @@
             <label for="selectCliente" class="form-label">Cliente</label>
             <select id="selectCliente" placeholder="Buscar cliente..." required></select>
           </div>
-
-          <!-- Fecha y Hora de Inicio -->
           <div class="mb-3">
-            <label for="inputFechaHora" class="form-label">Fecha y Hora</label>
+            <label for="selectEmpleado" class="form-label">Empleado</label>
+            <select id="selectEmpleado" placeholder="Buscar empleado..." required></select>
+          </div>
+          <div class="mb-3">
+            <label for="metodoPago" class="form-label">Método de Pago</label>
             <input
               type="text"
-              id="inputFechaHora"
+              id="metodoPago"
               class="form-control"
-              placeholder="Selecciona fecha y hora"
+              placeholder="Digite el método de pago"
               required />
-          </div>
-
+</div>
+        <div class="mb-3">
+          <h6>Observaciones</h6>
+          <textarea id="observacionesText" class="form-control" rows="3"></textarea>
+        </div>
           <!-- Servicios Dinámicos -->
           <div class="mb-3">
-            <div id="serviciosContainer"></div>
-            <button type="button" class="btn btn-sm bg-gradient-dark text-light mt-2" id="btnAgregarServicio">
-              + Agregar Servicio
+            <div id="productosContainer"></div>
+            <button type="button" class="btn btn-sm bg-gradient-dark text-light mt-2" id="btnAgregarProducto">
+              + Agregar Producto
             </button>
           </div>
 
@@ -97,7 +98,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Guardar Cita</button>
+          <button type="submit" class="btn btn-primary">Guardar Venta</button>
         </div>
       </form>
     </div>
