@@ -15,6 +15,26 @@ getModal('ventasModal', $data); ?>
       </div>
       <div class="card-body px-1 pb-2">
         <div class="table-responsive p-3">
+          <table id="tbl_ventas" class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cliente</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Empleado</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Método de pago</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Producto</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Total</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Observaciones</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody class="text-center">
+              <!-- Los datos de la tabla van aquí -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

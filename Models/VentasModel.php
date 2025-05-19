@@ -17,20 +17,31 @@ class VentasModel extends mysql
         $arrData = [
             $clienteId,
             $empleadoId,
-            $fechaVenta,
             $total,
             $metodoPago,
             $observaciones
         ];
         return $this->insert($query, $arrData);
     }
-
+    public function selectDistinctVenta()
+    {
+        $sql = "SELECT DISTINCT v.id FROM ventas v";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+        public function selectProductosVenta($ventaId)
+    {
+        $this->ventaId = $ventaId;
+        $sql = "SELECT p.nombre, p.id, vp.cantidad FROM ventas_productos vp JOIN productos p ON vp.productos_id = p.id WHERE vp.ventas_id = {$this->ventaId}";
+        $request = $this->select_all($sql);
+        return $request;
+    }
     // Inserta un servicio asociado a la cita
     public function insertVentaProducto(int $ventaId, int $productoId, int $cantidad, int $subtotal)
     {
         $query = "INSERT INTO ventas_productos
             (ventas_id, productos_id, cantidad, subtotal)
-            VALUES (?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?)";
         $arrData = [
             $ventaId,
             $productoId,
@@ -75,27 +86,24 @@ class VentasModel extends mysql
     } */
 
 
-    public function selectVentas()
+    public function selectVenta($ventaId)
     {
+        $this->ventaId = $ventaId;
         $sql = "SELECT 
             v.id,
             cl.nombre AS cliente,
+            cl.id AS cliente_id,
             v.fecha_venta AS fecha,
             v.total,
             v.metodo_pago,
             v.observaciones,
             v.status,
-            p.nombre AS productos,
             e.nombre AS empleado,
-            vp.ventas_id,
-            vp.productos_id,
-            vp.cantidad
+            e.id AS empleado_id
           FROM ventas v
           INNER JOIN clientes cl ON v.cliente_id = cl.id
-          INNER JOIN ventas_productos vp ON v.id = vp.ventas_id
-          INNER JOIN productos p ON vp.productos_id = p.id
-          INNER JOIN empleados e ON v.empleado_id = e.id";
-        $request = $this->select_all($sql);
+          INNER JOIN empleados e ON v.empleado_id = e.id WHERE v.id = {$this->ventaId}";
+        $request = $this->select($sql);
         return $request;
     }
 
@@ -107,10 +115,10 @@ class VentasModel extends mysql
     }
     public function selectPrecioProducto(int $productoId)
     {
-        $sql = "SELECT precio FROM productos WHERE id = ?";
-        $arrData = array($productoId);
-        $request = $this->select($sql, $arrData);
-        return $request;
+        $this->productoId = $productoId;
+        $sql = "SELECT precio FROM productos WHERE id = {$this->productoId}";
+        $request = $this->select($sql);
+        return $request['precio'];	
     }
     public function selectProductos()
     {
@@ -135,4 +143,25 @@ class VentasModel extends mysql
         $request = $this->update($sql, $arrData);
         return $request;
     }
+public function updateVenta(int $ventaId, int $clienteId, int $empleadoId, int $total, string $metodoPago, ?string $observaciones)
+{
+    $ventaId = intval($ventaId);
+    $clienteId = intval($clienteId);
+    $empleadoId = intval($empleadoId);
+    $total = intval($total);
+    $metodoPago = $metodoPago;
+    $observaciones = $observaciones;
+
+    $sql = "UPDATE ventas 
+            SET cliente_id = $clienteId, empleado_id = $empleadoId, total = $total, metodo_pago = '$metodoPago', observaciones = '$observaciones'
+            WHERE id = $ventaId";
+    return $this->update($sql, []);
+}
+
+public function deleteVentaProductos(int $ventaId)
+{
+    $ventaId = intval($ventaId); 
+    $sql = "DELETE FROM ventas_productos WHERE ventas_id = $ventaId";
+    return $this->delete($sql);
+}
 }

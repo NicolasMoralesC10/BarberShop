@@ -44,7 +44,6 @@ class ProductosModel extends mysql
         $this->intPrecio = $intPrecio;
         $this->intStock = $intStock;
         $this->intStockMin = $intStockMin;
-        $this->intSalario = $intSalario;
         $this->idProducto = $idProducto;
         $this->intStatus = $status;
 
@@ -70,7 +69,7 @@ class ProductosModel extends mysql
         $this->idProducto = $idProducto;
 
         $sql = "UPDATE productos SET status = ? WHERE id = ?";
-        $arrData = array(2, $this->idProducto);
+        $arrData = array(0, $this->idProducto);
         $request = $this->update($sql, $arrData);
         return $request;
     }

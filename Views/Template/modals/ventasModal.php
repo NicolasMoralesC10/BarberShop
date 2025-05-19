@@ -61,6 +61,7 @@
         </div>
         <div class="modal-body">
           <!-- Cliente -->
+                               <input type="hidden" name="txtIdProducto" id="txtIdProducto" value="0" data-ignore-clear>
           <div class="mb-3">
             <label for="selectCliente" class="form-label">Cliente</label>
             <select id="selectCliente" placeholder="Buscar cliente..." required></select>
