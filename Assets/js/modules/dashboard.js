@@ -251,26 +251,27 @@ var ctx1 = document.getElementById("chart-line-sales").getContext("2d");
 
 var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+gradientStroke1.addColorStop(1, "rgba(94, 114, 228, 0.2)");
+gradientStroke1.addColorStop(0.2, "rgba(94, 114, 228, 0.0)");
+gradientStroke1.addColorStop(0, "rgba(94, 114, 228, 0)");
 new Chart(ctx1, {
   type: "line",
   data: {
-    labels: ["Ene","Feb","Mar","Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-    datasets: [{
-      label: "Mobile apps",
-      tension: 0.4,
-      borderWidth: 0,
-      pointRadius: 0,
-      borderColor: "#5e72e4",
-      backgroundColor: gradientStroke1,
-      borderWidth: 3,
-      fill: true,
-      data: [30,115,33,250, 200, 300, 220, 500, 250, 400, 230, 500],
-      maxBarThickness: 6
-
-    }],
+    labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    datasets: [
+      {
+        label: "Mobile apps",
+        tension: 0.4,
+        borderWidth: 0,
+        pointRadius: 0,
+        borderColor: "#5e72e4",
+        backgroundColor: gradientStroke1,
+        borderWidth: 3,
+        fill: true,
+        data: [30, 115, 33, 250, 200, 300, 220, 500, 250, 400, 230, 500],
+        maxBarThickness: 6,
+      },
+    ],
   },
   options: {
     responsive: true,
@@ -278,11 +279,11 @@ new Chart(ctx1, {
     plugins: {
       legend: {
         display: false,
-      }
+      },
     },
     interaction: {
       intersect: false,
-      mode: 'index',
+      mode: "index",
     },
     scales: {
       y: {
@@ -291,19 +292,19 @@ new Chart(ctx1, {
           display: true,
           drawOnChartArea: true,
           drawTicks: false,
-          borderDash: [5, 5]
+          borderDash: [5, 5],
         },
         ticks: {
           display: true,
           padding: 10,
-          color: '#fbfbfb',
+          color: "#fbfbfb",
           font: {
             size: 11,
             family: "Open Sans",
-            style: 'normal',
-            lineHeight: 2
+            style: "normal",
+            lineHeight: 2,
           },
-        }
+        },
       },
       x: {
         grid: {
@@ -311,20 +312,81 @@ new Chart(ctx1, {
           display: false,
           drawOnChartArea: false,
           drawTicks: false,
-          borderDash: [5, 5]
+          borderDash: [5, 5],
         },
         ticks: {
           display: true,
-          color: '#ccc',
+          color: "#ccc",
           padding: 20,
           font: {
             size: 11,
             family: "Open Sans",
-            style: 'normal',
-            lineHeight: 2
+            style: "normal",
+            lineHeight: 2,
           },
-        }
+        },
       },
     },
   },
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Función auxiliar para validar y formatear el número
+  function formatValue(value) {
+    return value === null || value === undefined || isNaN(value) ? 0 : parseFloat(value);
+  }
+
+  // Función para manejar los valores que podrían ser null
+  function handleResponse(data) {
+    // Verificamos si 'total' es null o undefined
+    return data.total === null || data.total === undefined ? 0 : parseFloat(data.total);
+  }
+
+  // Ventas de hoy
+  fetch(base_url + `/dashboard/selectSalesToday`)
+    .then((res) => res.json())
+    .then((data) => {
+      const total = handleResponse(data);
+      document.getElementById("ventasHoy").innerText = `$${total}`;
+    })
+    .catch((err) => {
+      console.error("Error al cargar ventas de hoy", err);
+      document.getElementById("ventasHoy").innerText = "$0"; // En caso de error mostrar 0
+    });
+
+  // Citas de hoy
+  fetch(base_url + `/dashboard/selectCountCitasToday`)
+    .then((res) => res.json())
+    .then((data) => {
+      const total = handleResponse(data);
+      document.getElementById("citasHoy").innerText = total;
+    })
+    .catch((err) => {
+      console.error("Error al cargar citas de hoy", err);
+      document.getElementById("citasHoy").innerText = "0"; // En caso de error mostrar 0
+    });
+
+  // Ventas por citas hoy
+  fetch(base_url + `/dashboard/selectSalesCitasToday`)
+    .then((res) => res.json())
+    .then((data) => {
+      const total = handleResponse(data);
+      document.getElementById("ventasCitasHoy").innerText = `$${total}`;
+    })
+    .catch((err) => {
+      console.error("Error al cargar ventas por citas de hoy", err);
+      document.getElementById("ventasCitasHoy").innerText = "$0"; // En caso de error mostrar 0
+    });
+
+  // Ventas del mes
+  fetch(base_url + `/dashboard/selectSalesCitasMonth`)
+    .then((res) => res.json())
+    .then((data) => {
+      const total = handleResponse(data);
+      document.getElementById("ventasMes").innerText = `$${total}`;
+    })
+    .catch((err) => {
+      console.error("Error al cargar ventas del mes", err);
+      document.getElementById("ventasMes").innerText = "$0"; // En caso de error mostrar 0
+    });
 });

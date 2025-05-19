@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6"  id="fechaZone">
+                        <div class="col-6" id="fechaZone">
                             <label for="txtFechaContratacion" class="form-label">Fecha de Contratacion</label>
                             <input type="text" class="form-control" id="txtFechaContratacion" name="txtFechaContratacion">
                         </div>

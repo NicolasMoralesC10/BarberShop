@@ -12,37 +12,37 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'dashboard' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/dashboard">
-          <span class="material-symbols-rounded opacity-5" translate="no">dashboard</span>
+          <span class="material-symbols-rounded text-2xl opacity-5" translate="no">dashboard</span>
           <span class="nav-link-text ms-2">Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'citas' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/citas">
-          <span class="material-symbols-rounded opacity-5" translate="no">calendar_month</span>
+          <span class="material-symbols-rounded text-2xl opacity-5" translate="no">calendar_month</span>
           <span class="nav-link-text ms-2">Citas</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'Clientes' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/clientes">
-          <i class="material-symbols-rounded opacity-5">group</i>
+          <i class="material-symbols-rounded text-2xl opacity-5 ms-1" translate="no">group</i>
           <span class="nav-link-text ms-2">Clientes</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'Servicios' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/servicios">
-          <i class="material-symbols-rounded opacity-5">content_cut</i>
+          <i class="material-symbols-rounded text-2xl opacity-5 ms-1" translate="no">content_cut</i>
           <span class="nav-link-text ms-2">Servicios</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'productos' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/productos">
-          <span class="material-symbols-rounded opacity-5" translate="no">shopping_bag</span>
+          <span class="material-symbols-rounded text-2xl opacity-5" translate="no">shopping_bag</span>
           <span class="nav-link-text ms-2">Productos</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $data['page_name'] != 'ventas' ? 'text-dark' : 'active bg-gradient-dark text-white' ?> " href="<?= base_url() ?>/ventas">
-          <span class="material-symbols-rounded opacity-5" translate="no">point_of_sale</span>
+          <span class="material-symbols-rounded text-2xl opacity-5" translate="no">point_of_sale</span>
           <span class="nav-link-text ms-2">Ventas</span>
         </a>
       </li>

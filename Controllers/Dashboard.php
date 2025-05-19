@@ -16,8 +16,34 @@ class Dashboard extends Controllers
         $data['page_title'] = "Página de dashboard";
         $data['page_name'] = "dashboard";
         $data['script'] = "dashboard";
-
+/*         $data['salesToday'] = $this->selectSalesToday();
+        $data['SalesMonth'] = $this->selectSalesCitasMonth();
+        $data['citasCountToday'] = $this->selectCitasToday();
+        $data['citasSalesMonth'] = $this->selectSalesCitasMonth(); */
 
         $this->views->getView($this, "dashboard", $data);
+    }
+    public function selectSalesCitasToday()
+    {
+        $arrData = $this->model->selectSalesCitasToday();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    } 
+
+    public function selectCountCitasToday()
+    {
+        $arrData = $this->model->selectCountCitasToday();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function selectSalesCitasMonth()
+    {
+        $arrData = $this->model->selectSalesCitasMonth();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function selectSalesToday()
+    {
+        $arrData = $this->model->selectSalesToday();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
 }

@@ -16,8 +16,8 @@
       <div class="card-header p-2 ps-3">
         <div class="d-flex justify-content-between">
           <div>
-            <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-            <h4 class="mb-0">$53k</h4>
+            <p class="text-sm mb-0 text-capitalize">Ventas Generales | Hoy</p>
+            <h4 class="mb-0" id="ventasHoy"></h4>
           </div>
           <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
             <i class="material-symbols-rounded opacity-10">weekend</i>
@@ -35,8 +35,8 @@
       <div class="card-header p-2 ps-3">
         <div class="d-flex justify-content-between">
           <div>
-            <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-            <h4 class="mb-0">2300</h4>
+            <p class="text-sm mb-0 text-capitalize">Ventas Citas | Hoy </p>
+            <h4 class="mb-0" id="ventasCitasHoy"></h4>
           </div>
           <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
             <i class="material-symbols-rounded opacity-10">person</i>
@@ -54,8 +54,8 @@
       <div class="card-header p-2 ps-3">
         <div class="d-flex justify-content-between">
           <div>
-            <p class="text-sm mb-0 text-capitalize">Ads Views</p>
-            <h4 class="mb-0">3,462</h4>
+            <p class="text-sm mb-0 text-capitalize">Ventas Productos | Hoy </p>
+            <h4 class="mb-0" id=""></h4>
           </div>
           <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
             <i class="material-symbols-rounded opacity-10">leaderboard</i>
@@ -69,12 +69,12 @@
     </div>
   </div>
   <div class="col-xl-3 col-sm-6">
-    <div class="card"> 
+    <div class="card">
       <div class="card-header p-2 ps-3">
         <div class="d-flex justify-content-between">
           <div>
-            <p class="text-sm mb-0 text-capitalize">Sales</p>
-            <h4 class="mb-0">$103,430</h4>
+            <p class="text-sm mb-0 text-capitalize">Numero de Citas | Hoy </p>
+            <h4 class="mb-0" id="citasHoy"></h4>
           </div>
           <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
             <i class="material-symbols-rounded opacity-10">weekend</i>
@@ -133,7 +133,7 @@
           <div class="carousel-item h-100" style="background-image: url('<?= media() ?>/img/carousel-3.jpg');
       background-size: cover;">
             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-            <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
+              <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
                 <i class="material-symbols-rounded opacity-10">house</i>
               </div>
               <h5 class="text-white mb-1">Share with us your design tips!</h5>
