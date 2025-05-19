@@ -21,19 +21,12 @@ class Servicios extends Controllers
     $arrData = $this->model->selectServicios();
     for ($i = 0; $i < count($arrData); $i++) {
       if ($arrData[$i]['status'] >= 0) {
-        $cardClass = 'card mt-5';
+        $cardClass = 'card col-xs-12 col-sm-8 col-md-5 col-lg-4 col-xl-3 col-xxl-2 mt-5';
 
-        if ($i % 4 === 0) {
-          $cardClass .= ' ms-5';
-        }
-
-        if ($i % 4 === 3) {
-          $cardClass .= ' me-5';
-        }
-        $arrData[$i]['card'] = '<div class="' . $cardClass . '" data-animation="true" style="width: 50%;">
+        $arrData[$i]['card'] = '<div class="' . $cardClass . '" data-animation="true" style="box-shadow: 2px 2px 15px;">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
-                                          <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+                                          <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" style="width: 100%; height: auto; max-height: 340px; max-width: 400px;">
                                         </a>
                                         <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
                                       </div>
@@ -56,24 +49,10 @@ class Servicios extends Controllers
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex">
                                         <p class="font-weight-normal my-auto">$' . $arrData[$i]['precio'] . '</p>
-                                        <p class="font-weight-normal ms-auto me-1 my-auto">' . $arrData[$i]['duracionMinutos'] . ' minutos</p>
+                                        <p class="font-weight-normal ms-auto me-1 my-auto">' . $arrData[$i]['duracionMinutos'] . ' min</p>
                                       </div>
                                     </div>';
       }
-
-      /* $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
-                                  <i class="material-symbols-rounded">Person_Edit</i>
-                                </button>
-
-                                <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
-                                  <i class="material-symbols-rounded">Delete</i>
-                                </button>'; */
-
-      /* if ($arrData[$i]['status'] == 1) {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-success" style="font-size:0.7rem;">Online</span>';
-      } else {
-        $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary">Offline</span>';
-      } */
     }
     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
   }
