@@ -28,15 +28,19 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="txtDescripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
+                    <div class="row">
+                        <div class="mb-3 col-12">
+                            <label for="txtDescripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="1"></textarea>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="txtImagen" class="form-label">Imagen</label>
-                        <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/*">
-                        <img id="imgPreview" src="" alt="Imagen actual" class="imgPreview">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="txtImagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/*">
+                            <img id="imgPreview" src="" alt="Imagen actual" class="imgPreview">
+                        </div>
                     </div>
 
             </div>

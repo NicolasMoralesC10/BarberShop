@@ -93,7 +93,7 @@ class Servicios extends Controllers
       $intIdServicio = intval(strClean($_POST['txtIdServicio']));
 
       // Manejo de imagen
-      $strImagen = '';
+      $strImagen = 'uploads/servicios/barber_shop.jpg';
       if (isset($_FILES['txtImagen']) && $_FILES['txtImagen']['error'] === 0) {
         $nombreOriginal = $_FILES['txtImagen']['name'];
         $extension = pathinfo($nombreOriginal, PATHINFO_EXTENSION);
