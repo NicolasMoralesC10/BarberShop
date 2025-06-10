@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Unifica el event click aquí
   document.addEventListener("click", (e) => {
     try {
-      let btn = e.target.closest("button");
+      let btn = e.target.closest("[data-action]");
       if (!btn) return;
       let action = btn.getAttribute("data-action");
       let id = btn.getAttribute("data-id");
@@ -353,6 +353,37 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
       }
+      if (action == "ver") {
+        fetch(base_url + "/ventas/getVentaById/" + id)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status) {
+              const productos = data.data.productos || [];
+              console.log(productos);
+              let html = "";
+              productos.forEach((prod) => {
+                html += `
+                  <tr>
+                    <td>${prod.nombre}</td>
+                    <td>${prod.cantidad}</td>
+                    <td>${new Intl.NumberFormat("es-CO", {
+                      style: "currency",
+                      currency: "COP",
+                    }).format(prod.cantidad * (prod.precio || 0))}</td>
+                  </tr>
+                `;
+              });
+              document.getElementById("detalleVentaBody").innerHTML = html;
+              $("#modalDetallesVenta").modal("show");
+            } else {
+              Swal.fire({
+                title: "Error",
+                text: data.msg,
+                icon: "error",
+              });
+            }
+          });
+      }
     } catch {}
   });
 
@@ -409,8 +440,6 @@ document.addEventListener("DOMContentLoaded", function () {
         { data: "clienteF" },
         { data: "empleadoF" },
         { data: "metodoF" },
-        { data: "productoF" },
-        { data: "cantidadF" },
         { data: "totalF" },
         { data: "observacionesF" },
         { data: "status" },

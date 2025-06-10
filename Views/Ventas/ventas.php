@@ -1,5 +1,7 @@
 <?php header_admin($data);
-getModal('ventasModal', $data); ?>
+getModal('ventasModal', $data); 
+getModal('detallesVentaModal', $data);
+?>
 <?php aside_admin($data); ?>
 <?php nav_admin($data); ?>
 <div class="row">
@@ -22,8 +24,6 @@ getModal('ventasModal', $data); ?>
                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cliente</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Empleado</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Método de pago</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Producto</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Total</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Observaciones</th>
                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>

@@ -47,8 +47,15 @@ public function setVentas()
                 $observaciones
             );
 
+            // 1. Recupera productos anteriores y suma stock
+            $productosAnteriores = $this->model->selectProductosVenta($idVenta);
+            foreach ($productosAnteriores as $prodAnt) {
+                $this->model->sumarStockProducto($prodAnt['id'], $prodAnt['cantidad']);
+            }
+
             $this->model->deleteVentaProductos($idVenta);
 
+            // 2. Inserta nuevos productos y descuenta stock
             foreach ($input['productos'] as $producto) {
                 $precio = intval($this->model->selectPrecioProducto($producto['producto_id']));
                 $subtotal = intval($producto['cantidad']) * $precio;
@@ -58,6 +65,7 @@ public function setVentas()
                     $producto['cantidad'],
                     $subtotal
                 );
+                $this->model->restarStockProducto($producto['producto_id'], $producto['cantidad']);
             }
 
             $arrResponse = ['status' => true, 'msg' => 'Venta actualizada correctamente', 'id' => $idVenta];
@@ -80,6 +88,7 @@ public function setVentas()
                         $producto['cantidad'],
                         $subtotal
                     );
+                    $this->model->restarStockProducto($producto['producto_id'], $producto['cantidad']);
                 }
                 $arrResponse = ['status' => true, 'msg' => 'Venta agendada correctamente', 'id' => $newVentaId];
             } else {
@@ -154,19 +163,20 @@ $detalleVenta = $this->model->selectProductosVenta(26);
           }
         }
       }
-        
-        $arrData[$i]['productoF'] ='<span class="text-center text-secondary text-xs font-weight-bold">' . $productos . '</span>';
-        $arrData[$i]['cantidadF'] ='<span class="text-center text-secondary text-xs font-weight-bold">' . $cantidades . '</span>';
         $arrData[$i]['fechaF'] = '<span class="text-center text-secondary text-xs font-weight-bold">' . $maestroVenta['fecha'] . '</span>';
         $arrData[$i]['totalF'] = '<span class="text-center text-secondary text-xs font-weight-bold">' . $maestroVenta['total'] . '</span>';
         $maestroVenta['observaciones'] != "" ? $arrData[$i]['observacionesF'] = '<span class="text-center text-secondary text-xs font-weight-bold">' . $maestroVenta['observaciones'] . '</span>' : $arrData[$i]['observacionesF'] = '<span class="text-center text-secondary text-xs font-weight-bold">Sin observaciones</span>';
-        $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
+        $arrData[$i]['accion'] = '<button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="ver" data-id="' . $arrData[$i]['id'] . '">
+                                    <i class="material-symbols-rounded">visibility</i>
+                                  </button>
+                          <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="edit" data-id="' . $arrData[$i]['id'] . '">
                             <i class="material-symbols-rounded">Person_Edit</i>
                           </button>
                           
                           <button type="button" class="text-secondary font-weight-bold text-xs" style="text-align:left; border:none; background:transparent" data-action="delete" data-id="' . $arrData[$i]['id'] . '">
                             <i class="material-symbols-rounded">Delete</i>
-                          </button>';
+                          </button>
+                          ';
   
         if ($maestroVenta['status'] == 1) {
           $arrData[$i]['status'] = '

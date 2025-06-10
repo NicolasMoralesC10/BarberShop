@@ -32,7 +32,7 @@ class VentasModel extends mysql
         public function selectProductosVenta($ventaId)
     {
         $this->ventaId = $ventaId;
-        $sql = "SELECT p.nombre, p.id, vp.cantidad FROM ventas_productos vp JOIN productos p ON vp.productos_id = p.id WHERE vp.ventas_id = {$this->ventaId}";
+        $sql = "SELECT p.nombre, p.id, vp.cantidad, vp.subtotal, p.precio FROM ventas_productos vp JOIN productos p ON vp.productos_id = p.id WHERE vp.ventas_id = {$this->ventaId}";
         $request = $this->select_all($sql);
         return $request;
     }
@@ -50,41 +50,6 @@ class VentasModel extends mysql
         ];
         return $this->insert($query, $arrData);
     }
-
-
-    /* public function getCitasDisEmpleado(int $empleadoId, string $fechaInicio, string $fechaFin)
-    {
-        // Sanitizar valores para incluir directamente en la cadena SQL
-        $this->empleadoId = $empleadoId;
-        $this->fechaInicio = $fechaInicio;
-        $this->fechaFin = $fechaFin;
-
-
-        // Consulta similar a tu ejemplo de excepciones, adaptada a citas y empleados
-        $query = "
-          SELECT c.id, c.fechaInicio, c.fechaFin, e.nombre AS empleadoNombre
-            FROM citas c
-            JOIN citas_servicios cs ON cs.cita_id = c.id
-            JOIN empleados e ON e.id = cs.empleado_id
-           WHERE cs.empleado_id = {$this->empleadoId}
-             AND c.status = 1  -- solo citas activas (1 = pendiente/confirmada)
-             AND (
-                  (c.fechaInicio <= '{$this->fechaInicio}' AND c.fechaFin   >= '{$this->fechaInicio}')
-               OR (c.fechaInicio <= '{$this->fechaFin}' AND c.fechaFin   >= '{$this->fechaFin}')
-               OR (c.fechaInicio >= '{$this->fechaInicio}' AND c.fechaFin   <= '{$this->fechaFin}')
-             )
-        ";
-
-        // select_all devuelve un array de filas encontradas
-        return $this->select_all($query);
-    }
-
-    public function EmpleadoDisponible(int $empleadoId, string $fechaInicio, string $fechaFin): bool
-    {
-        $conflictos = $this->getCitasDisEmpleado($empleadoId, $fechaInicio, $fechaFin);
-        return empty($conflictos);
-    } */
-
 
     public function selectVenta($ventaId)
     {
@@ -139,7 +104,7 @@ class VentasModel extends mysql
         $this->ventaId = $ventaId;
 
         $sql = "UPDATE ventas SET status = ? WHERE id = ?";
-        $arrData = array(0, $this->ventaId);
+        $arrData = array(2, $this->ventaId);
         $request = $this->update($sql, $arrData);
         return $request;
     }
@@ -149,8 +114,8 @@ public function updateVenta(int $ventaId, int $clienteId, int $empleadoId, int $
     $clienteId = intval($clienteId);
     $empleadoId = intval($empleadoId);
     $total = intval($total);
-    $metodoPago = $metodoPago;
-    $observaciones = $observaciones;
+    $metodoPago = strClean($metodoPago);
+    $observaciones = strClean($observaciones);
 
     $sql = "UPDATE ventas 
             SET cliente_id = $clienteId, empleado_id = $empleadoId, total = $total, metodo_pago = '$metodoPago', observaciones = '$observaciones'
@@ -163,5 +128,23 @@ public function deleteVentaProductos(int $ventaId)
     $ventaId = intval($ventaId); 
     $sql = "DELETE FROM ventas_productos WHERE ventas_id = $ventaId";
     return $this->delete($sql);
+}
+
+// Sumar stock de un producto
+public function sumarStockProducto(int $productoId, int $cantidad)
+{
+    $productoId = intval($productoId);
+    $cantidad = intval($cantidad);
+    $sql = "UPDATE productos SET stock = stock + $cantidad WHERE id = $productoId";
+    return $this->update($sql, []);
+}
+
+// Restar stock de un producto
+public function restarStockProducto(int $productoId, int $cantidad)
+{
+    $productoId = intval($productoId);
+    $cantidad = intval($cantidad);
+    $sql = "UPDATE productos SET stock = stock - $cantidad WHERE id = $productoId";
+    return $this->update($sql, []);
 }
 }
