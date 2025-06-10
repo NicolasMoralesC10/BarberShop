@@ -221,22 +221,30 @@ $detalleVenta = $this->model->selectProductosVenta(26);
   public function cancelarVenta()
   {
     if ($_POST) {
-      $ventaId = intval($_POST['ventaId']);
+        $ventaId = intval($_POST['ventaId']);
     }
     if (empty($ventaId)) {
-      echo json_encode(['status' => false, 'msg' => 'ID de venta no proporcionado'], JSON_UNESCAPED_UNICODE);
-      return; 
+        echo json_encode(['status' => false, 'msg' => 'ID de venta no proporcionado'], JSON_UNESCAPED_UNICODE);
+        return; 
     }
     try {
-      $result = $this->model->cancelarVenta($ventaId);
+        // 1. Recupera los productos de la venta
+        $productosVenta = $this->model->selectProductosVenta($ventaId);
+        // 2. Suma el stock de cada producto
+        foreach ($productosVenta as $producto) {
+            $this->model->sumarStockProducto($producto['id'], $producto['cantidad']);
+        }
 
-      if ($result > 0) {
-        echo json_encode(['status' => true, 'msg' => 'Venta cancelada correctamente'], JSON_UNESCAPED_UNICODE);
-      } else {
-        echo json_encode(['status' => false, 'msg' => 'No se encontró la venta o ya estaba cancelada'], JSON_UNESCAPED_UNICODE);
-      }
+        // 3. Cancela la venta
+        $result = $this->model->cancelarVenta($ventaId);
+
+        if ($result > 0) {
+            echo json_encode(['status' => true, 'msg' => 'Venta cancelada correctamente'], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(['status' => false, 'msg' => 'No se encontró la venta o ya estaba cancelada'], JSON_UNESCAPED_UNICODE);
+        }
     } catch (\Throwable $e) {
-      echo json_encode(['status' => false,'msg' => 'Error al cancelar la venta: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['status' => false,'msg' => 'Error al cancelar la venta: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
     }
   }
 

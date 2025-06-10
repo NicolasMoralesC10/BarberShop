@@ -127,7 +127,7 @@ public function deleteVentaProductos(int $ventaId)
 {
     $ventaId = intval($ventaId); 
     $sql = "DELETE FROM ventas_productos WHERE ventas_id = $ventaId";
-    return $this->delete($sql);
+    return $this->delete($sql, []);
 }
 
 // Sumar stock de un producto

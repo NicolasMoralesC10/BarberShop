@@ -140,6 +140,30 @@ document.addEventListener("DOMContentLoaded", function () {
       // recalcula total
       recalcularTotal();
     });
+
+    // Obtener referencias
+    const selectProducto = row.querySelector(".select-producto");
+    const inputCantidad = row.querySelector(".inputCantidad");
+
+    // Validar stock en vivo
+    inputCantidad.addEventListener("change", function () {
+      const productoId = selectProducto.value;
+      const cantidadIngresada = Number(this.value);
+
+      // Buscar el producto en productosList
+      const producto = productosList.find((p) => p.id == productoId);
+      if (!producto) return;
+
+      if (cantidadIngresada > producto.stock) {
+        Swal.fire({
+          icon: "warning",
+          title: "Stock insuficiente",
+          text: `Solo hay ${producto.stock} unidades disponibles de "${producto.nombre}".`,
+        });
+        this.value = producto.stock > 0 ? producto.stock : 1;
+        recalcularTotal();
+      }
+    });
   }
 
   document
