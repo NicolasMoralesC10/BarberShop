@@ -156,38 +156,128 @@
 
 <div class="row mt-4">
   <div class="col-lg-4 col-md-6 mt-4 mb-4">
-    <div class="card z-index-2 ">
+    <div class="card z-index-2 shadow-lg card-hover">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-        <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
           <div class="chart">
             <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <h6 class="mb-0 ">Citas en la semana</h6>
-        <p class="text-sm ">Ultimo recuento de la semana</p>
-        <hr class="dark horizontal">
-        
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h6 class="mb-1 fw-bold">
+              <i class="fas fa-calendar-week text-primary me-2"></i>
+              Citas en la semana
+            </h6>
+            <p class="text-sm text-muted mb-0">
+              <i class="fas fa-clock me-1"></i>
+              Último recuento de la semana
+            </p>
+          </div>
+          <div class="text-end">
+            <span class="badge bg-success fs-6">+12%</span>
+            <small class="d-block text-muted">vs semana anterior</small>
+          </div>
+        </div>
+
+        <!-- Stats rápidos -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-primary fw-bold" id="total-citas">--</div>
+              <small class="text-muted">Total</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-success fw-bold" id="promedio-dia">--</div>
+              <small class="text-muted">Promedio/día</small>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dark horizontal my-3">
+
+        <!-- Día con más citas -->
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="text-sm text-muted">Día con más citas:</span>
+          <span class="badge bg-primary" id="dia-destacado">Cargando...</span>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-lg-4 col-md-6 mt-4 mb-4">
-    <div class="card z-index-2  ">
+    <div class="card z-index-2 shadow-lg card-hover">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-        <div class="bg-gradient-info shadow-success border-radius-lg py-3 pe-1">
+        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
           <div class="chart">
-            <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+            <canvas id="chart-ventas" class="chart-canvas" height="170"></canvas>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <h6 class="mb-0 "> Daily Sales </h6>
-        <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-        <hr class="dark horizontal">
-        <div class="d-flex ">
-          <i class="material-icons text-sm my-auto me-1">schedule</i>
-          <p class="mb-0 text-sm"> updated 4 min ago </p>
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h6 class="mb-1 fw-bold">
+              <i class="fas fa-shopping-cart text-primary me-2"></i>
+              Ventas en la semana
+            </h6>
+            <p class="text-sm text-muted mb-0">
+              <i class="fas fa-chart-line me-1"></i>
+              Último recuento de la semana
+            </p>
+          </div>
+          <div class="text-end">
+            <span class="badge bg-success fs-6" id="porcentaje-cambio">+15%</span>
+            <small class="d-block text-muted">vs semana anterior</small>
+          </div>
+        </div>
+
+        <!-- Stats rápidos -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-primary fw-bold" id="total-ventas">--</div>
+              <small class="text-muted">Total Ventas</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-success fw-bold" id="promedio-dia-ventas">--</div>
+              <small class="text-muted">Promedio/día</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats adicionales -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h6 mb-0 text-warning fw-bold" id="monto-total">--</div>
+              <small class="text-muted">Monto Total</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h6 mb-0 text-info fw-bold" id="ticket-promedio">--</div>
+              <small class="text-muted">Ticket Prom.</small>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dark horizontal my-3">
+
+        <!-- Información destacada -->
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="text-sm text-muted">Día con más ventas:</span>
+          <span class="badge bg-primary" id="dia-destacado-ventas">Cargando...</span>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="text-sm text-muted">Método de pago top:</span>
+          <span class="badge bg-success" id="metodo-top">Cargando...</span>
         </div>
       </div>
     </div>
