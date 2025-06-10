@@ -47,7 +47,7 @@
           <!-- Total -->
           <div class="d-flex justify-content-end align-items-center">
             <strong class="me-2">Total:</strong>
-            <span id="spanTotal" class="fs-5 text-success">$0</span>
+            <span id="spanTotal" class="fs-5 text-dark">$0</span>
           </div>
         </div>
         <div class="modal-footer">
