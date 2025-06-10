@@ -16,10 +16,6 @@ class Dashboard extends Controllers
         $data['page_title'] = "Página de dashboard";
         $data['page_name'] = "dashboard";
         $data['script'] = "dashboard";
-/*         $data['salesToday'] = $this->selectSalesToday();
-        $data['SalesMonth'] = $this->selectSalesCitasMonth();
-        $data['citasCountToday'] = $this->selectCitasToday();
-        $data['citasSalesMonth'] = $this->selectSalesCitasMonth(); */
 
         $this->views->getView($this, "dashboard", $data);
     }

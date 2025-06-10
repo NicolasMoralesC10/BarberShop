@@ -55,7 +55,7 @@
         <div class="d-flex justify-content-between">
           <div>
             <p class="text-sm mb-0 text-capitalize">Ventas Productos | Hoy </p>
-            <h4 class="mb-0" id=""></h4>
+            <h4 class="mb-0" id="ventasMes"></h4>
           </div>
           <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
             <i class="material-symbols-rounded opacity-10">leaderboard</i>
