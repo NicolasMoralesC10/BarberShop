@@ -31,15 +31,20 @@ class Dashboard extends Controllers
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
 
-    public function selectSalesCitasMonth()
+    public function selectSalesProductsToday()
     {
-        $arrData = $this->model->selectSalesCitasMonth();
+        $arrData = $this->model->selectSalesProductsToday();
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
 
     public function selectSalesToday()
     {
         $arrData = $this->model->selectSalesToday();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function chartTimelineSales(){
+        $arrData = $this->model->chartTimelineSales();
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
 }

@@ -379,14 +379,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // Ventas del mes
-  fetch(base_url + `/dashboard/selectSalesCitasMonth`)
+  fetch(base_url + `/dashboard/selectSalesProductsToday`)
     .then((res) => res.json())
     .then((data) => {
       const total = handleResponse(data);
-      document.getElementById("ventasMes").innerText = `$${total}`;
+      document.getElementById("ventasProductosHoy").innerText = `$${total}`;
     })
     .catch((err) => {
       console.error("Error al cargar ventas del mes", err);
-      document.getElementById("ventasMes").innerText = "$0"; // En caso de error mostrar 0
+      document.getElementById("ventasProductosHoy").innerText = "$0"; // En caso de error mostrar 0
     });
 });

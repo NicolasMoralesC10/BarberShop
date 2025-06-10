@@ -87,17 +87,6 @@ class ServiciosModel extends mysql
                 $reques_insert = $this->update($query_insert, $arrData);
                 $respuesta = $reques_insert;
             }
-
-            /* $query_insert = "UPDATE servicios SET nombre = ?, precio = ?, duracionMinutos = ?, descripcion = ?, status = ? WHERE status > 0 AND id = {$this->idServicio}";
-            $arrData = array(
-                $this->strNombre,
-                $this->intPrecio,
-                $this->intDuracion,
-                $this->strDesc,
-                $this->intStatus,
-            );
-            $reques_insert = $this->update($query_insert, $arrData);
-            $respuesta = $reques_insert; */
         }
 
         return $respuesta;

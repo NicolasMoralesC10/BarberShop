@@ -15,26 +15,10 @@ getModal('serviciosModal', $data); ?>
       </div>
       <div class="card-body px-1 pb-2">
         <div class="contenedor">
-          <div class="row ps-5 pe-5" style="gap: 11.1%;" id="cards_servicios">
+          <div class="row ps-5 pe-5" style="gap: 2%; justify-content: space-around" id="cards_servicios">
 
           </div>
         </div>
-        <!-- <div class="table-responsive p-3">
-          <table id="tbl_clientes" class="table align-items-center mb-0">
-            <thead>
-              <tr>
-                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Telefono</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"></th>
-              </tr>
-            </thead>
-
-            <tbody class="text-center">
-            </tbody>
-          </table>
-        </div>
-      </div> -->
       </div>
     </div>
   </div>

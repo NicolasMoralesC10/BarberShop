@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-gradient-dark">
-                <h1 class="modal-title text-light fs-6 text-bold" id="exampleModalLabel">Añadir Servicio</h1>
+                <h1 class="modal-title text-light fs-6 text-bold" id="modalTitle">Añadir Servicio</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -28,13 +28,6 @@
                         </div>
                     </div>
 
-                    <!-- <div id="userStatusZone" class="mb-3">
-                        <label for="genero" class="form-label">Estado</label>
-                        <select class="form-control" name="txtEstado" id="txtEstado">
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
-                        </select>
-                    </div> -->
                     <div class="mb-3">
                         <label for="txtDescripcion" class="form-label">Descripción</label>
                         <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
@@ -49,7 +42,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrar">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Añadir</button>
+                <button type="submit" class="btn btn-primary" id="btnEnviar">Añadir</button>
                 </form>
             </div>
         </div>
