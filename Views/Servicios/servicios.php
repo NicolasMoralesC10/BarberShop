@@ -15,7 +15,7 @@ getModal('serviciosModal', $data); ?>
       </div>
       <div class="card-body px-1 pb-2">
         <div class="contenedor">
-          <div class="row ps-5 pe-5" style="gap: 2%; justify-content: space-around" id="cards_servicios">
+          <div class="row ps-5 pe-5 pb-4" style="gap: 2%; justify-content: space-around" id="cards_servicios">
 
           </div>
         </div>
