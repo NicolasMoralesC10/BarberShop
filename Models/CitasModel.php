@@ -118,7 +118,7 @@ class CitasModel extends mysql
         return $this->select_all($sql);
     }
 
-
+    
     public function EmpleadoDisponible(int $empleadoId, string $fechaInicio, string $fechaFin): bool
     {
         $conflictos = $this->getCitasDisEmpleado($empleadoId, $fechaInicio, $fechaFin);

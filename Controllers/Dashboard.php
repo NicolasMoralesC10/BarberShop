@@ -47,4 +47,9 @@ class Dashboard extends Controllers
         $arrData = $this->model->chartTimelineSales();
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
+
+    public function selectCitasWeek(){
+        $arrData = $this->model->selectCitasWeek();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    }
 }

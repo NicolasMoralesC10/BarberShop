@@ -129,12 +129,9 @@ function abrirModalEditar(data, calendar) {
   document.getElementById("btn-cancelar").dataset.id = data.id;
   document.getElementById("intIdCita").value = data.id;
   document.getElementById("mc-cliente").textContent = data.cliente;
-  document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString(
-    "es-CO",
-    {
-      dateStyle: "medium",
-    }
-  );
+  document.getElementById("mc-fecha").textContent = new Date(data.start).toLocaleDateString("es-CO", {
+    dateStyle: "medium",
+  });
   document.getElementById("mc-hora").textContent =
     new Date(data.start).toLocaleTimeString("es-CO", { timeStyle: "short", hour12: true }) +
     " – " +
@@ -222,9 +219,7 @@ function abrirModalCrearOModificar(cita) {
     row.querySelector(".inputDuracion").value = cita.duraciones[i];
     const ip = row.querySelector(".inputPrecio");
     ip.dataset.raw = cita.precios[i];
-    ip.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(
-      cita.precios[i]
-    );
+    ip.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(cita.precios[i]);
   });
 
   // Cambiar el texto del botón
@@ -568,7 +563,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const form = e.target;
     const payload = {
-      id: intIdCita.value || 0,
       cliente_id: form.selectCliente.value,
       fechaInicio: form.inputFechaHora.value,
       servicios: Array.from(contenedor.children).map((row) => ({

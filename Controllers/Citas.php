@@ -20,7 +20,7 @@ class Citas extends Controllers
 
     $this->views->getView($this, "citas", $data);
   }
-
+  
   public function setCitas()
   {
 
