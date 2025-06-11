@@ -108,4 +108,10 @@ class Dashboard extends Controllers
 
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
     }
+
+    public function selectSalesTotalWeekChart()
+    {
+        $arrData = $this->model->selectSalesTotalWeekChart();
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+    }
 }

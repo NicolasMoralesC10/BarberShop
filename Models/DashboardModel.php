@@ -365,4 +365,70 @@ class DashboardModel extends Mysql
         $request = $this->select_all($sql);
         return $request;
     }
+
+    // Datos para el gráfico de barras (ventas + citas)
+    public function selectSalesTotalWeekChart()
+    {
+        $sql = "SELECT 
+                CASE DAYOFWEEK(COALESCE(v.fecha_venta, DATE(c.fechaInicio)))
+                    WHEN 1 THEN 'Domingo'
+                    WHEN 2 THEN 'Lunes'
+                    WHEN 3 THEN 'Martes'
+                    WHEN 4 THEN 'Miércoles'
+                    WHEN 5 THEN 'Jueves'
+                    WHEN 6 THEN 'Viernes'
+                    WHEN 7 THEN 'Sábado'
+                END as dia_semana,
+                DAYOFWEEK(COALESCE(v.fecha_venta, DATE(c.fechaInicio))) as orden_dia,
+                COUNT(DISTINCT v.id) as total_ventas,
+                COUNT(DISTINCT c.id) as total_citas,
+                COALESCE(SUM(v.total), 0) as monto_ventas,
+                COALESCE(SUM(c.total), 0) as monto_citas,
+                (COALESCE(SUM(v.total), 0) + COALESCE(SUM(c.total), 0)) as monto_total_dia
+            FROM (
+                SELECT fecha_venta, total, id, 1 as tipo
+                FROM ventas 
+                WHERE YEARWEEK(fecha_venta, 1) = YEARWEEK(CURDATE(), 1) 
+                    AND status = 1
+                UNION ALL
+                SELECT DATE(fechaInicio) as fecha_venta, total, id, 2 as tipo
+                FROM citas 
+                WHERE YEARWEEK(DATE(fechaInicio), 1) = YEARWEEK(CURDATE(), 1) 
+                    AND status = 1
+            ) combined
+            LEFT JOIN ventas v ON combined.id = v.id AND combined.tipo = 1
+            LEFT JOIN citas c ON combined.id = c.id AND combined.tipo = 2
+            GROUP BY DAYOFWEEK(combined.fecha_venta)
+            ORDER BY DAYOFWEEK(combined.fecha_venta)";
+
+        $request = $this->select_all($sql);
+
+        // Asegurar que todos los días estén presentes (incluso con 0 ventas/citas)
+        $diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        $resultado = array();
+
+        foreach ($diasSemana as $index => $dia) {
+            $encontrado = false;
+            foreach ($request as $row) {
+                if ($row['dia_semana'] == $dia) {
+                    $resultado[] = $row;
+                    $encontrado = true;
+                    break;
+                }
+            }
+            if (!$encontrado) {
+                $resultado[] = array(
+                    'dia_semana' => $dia,
+                    'orden_dia' => $index + 1,
+                    'total_ventas' => 0,
+                    'total_citas' => 0,
+                    'monto_ventas' => 0,
+                    'monto_citas' => 0,
+                    'monto_total_dia' => 0
+                );
+            }
+        }
+
+        return $resultado;
+    }
 }

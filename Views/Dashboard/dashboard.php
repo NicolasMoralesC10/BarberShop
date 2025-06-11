@@ -222,7 +222,7 @@
           <div>
             <h6 class="mb-1 fw-bold">
               <i class="fas fa-shopping-cart text-primary me-2"></i>
-              Ventas en la semana
+              Ventas de productos en la semana
             </h6>
             <p class="text-sm text-muted mb-0">
               <i class="fas fa-chart-line me-1"></i>
@@ -283,21 +283,92 @@
     </div>
   </div>
   <div class="col-lg-4 mt-4 mb-3">
-    <div class="card z-index-2 ">
+
+    <div class="card z-index-2 shadow-lg card-hover">
       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
         <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
           <div class="chart">
-            <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+            <canvas id="chart-ventas-generales" class="chart-canvas" height="170"></canvas>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <h6 class="mb-0 ">Completed Tasks</h6>
-        <p class="text-sm ">Last Campaign Performance</p>
-        <hr class="dark horizontal">
-        <div class="d-flex ">
-          <i class="material-icons text-sm my-auto me-1">schedule</i>
-          <p class="mb-0 text-sm">just updated</p>
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h6 class="mb-1 fw-bold">
+              <i class="fas fa-chart-bar text-primary me-2"></i>
+              Ventas Generales
+            </h6>
+            <p class="text-sm text-muted mb-0">
+              <i class="fas fa-calendar-week me-1"></i>
+              Ventas + Citas de la semana
+            </p>
+          </div>
+          <div class="text-end">
+            <span class="badge bg-success fs-6" id="porcentaje-cambio-general">+0%</span>
+            <small class="d-block text-muted">vs semana anterior</small>
+          </div>
+        </div>
+
+        <!-- Stats rápidos -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-primary fw-bold" id="total-transacciones">--</div>
+              <small class="text-muted">Total Transacciones</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h5 mb-0 text-success fw-bold" id="promedio-dia-general">--</div>
+              <small class="text-muted">Promedio/día</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats adicionales -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h6 mb-0 text-warning fw-bold" id="monto-total-general">--</div>
+              <small class="text-muted">Monto Total</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-light rounded p-2 text-center">
+              <div class="h6 mb-0 text-info fw-bold" id="ticket-promedio-general">--</div>
+              <small class="text-muted">Ticket Prom.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desglose por tipo -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="bg-gradient-success rounded p-2 text-center text-white">
+              <div class="h6 mb-0 fw-bold" id="total-ventas-desglose">--</div>
+              <small>Ventas</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-gradient-info rounded p-2 text-center text-white">
+              <div class="h6 mb-0 fw-bold" id="total-citas-desglose">--</div>
+              <small>Citas</small>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dark horizontal my-3">
+
+        <!-- Información destacada -->
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="text-sm text-muted">Día con más actividad:</span>
+          <span class="badge bg-primary" id="dia-destacado-general">Cargando...</span>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="text-sm text-muted">Tipo predominante:</span>
+          <span class="badge bg-success" id="tipo-predominante">Cargando...</span>
         </div>
       </div>
     </div>
