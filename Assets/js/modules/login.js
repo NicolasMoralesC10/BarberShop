@@ -10,7 +10,7 @@ if (document.querySelector("#formLogin")) {
     if (strTelefono == "" || strPassword == "") {
       Swal.fire({
         title: "Ingresar",
-        text: "Por favor, escribe usuario y contraseña",
+        text: "Por favor, proporciona usuario y contraseña",
         icon: "error",
       });
       return false;

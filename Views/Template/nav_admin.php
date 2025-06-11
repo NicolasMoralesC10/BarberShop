@@ -3,7 +3,7 @@
       <div class="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-transparent pb-0 pt-3 px-0 me-sm-6 me-5">
-                  <li class="breadcrumb-item text-sm"><a class="opacity-7 text-dark" href="javascript:;">Pages</a></li>
+                  <li class="breadcrumb-item text-sm"><a class="opacity-7 text-dark" href="javascript:;">Vista</a></li>
                   <li class="breadcrumb-item text-sm text-dark active" aria-current="page"><?= $data['page_name'] ?></li>
               </ol>
           </nav>
