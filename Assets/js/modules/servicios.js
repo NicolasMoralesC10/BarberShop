@@ -56,7 +56,7 @@ frmCrearServicio.addEventListener("submit", (e) => {
         limpiarFormulario();
       } else {
         Swal.fire({
-          title: "Error",
+          title: "¡Error!",
           text: data.msg,
           icon: "error",
         });
@@ -75,7 +75,7 @@ document.addEventListener("click", (e) => {
         text: "¿Desea eliminar este servicio?",
         icon: "warning",
         showDenyButton: true,
-        confirmButtonText: "Sí",
+        confirmButtonText: "Sí, eliminar",
         denyButtonText: `Cancelar`,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -88,7 +88,7 @@ document.addEventListener("click", (e) => {
             .then((res) => res.json())
             .then((data) => {
               Swal.fire({
-                title: data.status ? "Correcto" : "Error",
+                title: data.status ? "¡Correcto!" : "Error",
                 text: data.msg,
                 icon: data.status ? "success" : "error",
               }).then(() => {
@@ -120,7 +120,7 @@ document.addEventListener("click", (e) => {
             $("#crearServicioModal").modal("show");
           } else {
             Swal.fire({
-              title: "Error",
+              title: "¡Error!",
               text: data.msg,
               icon: "error",
             });
