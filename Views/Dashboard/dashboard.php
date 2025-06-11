@@ -5,7 +5,7 @@
   <div class="ms-3">
     <h3 class="mb-0 h4 font-weight-bolder text-light">Dashboard</h3>
     <p class="mb-4">
-      Check the sales, value and bounce rate by country.
+      Supervisa la organización diaria, gestiona al equipo y mantén la excelencia en el servicio de nuestra barbería desde este panel interno.
     </p>
   </div>
 </div>
@@ -93,7 +93,7 @@
   <div class="col-lg-7 mb-lg-0 mb-4">
     <div class="card z-index-2 h-100" style="border: none; border-radius: 1.2rem;">
       <div class="card-header pb-0 pt-3 bg-transparent">
-        <h6 class="text-capitalize">Sales overview</h6>
+        <h6 class="text-capitalize">Ventas Mensuales</h6>
         <p class="text-sm mb-0">
           <i class="fa fa-arrow-up text-success"></i>
           <span class="font-weight-bold">4% more</span> in 2021
@@ -111,33 +111,33 @@
       <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
         <div class="carousel-inner border-radius-lg h-100">
           <div class="carousel-item h-100 active" style="background-image: url('<?= media() ?>/img/carousel-1.jpg');
-      background-size: cover;">
+                background-size: cover;">
             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
               <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
                 <i class="material-symbols-rounded opacity-10">house</i>
               </div>
-              <h5 class="text-white mb-1">Get started with Argon</h5>
-              <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+              <h5 class="text-white mb-1"> Bienvenido al Panel de Gestión</h5>
+              <p>El éxito de nuestra barbería comienza con la pasión y el compromiso de cada uno de nosotros.</p>
             </div>
           </div>
           <div class="carousel-item h-100" style="background-image: url('<?= media() ?>/img/carousel-2.jpg');
-      background-size: cover;">
+            background-size: cover;">
             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
               <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
                 <i class="material-symbols-rounded opacity-10">house</i>
               </div>
-              <h5 class="text-white mb-1">Faster way to create web pages</h5>
-              <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
+              <h5 class="text-white mb-1">Organización y Trabajo en Equipo</h5>
+              <p>Juntos creamos experiencias únicas. la excelencia se logra en cada detalle y en cada corte.</p>
             </div>
           </div>
           <div class="carousel-item h-100" style="background-image: url('<?= media() ?>/img/carousel-3.jpg');
-      background-size: cover;">
+              background-size: cover;">
             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
               <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
                 <i class="material-symbols-rounded opacity-10">house</i>
               </div>
-              <h5 class="text-white mb-1">Share with us your design tips!</h5>
-              <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+              <h5 class="text-white mb-1">Innovación y Crecimiento</h5>
+              <p>No tememos a los cambios: aprendemos, mejoramos y crecemos cada día para ofrecer lo mejor.</p>
             </div>
           </div>
         </div>
