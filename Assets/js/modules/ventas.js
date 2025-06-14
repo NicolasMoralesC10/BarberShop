@@ -441,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function () {
       language: {
         url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
         decimal: ",",
-        emptyTable: "No hay datos disponibles en la tabla Productos",
+        emptyTable: "No hay datos disponibles en la tabla Ventas",
         infoEmpty: "Mostrando 0 a 0 de 0 entradas",
         lengthMenu: "Mostrar MENU entradas",
         loadingRecords: "Cargando...",
@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Crea el nuevo contenedor con el ícono de búsqueda
       let nuevoFiltro = $(`
         <div class="search-container">
-            <span class="material-symbols-rounded search-icon">search</span>
+            <span class="material-symbols-rounded search-icon" translate="no">search</span>
         </div>
     `);
 
@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
       input.appendTo(nuevoFiltro);
 
       let clearButton = $(
-        `<span class="material-symbols-rounded clear-icon">close</span>`
+        `<span class="material-symbols-rounded clear-icon" translate="no">close</span>`
       );
       clearButton.click(function () {
         input.val("").trigger("keyup"); // Limpia el input y actualiza DataTables
