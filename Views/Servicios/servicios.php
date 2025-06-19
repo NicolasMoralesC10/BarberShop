@@ -21,6 +21,9 @@ getModal('serviciosModal', $data); ?>
       </div>
       <div class="card-body px-1 pb-2">
         <div class="contenedor">
+          <div id="mensajeSinServicios" style="display: none; text-align: center; color: #777; margin-top: 2rem;">
+            No se han registrado servicios.
+          </div>
           <div class="row ps-5 pe-5 pb-4" style="gap: 4.2%; justify-content: space-around" id="cards_servicios">
 
           </div>

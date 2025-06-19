@@ -107,8 +107,7 @@ document.addEventListener("click", (e) => {
           if (data.status) {
             data = data.data;
             console.log(data);
-            document.getElementById("modalTitle").textContent =
-              "Actualizar datos";
+            document.getElementById("modalTitle").textContent = "Actualizar datos";
             document.getElementById("btnEnviar").textContent = "Actualizar";
             txtNombre.value = data.nombre;
             txtPrecio.value = data.precio;
@@ -135,9 +134,17 @@ function loadCards() {
   fetch(base_url + "/servicios/getServicios")
     .then((res) => res.json())
     .then((servicios) => {
-      servicios.map((servicio) => {
-        cards_servicios.innerHTML += servicio.card;
-      });
+      cards_servicios.innerHTML = ""; // Limpiar contenido previo
+      const mensaje = document.querySelector("#mensajeSinServicios");
+
+      if (servicios.length === 0) {
+        mensaje.style.display = "block"; // Mostrar mensaje
+      } else {
+        mensaje.style.display = "none"; // Ocultar si hay servicios
+        servicios.forEach((servicio) => {
+          cards_servicios.innerHTML += servicio.card;
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
