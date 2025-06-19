@@ -144,7 +144,7 @@ $detalleVenta = $this->model->selectProductosVenta(26);
                         </div>
                       </div>';
         $arrData[$i]['empleadoF'] = ' <p class="text-xs font-weight-bold mb-0"  style="text-align:left">' . $maestroVenta['empleado'] . '</p>
-                      <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
+                      <p class="text-xs text-secondary mb-0" style="text-align:left">Barber Shop</p>';
   
         $arrData[$i]['metodoF'] =  '
                       <span class="text-center text-secondary text-xs font-weight-bold">' . $maestroVenta['metodo_pago'] . '</span>
