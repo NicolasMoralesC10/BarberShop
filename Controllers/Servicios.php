@@ -26,7 +26,7 @@ class Servicios extends Controllers
         $arrData[$i]['card'] = '<div class="' . $cardClass . '" data-animation="true" style="box-shadow: 2px 2px 15px;">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <a class="d-block blur-shadow-image">
-                                          <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" style="width: 100%; height: auto; max-height: 340px; max-width: 400px;">
+                                          <img src="' . $arrData[$i]['imagen'] . '" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" style="width: 100%; height: auto; max-width: 410px;">
                                         </a>
                                         <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
                                       </div>
@@ -76,6 +76,23 @@ class Servicios extends Controllers
     echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
   }
 
+  public function getServicioForSet($id)
+  {
+    $intId = intval(strClean($id));
+
+    if ($intId > 0) {
+      $arrData = $this->model->selectServicioById($id);
+    } else {
+      return ['status' => false, 'msg' => 'Tipo de dato no permitido.'];
+    }
+
+    if (!empty($arrData)) {
+      return ['status' => true, 'data' => $arrData];
+    } else {
+      return ['status' => false, 'msg' => 'No se encontraron datos con este ID.'];
+    }
+  }
+
   public function setServicio()
   {
     $arrPosts = [
@@ -93,18 +110,72 @@ class Servicios extends Controllers
       $intIdServicio = intval(strClean($_POST['txtIdServicio']));
 
       // Manejo de imagen
-      $strImagen = 'uploads/servicios/barber_shop.jpg';
+      $strImagen = 'Assets/img/barber_shop.jpg';
+
+      if ($intIdServicio > 0) {
+        $dataServicio = $this->getServicioForSet($intIdServicio);
+        if ($dataServicio['status']) {
+          $strImagen = $dataServicio['data']['imagen'];
+        }
+      }
+
       if (isset($_FILES['txtImagen']) && $_FILES['txtImagen']['error'] === 0) {
         $nombreOriginal = $_FILES['txtImagen']['name'];
         $extension = pathinfo($nombreOriginal, PATHINFO_EXTENSION);
-        $nombreNuevo = uniqid('img_') . '.' . $extension;
+        $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
+
+        if (!in_array($extension, $extensionesPermitidas)) {
+          $arrResponse = ['status' => false, 'msg' => 'Extensión de imagen no permitida.'];
+          echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+          return;
+        }
+
+        // Redimensionar y guardar imagen
+        $tmp = $_FILES['txtImagen']['tmp_name'];
+        $origen = getimagesize($tmp);
+        $tipo = $origen['mime'];
+
+        switch ($tipo) {
+          case 'image/jpeg':
+            $imagen_original = imagecreatefromjpeg($tmp);
+            break;
+          case 'image/png':
+            $imagen_original = imagecreatefrompng($tmp);
+            break;
+          case 'image/webp':
+            $imagen_original = imagecreatefromwebp($tmp);
+            break;
+          default:
+            $arrResponse = array('status' => false, 'msg' => 'Tipo de imagen no soportado.');
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            return;
+        }
+
+        $ancho_deseado = 200;
+        $alto_deseado = 200;
+        $nueva_imagen = imagecreatetruecolor($ancho_deseado, $alto_deseado);
+        imagecopyresampled(
+          $nueva_imagen,
+          $imagen_original,
+          0,
+          0,
+          0,
+          0,
+          $ancho_deseado,
+          $alto_deseado,
+          imagesx($imagen_original),
+          imagesy($imagen_original)
+        );
+
+        $nombreNuevo = uniqid('img_') . '.jpg';
         $rutaDestino = 'uploads/servicios/' . $nombreNuevo;
 
-        // Mover el archivo a la carpeta final
-        if (move_uploaded_file($_FILES['txtImagen']['tmp_name'], $rutaDestino)) {
-          $strImagen = $rutaDestino; // Ruta a guardar en la base de datos
+        if (imagejpeg($nueva_imagen, $rutaDestino, 90)) {
+          $strImagen = $rutaDestino; // Guardar ruta en base de datos
+          imagedestroy($imagen_original);
+          imagedestroy($nueva_imagen);
         } else {
-          $arrResponse = array('status' => false, 'msg' => 'Error al subir la imagen.');
+          $arrResponse = array('status' => false, 'msg' => 'Error al guardar la imagen redimensionada.');
           echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
           return;
         }
@@ -167,9 +238,9 @@ class Servicios extends Controllers
       $requestDelete = $this->model->deleteServicio($intIdServicio);
 
       if ($requestDelete) {
-        $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el servicio');
+        $arrResponse = array('status' => true, 'msg' => 'Servicio eliminado correctamente.');
       } else {
-        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el servicio');
+        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el servicio.');
       }
 
       echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
