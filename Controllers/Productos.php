@@ -22,7 +22,7 @@ class Productos extends Controllers{
                         </div>
                       </div>';
         $arrData[$i]['descripcionF'] = ' <p class="text-xs font-weight-bold mb-0"  style="text-align:left">' . $arrData[$i]['descripcion'] . '</p>
-                      <p class="text-xs text-secondary mb-0" style="text-align:left">Organization</p>';
+                   ';
   
         $arrData[$i]['precioF'] =  '
                       <span class="text-center text-secondary text-xs font-weight-bold">' . $arrData[$i]['precio'] . '</span>
