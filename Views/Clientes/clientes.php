@@ -6,7 +6,7 @@ getModal('clientesModal', $data); ?>
   <div class="ms-3 mb-5">
     <h3 class="mb-0 h4 font-weight-bolder text-light"><?= $data['page_title'] ?></h3>
     <p class="mb-4">
-      Check the sales, value and bounce rate by country.
+      Administra los datos y el historial de tus clientes para un mejor seguimiento.
     </p>
   </div>
   <div class="col-lg-12">

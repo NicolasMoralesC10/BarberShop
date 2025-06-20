@@ -10,18 +10,19 @@
                 <form id="frmCrearProducto" method="POST">
                     <input type="hidden" name="txtIdProducto" id="txtIdProducto" value="0" data-ignore-clear>
                     <div class="row">
-                        <div class="mb-3 col-4" id="nombreZone">
+                        <div class="mb-3 col-6" id="nombreZone">
                             <label for="txtNombre" class="form-label">Nombre del producto</label>
                             <input type="text" class="form-control" id="txtNombre" name="txtNombre">
                         </div>
-                        <div class="mb-3" id="descripcionZone">
-                            <label for="txtDescripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3 col-4" id="precioZone">
+                        <div class="mb-3 col-6" id="precioZone">
                             <label for="txtPrecio" class="form-label">Precio</label>
                             <input type="text" class="form-control" id="txtPrecio" name="txtPrecio">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-12" id="descripcionZone">
+                            <label for="txtDescripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="3"></textarea>
                         </div>
                     </div>
 

@@ -37,16 +37,7 @@ CREATE TABLE `citas` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `citas`
---
-
-INSERT INTO `citas` (`id`, `cliente_id`, `fechaInicio`, `fechaFin`, `notas`, `total`, `status`) VALUES
-(1, 1, '2025-04-22 12:00:00', '2025-04-22 12:35:00', NULL, 25000, 1),
-(2, 1, '2025-04-23 12:00:00', '2025-04-23 12:15:00', NULL, 10000, 1),
-(3, 1, '2025-04-25 12:00:00', '2025-04-25 12:15:00', NULL, 10000, 1);
-
--- --------------------------------------------------------
+-----------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `citas_servicios`
@@ -101,6 +92,9 @@ CREATE TABLE `empleados` (
 
 -- --------------------------------------------------------
 
+INSERT INTO empleados (id, nombre, password, telefono, cargo, fecha_contratacion, salario, status) VALUES
+(1, 'Paul', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '314562910', 'Barbero', '2025-06-19', 1000000, 1);
+
 --
 -- Estructura de tabla para la tabla `productos`
 --
@@ -131,13 +125,6 @@ CREATE TABLE `servicios` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `servicios`
---
-
-INSERT INTO `servicios` (`id`, `nombre`, `descripcion`, `precio`, `duracionMinutos`, `status`) VALUES
-(1, 'Recorte', NULL, 15000, 20, 1),
-(2, 'perfilado barba', NULL, 10000, 15, 1);
 
 -- --------------------------------------------------------
 

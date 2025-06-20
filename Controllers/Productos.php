@@ -41,7 +41,7 @@ class Productos extends Controllers{
   
         if ($arrData[$i]['status'] == 1) {
           $arrData[$i]['status'] = '
-                          <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;">Online</span>
+                          <span class="badge badge-sm bg-gradient-success" style="font-size:0.67rem;">Activos</span>
                  ';
         } else {
           $arrData[$i]['status'] = '<span class="badge badge-sm bg-gradient-secondary" style="font-size:0.67rem;">Offline</span>';

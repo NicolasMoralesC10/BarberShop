@@ -290,6 +290,8 @@ function cargarTabla() {
 }
 function limpiarFormulario() {
   const inputs = frmCrearProducto.querySelectorAll("input");
+  const txtDescripcion = document.querySelector("#txtDescripcion");
+  txtDescripcion.value = "";
   inputs.forEach((input) => {
     if (input.hasAttribute("data-ignore-clear")) return;
     if (input.type === "checkbox" || input.type === "radio") {
