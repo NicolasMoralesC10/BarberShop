@@ -7,6 +7,10 @@ class Ventas extends Controllers
   {
     $this->productsModel = new ProductosModel();
     parent::__construct();
+    session_start();
+    if (empty($_SESSION['login'])) {
+      header('Location: ' . base_url() . '/login');
+    }
   }
   public function Ventas()
   {

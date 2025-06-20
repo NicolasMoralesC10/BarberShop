@@ -6,9 +6,8 @@
           © <script>
             document.write(new Date().getFullYear())
           </script>,
-          made with <i class="fa fa-heart"></i> by
+          <i class="fa fa-heart"></i> por
           <a href="" class="font-weight-bold" target="_blank">Binary Dreamers</a>
-          for a better web.
         </div>
       </div>
    <!--    <div class="col-lg-6">
