@@ -26,7 +26,7 @@ class Login extends Controllers
             if (!check_post($arrPost)) {
                 $arrResponse = array('status' => false, 'msg' => 'Error de datos');
             } else {
-                $strTelefono = strClean($_POST['txtTelefono']);
+                $strTelefono = strClean(strClean($_POST['txtTelefono']));
                 $strPassword = hash("SHA256", $_POST['txtPassword']);
                 $requestUser = $this->model->loginUser($strTelefono, $strPassword);
                 if (empty($requestUser)) {

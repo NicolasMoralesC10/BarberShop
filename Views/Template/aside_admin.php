@@ -53,7 +53,7 @@
         </a>
       </li>
 
-      <li class="nav-item mt-3">
+      <!-- <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
       </li>
       <li class="nav-item">
@@ -73,14 +73,14 @@
           <span class="material-symbols-rounded opacity-5" translate="no">assignment</span>
           <span class="nav-link-text ms-2">Sign Up</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
-  <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+  <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
     <div class="mx-3">
       <a class="btn btn-outline-dark mt-4 w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard?ref=sidebarfree" type="button">Documentation</a>
 
     </div>
-  </div>
+  </div> -->
 </aside><!-- End Sidebar-->
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">

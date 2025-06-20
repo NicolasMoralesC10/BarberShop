@@ -24,7 +24,7 @@
                   </div> -->
               </div>
               <ul class="navbar-nav d-flex align-items-center pt-1 justify-content-end">
-                  <li class="nav-item dropdown pe-3 d-flex align-items-center">
+                  <!-- <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                           <span class="material-symbols-rounded" translate="no">notifications</span>
                       </a>
@@ -96,14 +96,14 @@
                               </a>
                           </li>
                       </ul>
-                  </li>
+                  </li> -->
                   <li class="nav-item dropdown pe-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                           <span class="material-symbols-rounded opacity-9" translate="no">account_circle</span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="userDropdown">
                           <li>
-                              <a class="dropdown-item border-radius-md d-flex align-items-center" href="/perfil">
+                              <a class="dropdown-item border-radius-md d-flex align-items-center">
                                   <span class="material-symbols-rounded me-2" translate="no">person</span>
                                   <span><?= isset($_SESSION) ? $_SESSION['userData']['nombre'] : "Sesion no iniciada"; ?></span>
                               </a>
@@ -116,12 +116,12 @@
                               </a>
                           </li>
                           <hr class="dropdown-divider my-1">
-                          <li>
+                          <!-- <li>
                               <a class="dropdown-item border-radius-md d-flex align-items-center" href="/configuracion">
                                   <span class="material-symbols-rounded me-2" translate="no">settings</span>
                                   <span>Configuración</span>
                               </a>
-                          </li>
+                          </li> -->
                       </ul>
                   </li>
                   <li class="nav-item dropdown d-xl-none pe-3 d-flex align-items-center pb-1">
