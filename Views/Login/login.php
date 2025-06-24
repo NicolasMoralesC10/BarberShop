@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="<?= media() ?>/img/favicon.png">
     <title>
-        Material Dashboard 3 by Creative Tim
+        Binary Dreamers | login
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/fonts-family-google.css" />
@@ -83,7 +83,7 @@
                                     <div class="text-center">
                                         <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Iniciar Sesion</button>
                                     </div>
-                                   <!--  <p class="mt-4 text-sm text-center">
+                                    <!--  <p class="mt-4 text-sm text-center">
                                         Don't have an account?
                                         <a href="../pages/sign-up.html" class="text-primary text-gradient font-weight-bold">Sign up</a>
                                     </p> -->
