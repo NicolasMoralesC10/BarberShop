@@ -2,85 +2,85 @@
 
 class LoginModel extends Mysql
 {
-
-    private $intIdUsuario;
-    private $strTelefono;
-    private $strToken;
+    private string $strTelefono = '';
+    private string $strPassword = '';
+    private int $intEmpleado = 0;
+    private string $strCorreo = '';
+    private string $codigo = '';
+    private string $correo = '';
+    private string $nueva_contra = '';
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function loginUser(string $telefono, string $password)
+    public function loginUser(string $telefono, string $password): mixed
     {
         $this->strTelefono = $telefono;
         $this->strPassword = $password;
-        $sql = "SELECT id, status FROM empleados WHERE
-        telefono = '{$this->strTelefono}' AND
-        password = '{$this->strPassword}' AND
-        status = 1";
 
-        $request = $this->select($sql);
-        return $request;
+        $sql = "SELECT id, status FROM empleados
+                WHERE telefono = '{$this->strTelefono}'
+                AND password = '{$this->strPassword}'
+                AND status = 1";
+
+        return $this->select($sql);
     }
 
-    public function sessionLogin(int $idEmple)
+    public function sessionLogin(int $idEmple): mixed
     {
         $this->intEmpleado = $idEmple;
 
-        $sql = "SELECT e.id, 
-        e.nombre,
-        e.telefono,
-        e.cargo,
-        e.fecha_contratacion,
-        e.salario,
-        e.status
-        FROM empleados e
-        WHERE e.id = {$this->intEmpleado}";
+        $sql = "SELECT e.id, e.nombre, e.telefono, e.cargo,
+                       e.fecha_contratacion, e.salario, e.status
+                FROM empleados e
+                WHERE e.id = {$this->intEmpleado}";
 
-        $request = $this->select($sql);
-        return $request;
+        return $this->select($sql);
     }
 
-    public function insertRecuperacion($correo, $codigo)
+    public function insertRecuperacion(string $correo, string $codigo): mixed
     {
         $this->strCorreo = $correo;
-        $this->codigo = $codigo;
-        $sql = "INSERT INTO recuperacion(correo, codigo) VALUES(?,?)";
-        $arrData = array($this->strCorreo, $this->codigo);
-        $request_insert = $this->insert($sql, $arrData);
-        $respuesta = $request_insert;
+        $this->codigo    = $codigo;
 
-        return $respuesta;
+        $sql     = "INSERT INTO recuperacion(correo, codigo) VALUES(?,?)";
+        $arrData = [$this->strCorreo, $this->codigo];
+
+        return $this->insert($sql, $arrData);
     }
 
-    public function selectCodigoYCorreo(string $codigo,string $correo)
+    public function selectCodigoYCorreo(string $codigo, string $correo): mixed
     {
         $this->codigo = $codigo;
         $this->correo = $correo;
-        $sql = "SELECT * FROM recuperacion WHERE codigo = '{$this->codigo}' AND correo = '{$this->correo}'";
-        $requestGlobal = $this->select_all($sql);
-        
-        return $requestGlobal;
+
+        $sql = "SELECT * FROM recuperacion
+                WHERE codigo = '{$this->codigo}' AND correo = '{$this->correo}'";
+
+        return $this->select_all($sql);
     }
 
-    public function updatePassword($nueva_contra, $correo)
+    public function updatePassword(string $nueva_contra, string $correo): mixed
     {
         $this->nueva_contra = $nueva_contra;
-        $this->correo = $correo;
-        $sql = "UPDATE usuario SET password = ? WHERE correo = '{$this->correo}'";
-        $arrData = array($this->nueva_contra);
-        $request = $this->update($sql, $arrData);
-        return $request;
+        $this->correo       = $correo;
+
+        $sql     = "UPDATE usuario SET password = ? WHERE correo = '{$this->correo}'";
+        $arrData = [$this->nueva_contra];
+
+        return $this->update($sql, $arrData);
     }
 
-    public function deleteCodeRecu($codigo, $correo)
+    public function deleteCodeRecu(string $codigo, string $correo): mixed
     {
         $this->codigo = $codigo;
         $this->correo = $correo;
-        $sql = "DELETE FROM recuperacion WHERE codigo = '{$this->codigo}' AND correo = '{$this->correo}'";
-        $request = $this->delete($sql);
-        return $request;
+
+        $sql = "DELETE FROM recuperacion
+                WHERE codigo = '{$this->codigo}' AND correo = '{$this->correo}'";
+
+        return $this->delete($sql);
     }
 }

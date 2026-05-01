@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: mysql
+      DB_USER: barber
+      DB_PASSWORD: barber
+      DB_NAME: barber_shop
+    volumes:
+      - ./uploads:/var/www/html/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    command: --require-secure-transport=OFF --sql-mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+    environment:
+      MYSQL_DATABASE: barber_shop
+      MYSQL_USER: barber
+      MYSQL_PASSWORD: barber
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

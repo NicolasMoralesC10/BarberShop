@@ -1,7 +1,9 @@
 <?php
 
-class VentasModel extends mysql
+class VentasModel extends Mysql
 {
+    private mixed $ventaId = 0;
+    private int $productoId = 0;
 
     public function __construct()
     {

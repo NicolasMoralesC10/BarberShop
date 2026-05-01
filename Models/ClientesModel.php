@@ -1,7 +1,13 @@
 <?php
 
-class ClientesModel extends mysql
+class ClientesModel extends Mysql
 {
+    private int $idCliente = 0;
+    private string $strNombre = '';
+    private string $strTelefono = '';
+    private ?string $strObservaciones = null;
+    private int $intStatus = 0;
+
     public function __construct()
     {
         parent::__construct();

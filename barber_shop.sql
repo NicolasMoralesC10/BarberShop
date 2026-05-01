@@ -92,8 +92,8 @@ CREATE TABLE `empleados` (
 
 -- --------------------------------------------------------
 
-INSERT INTO empleados (id, nombre, password, telefono, cargo, fecha_contratacion, salario, status) VALUES
-(1, 'Paul', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '314562910', 'Barbero', '2025-06-19', 1000000, 1);
+INSERT INTO empleados (id, nombre, `password`, telefono, cargo, fecha_contratacion, salario, status) VALUES
+(1, 'admin', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '3001234567', 'Barbero', '2025-06-19', 1000000, 1);
 
 --
 -- Estructura de tabla para la tabla `productos`
@@ -157,6 +157,13 @@ CREATE TABLE `ventas_productos` (
   `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `recuperacion` (
+  `id` int(11) NOT NULL,
+  `correo` varchar(255) NOT NULL,
+  `codigo` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -212,6 +219,12 @@ ALTER TABLE `ventas`
 --
 -- Indices de la tabla `ventas_productos`
 --
+ALTER TABLE `recuperacion`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `recuperacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `ventas_productos`
   ADD PRIMARY KEY (`id`,`ventas_id`,`productos_id`),
   ADD KEY `fk_ventas_has_productos_productos1_idx` (`productos_id`),

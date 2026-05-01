@@ -58,17 +58,16 @@ class Productos extends Controllers{
     {
       $arrPosts = [
         'txtNombre',
-        'txtDescripcion',
         'txtPrecio',
         'txtStock',
         'txtStockMin',
         'txtEstado'
       ];
-  
+
       if (check_post($arrPosts)) {
-  
+
         $strNombre = strClean($_POST['txtNombre']);
-        $strDescripcion = strClean($_POST['txtDescripcion']);
+        $strDescripcion = isset($_POST['txtDescripcion']) ? strClean($_POST['txtDescripcion']) : '';
         $intPrecio = intval(strClean($_POST['txtPrecio']));
         $intStock = intval(strClean($_POST['txtStock']));
         $intStockMin = intval(strClean($_POST['txtStockMin']));

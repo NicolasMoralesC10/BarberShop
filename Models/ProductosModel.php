@@ -1,7 +1,15 @@
 <?php
 
-class ProductosModel extends mysql
+class ProductosModel extends Mysql
 {
+    private int $idProducto = 0;
+    private string $strNombre = '';
+    private string $strDescripcion = '';
+    private string $intPrecio = '';
+    private string $intStock = '';
+    private string $intStockMin = '';
+    private int $intStatus = 0;
+
     public function __construct()
     {
         parent::__construct();

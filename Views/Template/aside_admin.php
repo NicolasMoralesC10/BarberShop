@@ -53,34 +53,7 @@
         </a>
       </li>
 
-      <!-- <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="../pages/profile.html">
-          <span class="material-symbols-rounded opacity-5" translate="no">person</span>
-          <span class="nav-link-text ms-2">Profile</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="../pages/sign-in.html">
-          <span class="material-symbols-rounded opacity-5" translate="no">login</span>
-          <span class="nav-link-text ms-2">Sign In</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="../pages/sign-up.html">
-          <span class="material-symbols-rounded opacity-5" translate="no">assignment</span>
-          <span class="nav-link-text ms-2">Sign Up</span>
-        </a>
-      </li> -->
     </ul>
   </div>
-  <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-    <div class="mx-3">
-      <a class="btn btn-outline-dark mt-4 w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard?ref=sidebarfree" type="button">Documentation</a>
-
-    </div>
-  </div> -->
 </aside><!-- End Sidebar-->
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">

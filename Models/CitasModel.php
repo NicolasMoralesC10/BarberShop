@@ -1,7 +1,18 @@
 <?php
 
-class CitasModel extends mysql
+class CitasModel extends Mysql
 {
+    private int $citaId = 0;
+    private int $clienteId = 0;
+    private string $fechaInicio = '';
+    private string $fechaFin = '';
+    private ?string $notas = null;
+    private int $total = 0;
+    private int $empleadoId = 0;
+    private int $empId = 0;
+    private string $start = '';
+    private string $end = '';
+    private int $excludeCitaId = 0;
 
     public function __construct()
     {

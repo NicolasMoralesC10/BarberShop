@@ -1,7 +1,16 @@
 <?php
 
-class EmpleadosModel extends mysql
+class EmpleadosModel extends Mysql
 {
+    private int $idEmpleado = 0;
+    private string $strNombre = '';
+    private string $strPassword = '';
+    private string $intTelefono = '';
+    private string $strCargo = '';
+    private string $strFechaContratacion = '';
+    private int $intSalario = 0;
+    private int $intStatus = 0;
+
     public function __construct()
     {
         parent::__construct();

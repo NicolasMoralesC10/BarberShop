@@ -1,13 +1,15 @@
 <?php
 
 class Controllers{
+    protected Views $views;
+    protected mixed $model = null;
+
     public function __construct(){
         $this->views = new Views();
         $this->loadModel();
     }
 
     public function loadModel(){
-        //ejemplo: HomeModel
         $model = get_class($this)."Model";
         $routClass = "Models/".$model.".php";
         if (file_exists($routClass)) {

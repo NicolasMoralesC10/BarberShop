@@ -16,19 +16,18 @@ let tsCliente;
 
 // Función para limpiar el formulario (antes de crear o editar)
 function limpiarFormularioCita() {
-  document.getElementById("formCrearCita").reset(); // Limpia campos básicos
+  document.getElementById("formCrearCita").reset();
 
-  // Si estás usando TomSelect, reseteamos así:
+  intIdCita.value = 0;
+
   const clienteSelect = document.querySelector("#selectCliente")?.tomselect;
   if (clienteSelect) clienteSelect.clear();
 
-  // Limpiar contenedor de servicios
   const contenedor = document.getElementById("serviciosContainer");
   contenedor.innerHTML = "";
 
   document.querySelector("#modalCrearCita .modal-title").textContent = "Agendar Nueva Cita";
   document.querySelector("#formCrearCita button[type=submit]").textContent = "Guardar Cita";
-  // Reiniciar total
   document.getElementById("spanTotal").textContent = "$0";
 }
 
@@ -563,6 +562,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const form = e.target;
     const payload = {
+      id: Number(intIdCita.value) || 0,
       cliente_id: form.selectCliente.value,
       fechaInicio: form.inputFechaHora.value,
       servicios: Array.from(contenedor.children).map((row) => ({

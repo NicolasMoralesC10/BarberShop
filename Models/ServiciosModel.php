@@ -1,7 +1,15 @@
 <?php
 
-class ServiciosModel extends mysql
+class ServiciosModel extends Mysql
 {
+    private int $idServicio = 0;
+    private string $strNombre = '';
+    private int $intPrecio = 0;
+    private int $intDuracion = 0;
+    private ?string $strDesc = null;
+    private ?string $strImagen = null;
+    private int $intStatus = 0;
+
     public function __construct()
     {
         parent::__construct();
@@ -22,12 +30,16 @@ class ServiciosModel extends mysql
         return $request;
     }
 
-    public function insertServicio(string $strNombre, int $intPrecio, int $intDuracion, string $strDesc = null, string $strImagen)
+    public function insertServicio(string $strNombre, int $intPrecio, int $intDuracion, string $strDesc, string $strImagen)
     {
         $this->strNombre = $strNombre;
         $this->intPrecio = $intPrecio;
         $this->intDuracion = $intDuracion;
-        $this->strDesc = $strDesc;
+        if (empty($strDesc)) {
+            $this->strDesc = null;
+        } else {
+            $this->strDesc = $strDesc;
+        }
         $this->strImagen = $strImagen;
 
         $query_servicios = "SELECT * FROM servicios WHERE nombre = '{$this->strNombre}' AND status > 0";
@@ -45,15 +57,24 @@ class ServiciosModel extends mysql
         return $respuesta;
     }
 
-    public function updateServicio(int $idServicio, string $strNombre, int $intPrecio, int $intDuracion, string $strDesc = null, string $strImagen = null, int $intStatus)
+    public function updateServicio(int $idServicio, string $strNombre, int $intPrecio, int $intDuracion, string $strDesc, string $strImagen, int $intStatus)
     {
         $this->idServicio = $idServicio;
         $this->strNombre = $strNombre;
         $this->intPrecio = $intPrecio;
         $this->intDuracion = $intDuracion;
-        $this->strDesc = $strDesc;
-        $this->strImagen = $strImagen;
         $this->intStatus = $intStatus;
+
+        if (empty($strDesc)) {
+            $this->strDesc = null;
+        } else {
+            $this->strDesc = $strDesc;
+        }
+        if (empty($strImagen)) {
+            $this->strImagen = null;
+        } else {
+            $this->strImagen = $strImagen;
+        }
 
         $sql = "SELECT * FROM servicios WHERE (nombre = '{$this->strNombre}' AND status > 0) AND id != {$this->idServicio}";
 

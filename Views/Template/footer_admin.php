@@ -10,22 +10,6 @@
           <a href="" class="font-weight-bold" target="_blank">Binary Dreamers</a>
         </div>
       </div>
-   <!--    <div class="col-lg-6">
-        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-          <li class="nav-item">
-            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Binary Dreamers</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-          </li>
-        </ul>
-      </div> -->
     </div>
   </div>
 </footer>
@@ -54,7 +38,6 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-<!-- <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script> -->
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
@@ -63,9 +46,6 @@
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="<?= media() ?>/js/material-dashboard.min.js?v=3.2.0"></script>
 
-<!-- PDFMake (para exportar PDF) -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> -->
 
 <script>
   let base_url = '<?= BASE_URL ?>'

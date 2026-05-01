@@ -1,16 +1,19 @@
 <?php
-require_once './Models/ProductosModel.php';
+require_once 'Models/ProductosModel.php';
 
 class Ventas extends Controllers
 {
+  protected ?ProductosModel $productsModel = null;
+
   public function __construct()
   {
-    $this->productsModel = new ProductosModel();
     parent::__construct();
     session_start();
     if (empty($_SESSION['login'])) {
       header('Location: ' . base_url() . '/login');
+      exit();
     }
+    $this->productsModel = new ProductosModel();
   }
   public function Ventas()
   {

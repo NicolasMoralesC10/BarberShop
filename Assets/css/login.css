@@ -1,0 +1,61 @@
+.login-bg {
+    background: linear-gradient(160deg, #0a0a0a 0%, #141414 55%, #1f1008 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent 0px,
+        transparent 30px,
+        rgba(255, 255, 255, 0.018) 30px,
+        rgba(255, 255, 255, 0.018) 60px
+    );
+    pointer-events: none;
+}
+
+.credentials-badge {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+    white-space: nowrap;
+    z-index: 200;
+    font-size: 0.85rem;
+}
+
+.credentials-badge::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #fff;
+}
+
+.credentials-badge.show {
+    display: block;
+}
+
+.btn-credentials {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7b809a;
+    padding: 4px;
+    line-height: 1;
+}
+
+.btn-credentials:hover {
+    color: #344767;
+}
