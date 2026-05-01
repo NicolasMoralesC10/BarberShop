@@ -1,14 +1,14 @@
 # BarberShop — Sistema de Gestión
 
-Sistema de administración para barberías desarrollado en PHP con arquitectura MVC. Centraliza la gestión de citas, empleados, servicios, productos y ventas en un solo panel de control.
+Sistema de administración para barberías desarrollado con arquitectura MVC en PHP. El backend expone endpoints JSON consumidos por módulos JavaScript en el frontend — sin frameworks adicionales, sin recarga de página. Centraliza la gestión de citas, empleados, servicios, productos y ventas en un solo panel de control.
 
 ---
 
 ## Contenidos
 
-- [Vista General](#vista-general)
 - [Módulos del Sistema](#módulos-del-sistema)
 - [Equipo](#equipo)
+- [Frontend](#frontend)
 - [Tecnologías](#tecnologías)
 - [Instalación con Docker](#instalación-con-docker)
 
@@ -115,11 +115,27 @@ Registro de ventas de productos con múltiples ítems por transacción. Asocia l
 ---
 
 
+## Frontend
+
+La interfaz usa el tema **Material Dashboard 2** (Bootstrap 5).
+La lógica de cada módulo vive en `Assets/js/modules/<modulo>.js` y se comunica con el servidor mediante **Fetch API** enviando y recibiendo JSON — no hay formularios tradicionales ni recargas de página.
+
+| Librería | Uso |
+|----------|-----|
+| FullCalendar 6 | Agenda interactiva de citas |
+| DataTables | Tablas paginadas con búsqueda |
+| Flatpickr | Selector de fecha y hora |
+| TomSelect | Selects con búsqueda en tiempo real |
+| SweetAlert2 | Alertas y confirmaciones |
+
+---
+
 ## Tecnologías
 
 | Tecnología | Versión |
 |------------|---------|
 | PHP | 8.2 |
+| JavaScript | ES2020 (vanilla) |
 | MySQL | 8.0 |
 | Apache | 2.4 |
 | Docker | 20.10+ |
